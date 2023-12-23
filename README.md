@@ -1,2 +1,2 @@
-# Lequu-Server-
+# Lequu-Server
 나랑 눈사람 만들레큐? 최강 레큐 서버 레포입니다❄️
