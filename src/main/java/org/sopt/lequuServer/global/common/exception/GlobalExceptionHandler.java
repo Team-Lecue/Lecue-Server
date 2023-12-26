@@ -1,11 +1,10 @@
-package com.sopt.sopkathonServer.common.exception;
+package org.sopt.lequuServer.global.common.exception;
 
-import com.sopt.sopkathonServer.common.dto.ApiResponse;
-import com.sopt.sopkathonServer.common.exception.model.BusinessException;
-import com.sopt.sopkathonServer.common.exception.slack.SlackUtil;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.sopt.lequuServer.global.common.dto.ApiResponse;
+import org.sopt.lequuServer.global.common.exception.model.CustomException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
@@ -20,9 +19,8 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
-import static com.sopt.sopkathonServer.common.exception.enums.ErrorType.INTERNAL_SERVER_ERROR;
-import static com.sopt.sopkathonServer.common.exception.enums.ErrorType.REQUEST_VALIDATION_EXCEPTION;
-
+import static org.sopt.lequuServer.global.common.exception.enums.ErrorType.INTERNAL_SERVER_ERROR;
+import static org.sopt.lequuServer.global.common.exception.enums.ErrorType.REQUEST_VALIDATION_EXCEPTION;
 
 @Slf4j
 @RestControllerAdvice
@@ -30,8 +28,10 @@ import static com.sopt.sopkathonServer.common.exception.enums.ErrorType.REQUEST_
 @RequiredArgsConstructor
 public class GlobalExceptionHandler {
 
-    private final SlackUtil slackUtil;
 
+    /**
+     * VALIDATION_ERROR
+     */
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler(MethodArgumentNotValidException.class)
     protected ApiResponse<?> handleMethodArgumentNotValidException(final MethodArgumentNotValidException e) {
@@ -50,10 +50,10 @@ public class GlobalExceptionHandler {
      * CUSTOM_ERROR
      */
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
-    @ExceptionHandler(BusinessException.class)
-    protected ResponseEntity<ApiResponse<?>> handleBusinessException(BusinessException e) {
+    @ExceptionHandler(CustomException.class)
+    protected ResponseEntity<ApiResponse<?>> handleBusinessException(CustomException e) {
 
-        log.error("BusinessException occured: {}", e.getMessage(), e);
+        log.error("[EXCEPTION] CustomException Occured: {}", e.getMessage(), e);
 
         return ResponseEntity.status(e.getHttpStatus())
                 .body(ApiResponse.error(e.getErrorType(), e.getMessage()));
@@ -65,7 +65,6 @@ public class GlobalExceptionHandler {
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     @ExceptionHandler(Exception.class)
     protected ApiResponse<Exception> handleException(final Exception e, final HttpServletRequest request) throws IOException {
-        slackUtil.sendAlert(e, request);
         return ApiResponse.error(INTERNAL_SERVER_ERROR, e);
     }
 }

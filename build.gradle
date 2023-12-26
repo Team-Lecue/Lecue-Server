@@ -30,12 +30,16 @@ dependencies {
 	annotationProcessor 'org.projectlombok:lombok'
 
 	// Spring Data JPA
-//	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+
+	// MySQL
+	runtimeOnly 'com.mysql:mysql-connector-j'
 
 	// Spring Security
 //	implementation 'org.springframework.boot:spring-boot-starter-security'
 //	testImplementation 'org.springframework.security:spring-security-test'
 
+	// Test
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 }
 
