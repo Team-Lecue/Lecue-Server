@@ -1,0 +1,24 @@
+# (형식) <아이콘 코드>[<타입>] <커밋 메시지> #<이슈 번호>
+# (예시) :sparkles:[FEAT] 로그인 기능 구현 #1
+# 제목 끝에 마침표 금지, 무엇을 했는지 명확하게 작성
+# 제목(커밋 메시지)을 아랫줄에 작성 - ‼️ 반드시 작성
+
+################
+# 본문(추가 설명)을 아랫줄에 작성 - ❌ 생략 가능
+
+################
+# 꼬릿말(footer)을 아랫줄에 작성 - ❌ 생략 가능
+
+################
+# 아이콘     코드                       대응하는 타입         설명
+# ✨       :sparkles:                  [FEAT]        새로운 기능 구현
+# ✏️️        :pencil2:         (FIX 검색)[MODIFY]      코드 수정
+# 🐛       :bug:                       [FIX]         버그 수정
+# 🚑       :ambulance:                 [HOTFIX]      핫 픽스
+# 📦       :package:     (PACKAGE 검색)[CHORE]       동작에 영향 없는 코드 or 디렉토리 구조 변경
+# 📝       :memo:                      [DOCS]        README나 등의 문서 수정 or 주석 추가
+# 🚀       :rocket:                    [DEPLOY]      CI/CD 등 배포 관련
+# ♻️        :recycle:                   [REFACTOR]    전면 수정, 코드 리팩토링
+# 🔀       :twisted_rightwards_arrows: [MERGE]       깃 merge
+# ✅       :white_check_mark:          [TEST]        테스트 추가/수정
+################
