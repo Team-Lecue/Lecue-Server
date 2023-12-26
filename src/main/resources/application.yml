@@ -16,7 +16,7 @@ spring:
     import: optional:application-secret.properties
 
 aws-property:
-  access-key: ${ACCESS-KEY}
-  secret-key: ${SECRET-KEY}
+  access-key: ${ACCESS_KEY}
+  secret-key: ${SECRET_KEY}
   aws-region: ap-northeast-2
-  s3-bucket-name: ${BUCKET-NAME}
+  s3-bucket-name: ${BUCKET_NAME}
