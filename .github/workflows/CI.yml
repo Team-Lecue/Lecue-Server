@@ -19,7 +19,7 @@ jobs:
           java-version: '17'
 
       - name: Read secrets from AWS Secrets Manager into environment variables
-        uses: abhilash1in/aws-secrets-manager-action@v1.1.0
+        uses: abhilash1in/aws-secrets-manager-action@v2.1.0
         with:
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY }}
           aws-secret-access-key: ${{ secrets.AWS_SECRET_KEY }}
