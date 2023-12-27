@@ -39,6 +39,10 @@ dependencies {
 	implementation("software.amazon.awssdk:bom:2.21.0")
 	implementation("software.amazon.awssdk:s3:2.21.0")
 
+	// AWS Secrets
+	implementation 'org.springframework.cloud:spring-cloud-starter-bootstrap:3.1.3'
+	implementation 'org.springframework.cloud:spring-cloud-starter-aws-secrets-manager-config:2.2.6.RELEASE'
+
 	// Spring Security
 //	implementation 'org.springframework.boot:spring-boot-starter-security'
 //	testImplementation 'org.springframework.security:spring-security-test'
