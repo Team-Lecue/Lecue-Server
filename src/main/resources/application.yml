@@ -6,11 +6,13 @@ spring:
     password: ${DATABASE_PASSWORD}
 
   jpa:
+    show-sql: true
     hibernate:
       ddl-auto: update
     properties:
       hibernate:
-        auto_quote_keyword: true
+        format_sql: true
+        show_sql: true
 
   config:
     import: optional:application-secret.properties
