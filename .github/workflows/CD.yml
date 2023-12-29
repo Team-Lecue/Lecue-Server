@@ -1,0 +1,70 @@
+name: CD
+
+on:
+  pull_request:
+    branches: [ "chore/#3-ci_cd_setting" ]
+
+jobs:
+  build:
+    runs-on: ubuntu-22.04
+
+    steps:
+      - name: Check out
+        uses: actions/checkout@v3
+
+      - name: Set up JDK 17
+        uses: actions/setup-java@v3
+        with:
+          distribution: 'corretto'
+          java-version: '17'
+
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_KEY }}
+          aws-region: ap-northeast-2
+
+      - name: Read secrets from AWS Secrets Manager into environment variables
+        uses: abhilash1in/aws-secrets-manager-action@v2.1.0
+        with:
+          secrets: |
+            /secret/lequu
+          parse-json: false
+
+      - name: Build
+        run: |
+          chmod +x gradlew
+          ./gradlew build -x test
+        shell: bash
+
+      ### CD flow 시작 ###
+      - name: Docker build environment setting
+        uses: docker/setup-buildx-action@v2.9.1
+
+      - name: Login Docker Hub
+        uses: docker/login-action@v2.2.0
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_ACCESSTOKEN }}
+
+      - name: docker image 빌드 및 푸시
+        run: |
+          docker build --platform linux/amd64 -t lequuletter@gmail.com/lequu .
+          docker push lequuletter@gmail.com/lequu
+
+  deploy-cd:
+    needs: deploy-ci
+    runs-on: ubuntu-22.04
+
+    steps:
+      - name: Execute Docker Container
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.RELEASE_SERVER_IP }}
+          username: ${{ secrets.RELEASE_SERVER_USER }}
+          key: ${{ secrets.RELEASE_SERVER_KEY }}
+          script: |
+            docker rm -f lequu
+            docker image pull lequuletter@gmail.com/lequu
+            docker run -d --name lequu-8080 -p 8080:8080 lequuletter@gmail.com/lequu
