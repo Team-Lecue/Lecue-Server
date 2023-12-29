@@ -1,0 +1,51 @@
+package org.sopt.lequuServer.domain.postit.model;
+
+import jakarta.persistence.*;
+import lombok.AccessLevel;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import org.sopt.lequuServer.domain.rollingpaper.model.RollingPaper;
+import org.sopt.lequuServer.domain.user.model.User;
+import org.sopt.lequuServer.global.common.model.BaseTimeEntity;
+
+@Entity
+@Getter
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@Builder
+@Table(name = "postit")
+public class Postit extends BaseTimeEntity {
+
+    @Id
+    @Column(name = "postit_id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    @Column(nullable = false)
+    private String content;
+
+    @Column(nullable = false)
+    private String background;
+
+    private int textColor;
+
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private User user;
+
+    @ManyToOne
+    @JoinColumn(name = "rolling_paper_id")
+    private RollingPaper rollingPaper;
+
+    public Postit(String content, String background, int textColor, User user, RollingPaper rollingPaper) {
+        this.content = content;
+        this.background = background;
+        this.textColor = textColor;
+        this.user = user;
+        this.rollingPaper = rollingPaper;
+    }
+
+    public static Postit of(String content, String background, int textColor, User user, RollingPaper rollingPaper) {
+        return new Postit(content, background, textColor, user, rollingPaper);
+    }
+}
