@@ -2,7 +2,7 @@ name: CD
 
 on:
   pull_request:
-    branches: [ "chore/#3-ci_cd_setting" ]
+    branches: [ "develop" ]
 
 jobs:
   build:
