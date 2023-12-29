@@ -65,6 +65,12 @@ jobs:
           username: ${{ secrets.RELEASE_SERVER_USER }}
           key: ${{ secrets.RELEASE_SERVER_KEY }}
           script: |
-            docker rm -f lequu
-            docker image pull lequu/lequu
+            # 'lequu-8080'이라는 이름의 컨테이너가 실행 중인지 확인하고, 있다면 중지하고 제거
+            docker stop lequu-8080 || true
+            docker rm lequu-8080 || true
+            
+            # 'lequu/lequu' 이미지를 최신 버전으로 가져옴
+            docker pull lequu/lequu
+  
+            # 새로운 'lequu-8080' 컨테이너를 실행
             docker run -d --name lequu-8080 -p 8080:8080 lequu/lequu
