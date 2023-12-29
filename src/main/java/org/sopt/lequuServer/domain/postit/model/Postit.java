@@ -1,10 +1,7 @@
 package org.sopt.lequuServer.domain.postit.model;
 
 import jakarta.persistence.*;
-import lombok.AccessLevel;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.sopt.lequuServer.domain.rollingpaper.model.RollingPaper;
 import org.sopt.lequuServer.domain.user.model.User;
 import org.sopt.lequuServer.global.common.model.BaseTimeEntity;
@@ -12,6 +9,7 @@ import org.sopt.lequuServer.global.common.model.BaseTimeEntity;
 @Entity
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
+@AllArgsConstructor(access = AccessLevel.PROTECTED)
 @Builder
 @Table(name = "postit")
 public class Postit extends BaseTimeEntity {

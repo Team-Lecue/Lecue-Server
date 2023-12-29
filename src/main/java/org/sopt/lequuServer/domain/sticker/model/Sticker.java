@@ -1,15 +1,15 @@
 package org.sopt.lequuServer.domain.sticker.model;
 
 import jakarta.persistence.*;
-import lombok.AccessLevel;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.sopt.lequuServer.domain.rollingpaper.model.RollingPaper;
 import org.sopt.lequuServer.global.common.model.BaseTimeEntity;
 
 @Entity
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
+@AllArgsConstructor(access = AccessLevel.PROTECTED)
+@Builder
 @Table(name = "sticker")
 public class Sticker extends BaseTimeEntity {
 
