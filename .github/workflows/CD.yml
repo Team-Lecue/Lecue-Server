@@ -65,8 +65,6 @@ jobs:
           username: ${{ secrets.RELEASE_SERVER_USER }}
           key: ${{ secrets.RELEASE_SERVER_KEY }}
           script: |
-#            cd ~
-#            ./deploy.sh
             # 'lequu-8080'이라는 이름의 컨테이너가 실행 중인지 확인하고, 있다면 중지하고 제거
             docker stop lequu-8080 || true
             docker rm lequu-8080 || true
