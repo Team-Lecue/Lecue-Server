@@ -65,5 +65,5 @@ jobs:
           username: ${{ secrets.RELEASE_SERVER_USER }}
           key: ${{ secrets.RELEASE_SERVER_KEY }}
           script: |
-            cd ~
+            cd scripts
             ./deploy.sh
