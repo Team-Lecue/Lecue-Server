@@ -12,7 +12,9 @@ public enum ErrorType {
     /**
      * 400 BAD REQUEST
      */
-    REQUEST_VALIDATION_EXCEPTION(HttpStatus.BAD_REQUEST, "잘못된 요청입니다"),
+    REQUEST_VALIDATION_ERROR(HttpStatus.BAD_REQUEST, "잘못된 요청입니다."),
+    IMAGE_EXTENSION_ERROR(HttpStatus.BAD_REQUEST, "이미지 확장자는 jpg, png, webp만 가능합니다."),
+    IMAGE_SIZE_ERROR(HttpStatus.BAD_REQUEST, "이미지 사이즈는 5MB를 넘을 수 없습니다."),
 
     /**
      * 500 INTERNAL SERVER ERROR

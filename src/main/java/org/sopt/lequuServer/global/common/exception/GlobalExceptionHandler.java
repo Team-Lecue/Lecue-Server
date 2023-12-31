@@ -19,7 +19,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import static org.sopt.lequuServer.global.common.exception.enums.ErrorType.INTERNAL_SERVER_ERROR;
-import static org.sopt.lequuServer.global.common.exception.enums.ErrorType.REQUEST_VALIDATION_EXCEPTION;
+import static org.sopt.lequuServer.global.common.exception.enums.ErrorType.REQUEST_VALIDATION_ERROR;
 
 @Slf4j
 @RestControllerAdvice
@@ -42,7 +42,7 @@ public class GlobalExceptionHandler {
             String validKeyName = String.format("valid_%s", error.getField());
             validateDetails.put(validKeyName, error.getDefaultMessage());
         }
-        return ApiResponse.error(REQUEST_VALIDATION_EXCEPTION, validateDetails);
+        return ApiResponse.error(REQUEST_VALIDATION_ERROR, validateDetails);
     }
 
     /**
