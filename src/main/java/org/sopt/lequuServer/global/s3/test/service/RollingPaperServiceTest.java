@@ -1,8 +1,10 @@
-package org.sopt.lequuServer.global.s3.test;
+package org.sopt.lequuServer.global.s3.test.service;
 
 import lombok.RequiredArgsConstructor;
 import org.sopt.lequuServer.domain.rollingpaper.model.RollingPaper;
 import org.sopt.lequuServer.global.s3.S3Service;
+import org.sopt.lequuServer.global.s3.test.dto.RollingPaperCreateRequest;
+import org.sopt.lequuServer.global.s3.test.repository.RollingPaperJpaRepositoryTest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
@@ -14,7 +16,7 @@ import java.io.IOException;
 @Transactional(readOnly = true)
 public class RollingPaperServiceTest {
 
-    private static final String POST_IMAGE_FOLDER_NAME = "posts/";
+    private static final String POST_IMAGE_FOLDER_NAME = "rolling_papers/favorite_image/";
 
     private final RollingPaperJpaRepositoryTest rollingPaperJpaRepository;
     private final S3Service s3Service;

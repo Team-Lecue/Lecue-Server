@@ -1,6 +1,8 @@
-package org.sopt.lequuServer.global.s3.test;
+package org.sopt.lequuServer.global.s3.test.controller;
 
 import lombok.RequiredArgsConstructor;
+import org.sopt.lequuServer.global.s3.test.dto.RollingPaperCreateRequest;
+import org.sopt.lequuServer.global.s3.test.service.RollingPaperServiceTest;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
