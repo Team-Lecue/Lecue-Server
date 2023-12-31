@@ -135,7 +135,7 @@ public class S3Service {
 
             URL url = s3Client.utilities().getUrl(request);
 
-            String urlWithKey = "https://lequu-server-bucket.s3.ap-northeast-2.amazonaws.com/" + imageKey;
+            String urlWithKey = "https://" + bucketName + ".s3.ap-northeast-2.amazonaws.com/" + imageKey;
             if(urlWithKey.equals(url.toString())){
                 return url.toString();
             }
