@@ -14,6 +14,12 @@ spring:
         format_sql: true
         show_sql: true
 
+  servlet:
+    multipart:
+      enabled: true
+      max-file-size: 3MB
+      max-request-size: 5MB
+
   config:
     import: optional:application-secret.properties
 
