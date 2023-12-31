@@ -34,8 +34,8 @@ public class S3Service {
     private static final List<String> IMAGE_EXTENSIONS = Arrays.asList("image/jpeg", "image/png", "image/jpg", "image/webp");
     // 파일 최대 크기 5MB
     private static final Long MAX_FILE_SIZE = 5 * 1024 * 1024L;
-    // PreSigned URL 만료시간 10분
-    private static final Long PRE_SIGNED_URL_EXPIRE_MINUTE = 10L;
+    // PreSigned URL 만료시간 60분
+    private static final Long PRE_SIGNED_URL_EXPIRE_MINUTE = 60L;
 
     public S3Service(@Value("${cloud.aws.credentials.s3-bucket-name}") final String bucketName, AWSConfig awsConfig) {
         this.bucketName = bucketName;
