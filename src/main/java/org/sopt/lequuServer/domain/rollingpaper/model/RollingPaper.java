@@ -58,17 +58,21 @@ public class RollingPaper extends BaseTimeEntity {
         postedStickers.add(postedSticker);
     }
 
-    public RollingPaper(String uuid, String favoriteName, String favoriteImage, String title, String description, int backgroundColor, User user) {
+    public RollingPaper(String uuid, String favoriteName, String favoriteImage, String title, String description, int backgroundColor) {
         this.uuid = uuid;
         this.favoriteName = favoriteName;
         this.favoriteImage = favoriteImage;
         this.title = title;
         this.description = description;
         this.backgroundColor = backgroundColor;
-        this.user = user;
+//        this.user = user;
     }
 
-    public static RollingPaper of(String uuid, String favoriteName, String favoriteImage, String title, String description, int backgroundColor, User user) {
-        return new RollingPaper(uuid, favoriteName, favoriteImage, title, description, backgroundColor, user);
+//    public static RollingPaper of(String uuid, String favoriteName, String favoriteImage, String title, String description, int backgroundColor, User user) {
+//        return new RollingPaper(uuid, favoriteName, favoriteImage, title, description, backgroundColor, user);
+//    }
+
+    public static RollingPaper of(String favoriteImage, String title) {
+        return new RollingPaper("test", "test", favoriteImage, title, "test", 1);
     }
 }
