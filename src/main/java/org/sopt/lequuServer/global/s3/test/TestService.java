@@ -24,8 +24,7 @@ public class TestService {
         try {
             final String imageUrl = s3Service.uploadImage(ROLLING_PAPER_FAVORITE_IMAGE_FOLDER_NAME.getValue(), image);
 
-            RollingPaper rollingPaper = rollingPaperJpaRepository.save(
-                    RollingPaper.of(imageUrl, request.title()));
+            RollingPaper rollingPaper = rollingPaperJpaRepository.save(RollingPaper.test(imageUrl, request.title()));
 
             return rollingPaper.getId().toString();
 
@@ -39,8 +38,7 @@ public class TestService {
         try {
             String imageUrl = s3Service.getURL(ROLLING_PAPER_FAVORITE_IMAGE_FOLDER_NAME.getValue() + request.fileName());
 
-            RollingPaper rollingPaper = rollingPaperJpaRepository.save(
-                    RollingPaper.of(imageUrl, request.title()));
+            RollingPaper rollingPaper = rollingPaperJpaRepository.save(RollingPaper.test(imageUrl, request.title()));
 
             return rollingPaper.getId().toString();
 

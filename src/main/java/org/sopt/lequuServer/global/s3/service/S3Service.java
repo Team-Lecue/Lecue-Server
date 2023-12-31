@@ -1,5 +1,7 @@
 package org.sopt.lequuServer.global.s3.service;
 
+import com.amazonaws.HttpMethod;
+import com.amazonaws.services.s3.model.GeneratePresignedUrlRequest;
 import lombok.val;
 import org.sopt.lequuServer.global.exception.model.CustomException;
 import org.sopt.lequuServer.global.config.AWSConfig;
