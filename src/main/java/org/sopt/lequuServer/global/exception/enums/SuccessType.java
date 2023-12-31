@@ -13,6 +13,7 @@ public enum SuccessType {
      * 200 OK
      */
     PROCESS_SUCCESS(HttpStatus.OK, "OK"),
+    PRESIGNED_URL_SUCCESS(HttpStatus.OK, "Presigned Url이 생성되어 성공적으로 반환되었습니다.")
     ;
 
     private final HttpStatus httpStatus;
