@@ -21,6 +21,7 @@ public class Sticker extends BaseTimeEntity {
     @Column(nullable = false)
     private String stickerImage;
 
+    @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private StickerCategory category;
 
