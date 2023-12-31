@@ -45,14 +45,14 @@ public class RollingPaper extends BaseTimeEntity {
     private User user;
 
     @OneToMany(mappedBy = "rollingPaper")
-    private List<Postit> postits = new ArrayList<>();
+    private final List<Postit> postits = new ArrayList<>();
 
     public void addPositit(Postit postit) {
         postits.add(postit);
     }
 
     @OneToMany(mappedBy = "rollingPaper")
-    private List<PostedSticker> postedStickers = new ArrayList<>();
+    private final List<PostedSticker> postedStickers = new ArrayList<>();
 
     public void addPostedSticker(PostedSticker postedSticker) {
         postedStickers.add(postedSticker);

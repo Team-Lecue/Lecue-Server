@@ -1,6 +1,6 @@
 package org.sopt.lequuServer.global.s3;
 
-import org.sopt.lequuServer.global.common.exception.CustomException;
+import org.sopt.lequuServer.global.exception.model.CustomException;
 import org.sopt.lequuServer.global.config.AWSConfig;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
@@ -15,7 +15,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.UUID;
 
-import static org.sopt.lequuServer.global.common.exception.enums.ErrorType.*;
+import static org.sopt.lequuServer.global.exception.enums.ErrorType.*;
 
 @Component
 public class S3Service {

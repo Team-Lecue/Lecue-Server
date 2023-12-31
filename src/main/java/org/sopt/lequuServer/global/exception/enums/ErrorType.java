@@ -1,4 +1,4 @@
-package org.sopt.lequuServer.global.common.exception.enums;
+package org.sopt.lequuServer.global.exception.enums;
 
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;

@@ -6,8 +6,8 @@ import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
-import org.sopt.lequuServer.global.common.exception.enums.ErrorType;
-import org.sopt.lequuServer.global.common.exception.enums.SuccessType;
+import org.sopt.lequuServer.global.exception.enums.ErrorType;
+import org.sopt.lequuServer.global.exception.enums.SuccessType;
 
 @Getter
 @JsonPropertyOrder({"code", "message", "data"})

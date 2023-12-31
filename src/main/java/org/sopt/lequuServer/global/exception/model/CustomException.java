@@ -1,7 +1,7 @@
-package org.sopt.lequuServer.global.common.exception;
+package org.sopt.lequuServer.global.exception.model;
 
 import lombok.Getter;
-import org.sopt.lequuServer.global.common.exception.enums.ErrorType;
+import org.sopt.lequuServer.global.exception.enums.ErrorType;
 
 @Getter
 public class CustomException extends RuntimeException {
