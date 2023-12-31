@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.*;
 import org.sopt.lequuServer.domain.postit.model.Postit;
 import org.sopt.lequuServer.domain.rollingpaper.model.RollingPaper;
+import org.sopt.lequuServer.domain.sticker.model.PostedSticker;
 import org.sopt.lequuServer.global.common.model.BaseTimeEntity;
 
 import java.util.ArrayList;
@@ -37,6 +38,13 @@ public class User extends BaseTimeEntity {
 
     public void addPostit(Postit postit) {
         postits.add(postit);
+    }
+
+    @OneToMany(mappedBy = "user")
+    private List<PostedSticker> postedStickers = new ArrayList<>();
+
+    public void addPostedSticker(PostedSticker postedSticker) {
+        postedStickers.add(postedSticker);
     }
 
     public User(String nickname) {

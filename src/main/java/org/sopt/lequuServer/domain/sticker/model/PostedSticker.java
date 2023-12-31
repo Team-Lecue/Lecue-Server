@@ -3,6 +3,7 @@ package org.sopt.lequuServer.domain.sticker.model;
 import jakarta.persistence.*;
 import lombok.*;
 import org.sopt.lequuServer.domain.rollingpaper.model.RollingPaper;
+import org.sopt.lequuServer.domain.user.model.User;
 import org.sopt.lequuServer.global.common.model.BaseTimeEntity;
 
 @Entity
@@ -23,6 +24,10 @@ public class PostedSticker extends BaseTimeEntity {
     private int positionY;
 
     private int degree;
+
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private User user;
 
     @ManyToOne
     @JoinColumn(name = "rolling_paper_id")

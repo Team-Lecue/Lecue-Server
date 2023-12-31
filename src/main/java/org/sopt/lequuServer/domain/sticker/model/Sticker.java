@@ -21,6 +21,9 @@ public class Sticker extends BaseTimeEntity {
     @Column(nullable = false)
     private String stickerImage;
 
+    @Column(nullable = false)
+    private StickerCategory category;
+
     @ManyToOne
     @JoinColumn(name = "rolling_paper_id")
     private RollingPaper rollingPaper;
