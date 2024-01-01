@@ -17,9 +17,9 @@ public class AWSConfig {
     private final String secretKey;
     private final String regionString;
 
-    public AWSConfig(@Value("${aws-property.access-key}") final String accessKey,
-                     @Value("${aws-property.secret-key}") final String secretKey,
-                     @Value("${aws-property.aws-region}") final String regionString) {
+    public AWSConfig(@Value("${cloud.aws.credentials.accessKey}") final String accessKey,
+                     @Value("${cloud.aws.credentials.secretKey}") final String secretKey,
+                     @Value("${cloud.aws.credentials.aws-region}") final String regionString) {
         this.accessKey = accessKey;
         this.secretKey = secretKey;
         this.regionString = regionString;
