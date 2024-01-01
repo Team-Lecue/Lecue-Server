@@ -7,7 +7,7 @@ import org.sopt.lequuServer.domain.user.service.UserService;
 import org.sopt.lequuServer.global.auth.jwt.JwtProvider;
 import org.sopt.lequuServer.global.auth.jwt.TokenDto;
 import org.sopt.lequuServer.global.common.dto.ApiResponse;
-import org.sopt.lequuServer.global.sociallogin.kakao.KakaoLoginService;
+import org.sopt.lequuServer.global.auth.fegin.kakao.KakaoLoginService;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 

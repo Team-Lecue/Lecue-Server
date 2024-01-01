@@ -6,7 +6,6 @@ import org.sopt.lequuServer.domain.postit.model.Postit;
 import org.sopt.lequuServer.domain.rollingpaper.model.RollingPaper;
 import org.sopt.lequuServer.domain.sticker.model.PostedSticker;
 import org.sopt.lequuServer.global.common.model.BaseTimeEntity;
-import org.sopt.lequuServer.global.sociallogin.SocialPlatform;
 
 import java.util.ArrayList;
 import java.util.List;

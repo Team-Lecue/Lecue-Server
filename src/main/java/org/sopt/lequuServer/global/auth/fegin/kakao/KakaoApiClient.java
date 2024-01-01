@@ -1,7 +1,7 @@
-package org.sopt.lequuServer.global.sociallogin.kakao.fegin;
+package org.sopt.lequuServer.global.auth.fegin.kakao;
 
 import org.apache.http.HttpHeaders;
-import org.sopt.lequuServer.global.sociallogin.kakao.response.KakaoUserResponse;
+import org.sopt.lequuServer.global.auth.fegin.kakao.response.KakaoUserResponse;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestHeader;

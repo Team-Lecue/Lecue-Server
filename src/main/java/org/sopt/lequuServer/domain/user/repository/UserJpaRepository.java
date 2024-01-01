@@ -1,7 +1,7 @@
 package org.sopt.lequuServer.domain.user.repository;
 
 import org.sopt.lequuServer.domain.user.model.User;
-import org.sopt.lequuServer.global.sociallogin.SocialPlatform;
+import org.sopt.lequuServer.domain.user.model.SocialPlatform;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.Optional;

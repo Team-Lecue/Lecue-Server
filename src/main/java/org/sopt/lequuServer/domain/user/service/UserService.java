@@ -10,8 +10,8 @@ import org.sopt.lequuServer.global.auth.jwt.TokenDto;
 import org.sopt.lequuServer.global.auth.security.UserAuthentication;
 import org.sopt.lequuServer.global.exception.enums.ErrorType;
 import org.sopt.lequuServer.global.exception.model.CustomException;
-import org.sopt.lequuServer.global.sociallogin.SocialPlatform;
-import org.sopt.lequuServer.global.sociallogin.kakao.KakaoLoginService;
+import org.sopt.lequuServer.domain.user.model.SocialPlatform;
+import org.sopt.lequuServer.global.auth.fegin.kakao.KakaoLoginService;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 

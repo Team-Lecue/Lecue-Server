@@ -1,4 +1,4 @@
-package org.sopt.lequuServer.global.sociallogin;
+package org.sopt.lequuServer.domain.user.model;
 
 import lombok.AccessLevel;
 import lombok.Getter;

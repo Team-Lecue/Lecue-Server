@@ -1,11 +1,9 @@
-package org.sopt.lequuServer.global.sociallogin.kakao;
+package org.sopt.lequuServer.global.auth.fegin.kakao;
 
 import lombok.RequiredArgsConstructor;
 import org.sopt.lequuServer.domain.user.model.User;
-import org.sopt.lequuServer.global.sociallogin.kakao.fegin.KakaoApiClient;
-import org.sopt.lequuServer.global.sociallogin.kakao.fegin.KakaoAuthApiClient;
-import org.sopt.lequuServer.global.sociallogin.kakao.response.KakaoAccessTokenResponse;
-import org.sopt.lequuServer.global.sociallogin.kakao.response.KakaoUserResponse;
+import org.sopt.lequuServer.global.auth.fegin.kakao.response.KakaoAccessTokenResponse;
+import org.sopt.lequuServer.global.auth.fegin.kakao.response.KakaoUserResponse;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

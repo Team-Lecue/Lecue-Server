@@ -6,7 +6,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.sopt.lequuServer.domain.user.model.User;
 import org.sopt.lequuServer.global.auth.jwt.TokenDto;
-import org.sopt.lequuServer.global.sociallogin.SocialPlatform;
+import org.sopt.lequuServer.domain.user.model.SocialPlatform;
 
 @Getter
 @NoArgsConstructor

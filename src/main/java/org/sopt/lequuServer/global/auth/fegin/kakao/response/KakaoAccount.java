@@ -1,4 +1,4 @@
-package org.sopt.lequuServer.global.sociallogin.kakao.response;
+package org.sopt.lequuServer.global.auth.fegin.kakao.response;
 
 import com.fasterxml.jackson.databind.PropertyNamingStrategies;
 import com.fasterxml.jackson.databind.annotation.JsonNaming;
@@ -9,8 +9,7 @@ import lombok.*;
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
 @JsonNaming(PropertyNamingStrategies.SnakeCaseStrategy.class)
-public class KakaoUserProfile {
+public class KakaoAccount {
 
-    private String nickname;
-    private String profileImageUrl;
+    private KakaoUserProfile profile;
 }
