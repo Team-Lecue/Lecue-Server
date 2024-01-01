@@ -43,3 +43,7 @@ kakao:
 
 jwt:
   secret: ${JWT_SECRET}
+
+#logging:
+#  level:
+#    org.springframework.security: DEBUG
