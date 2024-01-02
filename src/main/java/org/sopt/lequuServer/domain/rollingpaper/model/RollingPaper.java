@@ -45,7 +45,7 @@ public class RollingPaper extends BaseTimeEntity {
     @OneToMany(mappedBy = "rollingPaper")
     private List<Postit> postits = new ArrayList<>();
 
-    public void addPositit(Postit postit) {
+    public void addPostit(Postit postit) {
         postits.add(postit);
     }
 
