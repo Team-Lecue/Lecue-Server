@@ -15,6 +15,8 @@ import org.sopt.lequuServer.global.auth.fegin.kakao.KakaoLoginService;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import static org.sopt.lequuServer.global.exception.enums.ErrorType.INVALID_TOKEN_HEADER_ERROR;
+
 @Service
 @RequiredArgsConstructor
 @Transactional(readOnly = true)
@@ -27,6 +29,8 @@ public class UserService {
 
     @Transactional
     public UserLoginResponseDto login(String socialAccessToken, SocialLoginRequestDto request) {
+
+        socialAccessToken = parseTokenString(socialAccessToken);
 
         SocialPlatform socialPlatform = request.getSocialPlatform();
         String socialId = login(request.getSocialPlatform(), socialAccessToken);
@@ -59,6 +63,8 @@ public class UserService {
 
     @Transactional
     public TokenDto reissueToken(String refreshToken) {
+
+        refreshToken = parseTokenString(refreshToken);
 
         Long userId = jwtProvider.validateRefreshToken(refreshToken);
 
@@ -103,5 +109,13 @@ public class UserService {
             default:
                 throw new CustomException(ErrorType.INVALID_SOCIAL_ACCESS_TOKEN);
         }
+    }
+
+    private static String parseTokenString(String tokenString) {
+        String[] strings = tokenString.split(" ");
+        if (strings.length != 2){
+            throw new CustomException(INVALID_TOKEN_HEADER_ERROR);
+        }
+        return strings[1];
     }
 }

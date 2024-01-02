@@ -4,9 +4,12 @@ import lombok.RequiredArgsConstructor;
 import org.sopt.lequuServer.domain.user.model.User;
 import org.sopt.lequuServer.global.auth.fegin.kakao.response.KakaoAccessTokenResponse;
 import org.sopt.lequuServer.global.auth.fegin.kakao.response.KakaoUserResponse;
+import org.sopt.lequuServer.global.exception.model.CustomException;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import static org.sopt.lequuServer.global.exception.enums.ErrorType.INVALID_CODE_HEADER_ERROR;
 
 @Service
 @Transactional
@@ -30,7 +33,7 @@ public class KakaoLoginService {
                 GRANT_TYPE,
                 CLIENT_ID,
                 REDIRECT_URL,
-                code
+                parseCodeString(code)
         );
         return tokenResponse.getAccessToken();
         // 카카오 Refresh 토큰은 미사용
@@ -54,4 +57,11 @@ public class KakaoLoginService {
                 socialAccessToken); //카카오 Access 토큰도 매번 업데이트
     }
 
+    private static String parseCodeString(String codeString) {
+        String[] strings = codeString.split(" ");
+        if (strings.length != 2){
+            throw new CustomException(INVALID_CODE_HEADER_ERROR);
+        }
+        return strings[1];
+    }
 }
