@@ -34,15 +34,14 @@ public class PostedSticker extends BaseTimeEntity {
     private Sticker sticker;
 
     @Builder
-    public PostedSticker(int positionX, int positionY, int degree, RollingPaper rollingPaper, Sticker sticker) {
+    public PostedSticker(int positionX, int positionY, RollingPaper rollingPaper, Sticker sticker) {
         this.positionX = positionX;
         this.positionY = positionY;
-        this.degree = degree;
         this.rollingPaper = rollingPaper;
         this.sticker = sticker;
     }
 
-    public static PostedSticker of(int positionX, int positionY, int degree, RollingPaper rollingPaper, Sticker sticker) {
-        return new PostedSticker(positionX, positionY, degree, rollingPaper, sticker);
+    public static PostedSticker of(int positionX, int positionY, RollingPaper rollingPaper, Sticker sticker) {
+        return new PostedSticker(positionX, positionY, rollingPaper, sticker);
     }
 }
