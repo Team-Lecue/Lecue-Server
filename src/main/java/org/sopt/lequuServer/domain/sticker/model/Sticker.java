@@ -25,7 +25,7 @@ public class Sticker extends BaseTimeEntity {
     @Column(nullable = false)
     private StickerCategory category;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "rolling_paper_id")
     private RollingPaper rollingPaper;
 }

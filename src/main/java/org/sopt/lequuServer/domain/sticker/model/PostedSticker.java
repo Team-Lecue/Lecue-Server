@@ -9,8 +9,6 @@ import org.sopt.lequuServer.global.common.model.BaseTimeEntity;
 @Entity
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-@AllArgsConstructor(access = AccessLevel.PROTECTED)
-@Builder
 @Table(name = "posted_sticker")
 public class PostedSticker extends BaseTimeEntity {
 
@@ -25,18 +23,19 @@ public class PostedSticker extends BaseTimeEntity {
 
     private int degree;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
     private User user;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "rolling_paper_id")
     private RollingPaper rollingPaper;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "sticker_id")
     private Sticker sticker;
 
+    @Builder
     public PostedSticker(int positionX, int positionY, int degree, RollingPaper rollingPaper, Sticker sticker) {
         this.positionX = positionX;
         this.positionY = positionY;

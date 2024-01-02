@@ -9,8 +9,6 @@ import org.sopt.lequuServer.global.common.model.BaseTimeEntity;
 @Entity
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-@AllArgsConstructor(access = AccessLevel.PROTECTED)
-@Builder
 @Table(name = "postit")
 public class Postit extends BaseTimeEntity {
 
@@ -27,14 +25,15 @@ public class Postit extends BaseTimeEntity {
 
     private int textColor;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
     private User user;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "rolling_paper_id")
     private RollingPaper rollingPaper;
 
+    @Builder
     public Postit(String content, String background, int textColor, User user, RollingPaper rollingPaper) {
         this.content = content;
         this.background = background;

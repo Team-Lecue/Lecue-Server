@@ -13,8 +13,6 @@ import java.util.List;
 @Entity
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-@AllArgsConstructor(access = AccessLevel.PROTECTED)
-@Builder
 @Table(name = "rolling_paper")
 public class RollingPaper extends BaseTimeEntity {
 
@@ -40,7 +38,7 @@ public class RollingPaper extends BaseTimeEntity {
 
     private int backgroundColor;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
     private User user;
 
@@ -58,6 +56,7 @@ public class RollingPaper extends BaseTimeEntity {
         postedStickers.add(postedSticker);
     }
 
+    @Builder
     public RollingPaper(String uuid, String favoriteName, String favoriteImage, String title, String description, int backgroundColor, User user) {
         this.uuid = uuid;
         this.favoriteName = favoriteName;

@@ -13,8 +13,6 @@ import java.util.List;
 @Entity
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-@AllArgsConstructor(access = AccessLevel.PROTECTED)
-@Builder
 @Table(name = "user")
 public class User extends BaseTimeEntity {
 
@@ -47,6 +45,7 @@ public class User extends BaseTimeEntity {
         postedStickers.add(postedSticker);
     }
 
+    @Builder
     public User(String nickname) {
         this.nickname = nickname;
     }
