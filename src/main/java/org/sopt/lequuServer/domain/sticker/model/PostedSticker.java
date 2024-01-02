@@ -21,8 +21,6 @@ public class PostedSticker extends BaseTimeEntity {
 
     private int positionY;
 
-    private int degree;
-
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
     private User user;
