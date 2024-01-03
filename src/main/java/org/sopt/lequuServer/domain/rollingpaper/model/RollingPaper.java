@@ -43,14 +43,14 @@ public class RollingPaper extends BaseTimeEntity {
     private User user;
 
     @OneToMany(mappedBy = "rollingPaper")
-    private List<Postit> postits = new ArrayList<>();
+    private final List<Postit> postits = new ArrayList<>();
 
     public void addPostit(Postit postit) {
         postits.add(postit);
     }
 
     @OneToMany(mappedBy = "rollingPaper")
-    private List<PostedSticker> postedStickers = new ArrayList<>();
+    private final List<PostedSticker> postedStickers = new ArrayList<>();
 
     public void addPostedSticker(PostedSticker postedSticker) {
         postedStickers.add(postedSticker);
@@ -69,5 +69,20 @@ public class RollingPaper extends BaseTimeEntity {
 
     public static RollingPaper of(String uuid, String favoriteName, String favoriteImage, String title, String description, int backgroundColor, User user) {
         return new RollingPaper(uuid, favoriteName, favoriteImage, title, description, backgroundColor, user);
+    }
+
+    // TODO S3 테스트용, 추후 삭제
+    public RollingPaper(String uuid, String favoriteName, String favoriteImage, String title, String description, int backgroundColor) {
+        this.uuid = uuid;
+        this.favoriteName = favoriteName;
+        this.favoriteImage = favoriteImage;
+        this.title = title;
+        this.description = description;
+        this.backgroundColor = backgroundColor;
+    }
+
+    // TODO S3 테스트용, 추후 삭제
+    public static RollingPaper test(String favoriteImage, String title) {
+        return new RollingPaper("test", "test", favoriteImage, title, "test", 1);
     }
 }

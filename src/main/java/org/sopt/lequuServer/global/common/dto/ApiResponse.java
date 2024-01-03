@@ -6,8 +6,8 @@ import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
-import org.sopt.lequuServer.global.common.exception.enums.ErrorType;
-import org.sopt.lequuServer.global.common.exception.enums.SuccessType;
+import org.sopt.lequuServer.global.exception.enums.ErrorType;
+import org.sopt.lequuServer.global.exception.enums.SuccessType;
 
 @Getter
 @JsonPropertyOrder({"code", "message", "data"})
@@ -37,6 +37,10 @@ public class ApiResponse<T> {
         return new ApiResponse<>(errorType.getHttpStatusCode(), message);
     }
 
+    public static <T> ApiResponse<T> error(ErrorType errorType, T data) {
+        return new ApiResponse<>(errorType.getHttpStatusCode(), errorType.getMessage(), data);
+    }
+
     public static <T> ApiResponse<T> error(ErrorType errorType, String message, T data) {
         return new ApiResponse<>(errorType.getHttpStatusCode(), message, data);
     }
@@ -45,7 +49,7 @@ public class ApiResponse<T> {
         return new ApiResponse<>(errorType.getHttpStatusCode(), errorType.getMessage(), e);
     }
 
-    public static <T> ApiResponse<T> error(ErrorType errorType, T data) {
-        return new ApiResponse<>(errorType.getHttpStatusCode(), errorType.getMessage(), data);
+    public static <T> ApiResponse<Exception> error(ErrorType errorType, String message, Exception e) {
+        return new ApiResponse<>(errorType.getHttpStatusCode(), message, e);
     }
 }

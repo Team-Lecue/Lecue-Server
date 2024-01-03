@@ -25,21 +25,21 @@ public class User extends BaseTimeEntity {
     private String nickname;
 
     @OneToMany(mappedBy = "user")
-    private List<RollingPaper> rollingPapers = new ArrayList<>();
+    private final List<RollingPaper> rollingPapers = new ArrayList<>();
 
     public void addRollingPaper(RollingPaper rollingPaper) {
         rollingPapers.add(rollingPaper);
     }
 
     @OneToMany(mappedBy = "user")
-    private List<Postit> postits = new ArrayList<>();
+    private final List<Postit> postits = new ArrayList<>();
 
     public void addPostit(Postit postit) {
         postits.add(postit);
     }
 
     @OneToMany(mappedBy = "user")
-    private List<PostedSticker> postedStickers = new ArrayList<>();
+    private final List<PostedSticker> postedStickers = new ArrayList<>();
 
     public void addPostedSticker(PostedSticker postedSticker) {
         postedStickers.add(postedSticker);

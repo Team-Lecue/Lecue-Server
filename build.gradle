@@ -50,8 +50,9 @@ dependencies {
 //	implementation 'org.springframework.boot:spring-boot-starter-security'
 //	testImplementation 'org.springframework.security:spring-security-test'
 
-	// Test
+	// Test & Validation
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+	implementation 'org.springframework.boot:spring-boot-starter-validation'
 }
 
 tasks.named('bootBuildImage') {

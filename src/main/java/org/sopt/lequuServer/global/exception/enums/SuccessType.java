@@ -1,4 +1,4 @@
-package org.sopt.lequuServer.global.common.exception.enums;
+package org.sopt.lequuServer.global.exception.enums;
 
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
@@ -7,17 +7,13 @@ import org.springframework.http.HttpStatus;
 
 @Getter
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
-public enum ErrorType {
+public enum SuccessType {
 
     /**
-     * 400 BAD REQUEST
+     * 200 OK
      */
-    REQUEST_VALIDATION_EXCEPTION(HttpStatus.BAD_REQUEST, "잘못된 요청입니다"),
-
-    /**
-     * 500 INTERNAL SERVER ERROR
-     */
-    INTERNAL_SERVER_ERROR(HttpStatus.INTERNAL_SERVER_ERROR, "알 수 없는 서버 에러가 발생했습니다."),
+    PROCESS_SUCCESS(HttpStatus.OK, "OK"),
+    PRESIGNED_URL_SUCCESS(HttpStatus.OK, "Presigned Url이 생성되어 성공적으로 반환되었습니다.")
     ;
 
     private final HttpStatus httpStatus;
