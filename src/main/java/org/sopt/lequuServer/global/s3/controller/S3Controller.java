@@ -2,8 +2,8 @@ package org.sopt.lequuServer.global.s3.controller;
 
 import lombok.RequiredArgsConstructor;
 import org.sopt.lequuServer.global.common.dto.ApiResponse;
-import org.sopt.lequuServer.global.s3.service.S3Service;
 import org.sopt.lequuServer.global.s3.dto.PreSignedUrlResponse;
+import org.sopt.lequuServer.global.s3.service.S3Service;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
