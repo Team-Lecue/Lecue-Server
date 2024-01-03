@@ -85,8 +85,9 @@ public class User extends BaseTimeEntity {
     public User(SocialPlatform socialPlatform, String socialId) {
         this.socialPlatform = socialPlatform;
         this.socialId = socialId;
+    }
 
     public static User of(SocialPlatform socialPlatform, String socialId) {
-        return new User(nickname);
+        return new User(socialPlatform, socialId);
     }
 }
