@@ -6,11 +6,14 @@ spring:
     password: ${DATABASE_PASSWORD}
 
   jpa:
+    show-sql: true
     hibernate:
       ddl-auto: update
     properties:
       hibernate:
-        auto_quote_keyword: true
+        format_sql: true
+        show_sql: true
+        default_batch_fetch_size: 500
 
   config:
     import: optional:application-secret.properties

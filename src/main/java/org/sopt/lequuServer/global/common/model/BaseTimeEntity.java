@@ -1,4 +1,4 @@
-package org.sopt.lequuServer.global.common.domain;
+package org.sopt.lequuServer.global.common.model;
 
 import jakarta.persistence.EntityListeners;
 import jakarta.persistence.MappedSuperclass;

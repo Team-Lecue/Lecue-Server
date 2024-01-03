@@ -1,4 +1,4 @@
-package org.sopt.lequuServer.global.common.exception.model;
+package org.sopt.lequuServer.global.common.exception;
 
 import lombok.Getter;
 import org.sopt.lequuServer.global.common.exception.enums.ErrorType;
