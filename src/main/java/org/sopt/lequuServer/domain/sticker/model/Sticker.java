@@ -8,8 +8,6 @@ import org.sopt.lequuServer.global.common.model.BaseTimeEntity;
 @Entity
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-@AllArgsConstructor(access = AccessLevel.PROTECTED)
-@Builder
 @Table(name = "sticker")
 public class Sticker extends BaseTimeEntity {
 
@@ -28,4 +26,14 @@ public class Sticker extends BaseTimeEntity {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "rolling_paper_id")
     private RollingPaper rollingPaper;
+
+    public Sticker(String stickerImage, StickerCategory category, RollingPaper rollingPaper) {
+        this.stickerImage = stickerImage;
+        this.category = category;
+        this.rollingPaper = rollingPaper;
+    }
+
+    public static Sticker of(String stickerImage, StickerCategory category, RollingPaper rollingPaper) {
+        return new Sticker(stickerImage, category, rollingPaper);
+    }
 }
