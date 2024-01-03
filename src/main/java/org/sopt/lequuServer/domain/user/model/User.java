@@ -2,8 +2,8 @@ package org.sopt.lequuServer.domain.user.model;
 
 import jakarta.persistence.*;
 import lombok.*;
-import org.sopt.lequuServer.domain.postit.model.Postit;
-import org.sopt.lequuServer.domain.rollingpaper.model.RollingPaper;
+import org.sopt.lequuServer.domain.note.model.Note;
+import org.sopt.lequuServer.domain.book.model.Book;
 import org.sopt.lequuServer.domain.sticker.model.PostedSticker;
 import org.sopt.lequuServer.global.common.model.BaseTimeEntity;
 
@@ -25,17 +25,17 @@ public class User extends BaseTimeEntity {
     private String nickname;
 
     @OneToMany(mappedBy = "user")
-    private final List<RollingPaper> rollingPapers = new ArrayList<>();
+    private final List<Book> books = new ArrayList<>();
 
-    public void addRollingPaper(RollingPaper rollingPaper) {
-        rollingPapers.add(rollingPaper);
+    public void addBook(Book book) {
+        books.add(book);
     }
 
     @OneToMany(mappedBy = "user")
-    private final List<Postit> postits = new ArrayList<>();
+    private final List<Note> notes = new ArrayList<>();
 
-    public void addPostit(Postit postit) {
-        postits.add(postit);
+    public void addNote(Note note) {
+        notes.add(note);
     }
 
     @OneToMany(mappedBy = "user")

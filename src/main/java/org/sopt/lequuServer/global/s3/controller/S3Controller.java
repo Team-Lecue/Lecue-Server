@@ -9,8 +9,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import static org.sopt.lequuServer.global.exception.enums.SuccessType.*;
-import static org.sopt.lequuServer.global.s3.enums.ImageFolderName.POSTIT_BACKGROUND_IMAGE_FOLDER_NAME;
-import static org.sopt.lequuServer.global.s3.enums.ImageFolderName.ROLLING_PAPER_FAVORITE_IMAGE_FOLDER_NAME;
+import static org.sopt.lequuServer.global.s3.enums.ImageFolderName.BOOK_FAVORITE_IMAGE_FOLDER_NAME;
+import static org.sopt.lequuServer.global.s3.enums.ImageFolderName.NOTE_BACKGROUND_IMAGE_FOLDER_NAME;
 
 /**
  * Presigned URL을 얻기 위한 API들
@@ -24,13 +24,13 @@ public class S3Controller {
 
     private final S3Service s3Service;
 
-    @GetMapping("/rolling_paper")
-    public ApiResponse<PreSignedUrlResponse> getPreSignedUrlRollingPaper() {
-        return ApiResponse.success(PRESIGNED_URL_SUCCESS, s3Service.getUploadPreSignedUrl(ROLLING_PAPER_FAVORITE_IMAGE_FOLDER_NAME.getValue()));
+    @GetMapping("/book")
+    public ApiResponse<PreSignedUrlResponse> getPreSignedUrlBook() {
+        return ApiResponse.success(PRESIGNED_URL_SUCCESS, s3Service.getUploadPreSignedUrl(BOOK_FAVORITE_IMAGE_FOLDER_NAME.getValue()));
     }
 
-    @GetMapping("/postit")
-    public ApiResponse<PreSignedUrlResponse> getPreSignedUrlPostit() {
-        return ApiResponse.success(PRESIGNED_URL_SUCCESS, s3Service.getUploadPreSignedUrl(POSTIT_BACKGROUND_IMAGE_FOLDER_NAME.getValue()));
+    @GetMapping("/note")
+    public ApiResponse<PreSignedUrlResponse> getPreSignedUrlNote() {
+        return ApiResponse.success(PRESIGNED_URL_SUCCESS, s3Service.getUploadPreSignedUrl(NOTE_BACKGROUND_IMAGE_FOLDER_NAME.getValue()));
     }
 }
