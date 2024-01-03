@@ -1,8 +1,8 @@
-package org.sopt.lequuServer.domain.rollingpaper.model;
+package org.sopt.lequuServer.domain.book.model;
 
 import jakarta.persistence.*;
 import lombok.*;
-import org.sopt.lequuServer.domain.postit.model.Postit;
+import org.sopt.lequuServer.domain.note.model.Note;
 import org.sopt.lequuServer.domain.sticker.model.PostedSticker;
 import org.sopt.lequuServer.domain.user.model.User;
 import org.sopt.lequuServer.global.common.model.BaseTimeEntity;
@@ -13,11 +13,11 @@ import java.util.List;
 @Entity
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-@Table(name = "rolling_paper")
-public class RollingPaper extends BaseTimeEntity {
+@Table(name = "book")
+public class Book extends BaseTimeEntity {
 
     @Id
-    @Column(name = "rolling_paper_id")
+    @Column(name = "book_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
@@ -42,14 +42,14 @@ public class RollingPaper extends BaseTimeEntity {
     @JoinColumn(name = "user_id")
     private User user;
 
-    @OneToMany(mappedBy = "rollingPaper")
-    private final List<Postit> postits = new ArrayList<>();
+    @OneToMany(mappedBy = "book")
+    private final List<Note> notes = new ArrayList<>();
 
-    public void addPostit(Postit postit) {
-        postits.add(postit);
+    public void addNote(Note note) {
+        notes.add(note);
     }
 
-    @OneToMany(mappedBy = "rollingPaper")
+    @OneToMany(mappedBy = "book")
     private final List<PostedSticker> postedStickers = new ArrayList<>();
 
     public void addPostedSticker(PostedSticker postedSticker) {
@@ -57,7 +57,7 @@ public class RollingPaper extends BaseTimeEntity {
     }
 
     @Builder
-    public RollingPaper(String uuid, String favoriteName, String favoriteImage, String title, String description, int backgroundColor, User user) {
+    public Book(String uuid, String favoriteName, String favoriteImage, String title, String description, int backgroundColor, User user) {
         this.uuid = uuid;
         this.favoriteName = favoriteName;
         this.favoriteImage = favoriteImage;
@@ -67,12 +67,12 @@ public class RollingPaper extends BaseTimeEntity {
         this.user = user;
     }
 
-    public static RollingPaper of(String uuid, String favoriteName, String favoriteImage, String title, String description, int backgroundColor, User user) {
-        return new RollingPaper(uuid, favoriteName, favoriteImage, title, description, backgroundColor, user);
+    public static Book of(String uuid, String favoriteName, String favoriteImage, String title, String description, int backgroundColor, User user) {
+        return new Book(uuid, favoriteName, favoriteImage, title, description, backgroundColor, user);
     }
 
     // TODO S3 테스트용, 추후 삭제
-    public RollingPaper(String uuid, String favoriteName, String favoriteImage, String title, String description, int backgroundColor) {
+    public Book(String uuid, String favoriteName, String favoriteImage, String title, String description, int backgroundColor) {
         this.uuid = uuid;
         this.favoriteName = favoriteName;
         this.favoriteImage = favoriteImage;
@@ -82,7 +82,7 @@ public class RollingPaper extends BaseTimeEntity {
     }
 
     // TODO S3 테스트용, 추후 삭제
-    public static RollingPaper test(String favoriteImage, String title) {
-        return new RollingPaper("test", "test", favoriteImage, title, "test", 1);
+    public static Book test(String favoriteImage, String title) {
+        return new Book("test", "test", favoriteImage, title, "test", 1);
     }
 }

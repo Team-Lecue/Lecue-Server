@@ -2,7 +2,7 @@ package org.sopt.lequuServer.domain.sticker.model;
 
 import jakarta.persistence.*;
 import lombok.*;
-import org.sopt.lequuServer.domain.rollingpaper.model.RollingPaper;
+import org.sopt.lequuServer.domain.book.model.Book;
 import org.sopt.lequuServer.global.common.model.BaseTimeEntity;
 
 @Entity
@@ -24,16 +24,16 @@ public class Sticker extends BaseTimeEntity {
     private StickerCategory category;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "rolling_paper_id")
-    private RollingPaper rollingPaper;
+    @JoinColumn(name = "book_id")
+    private Book book;
 
-    public Sticker(String stickerImage, StickerCategory category, RollingPaper rollingPaper) {
+    public Sticker(String stickerImage, StickerCategory category, Book book) {
         this.stickerImage = stickerImage;
         this.category = category;
-        this.rollingPaper = rollingPaper;
+        this.book = book;
     }
 
-    public static Sticker of(String stickerImage, StickerCategory category, RollingPaper rollingPaper) {
-        return new Sticker(stickerImage, category, rollingPaper);
+    public static Sticker of(String stickerImage, StickerCategory category, Book book) {
+        return new Sticker(stickerImage, category, book);
     }
 }
