@@ -12,6 +12,11 @@ import static org.sopt.lequuServer.global.exception.enums.SuccessType.*;
 import static org.sopt.lequuServer.global.s3.enums.ImageFolderName.POSTIT_BACKGROUND_IMAGE_FOLDER_NAME;
 import static org.sopt.lequuServer.global.s3.enums.ImageFolderName.ROLLING_PAPER_FAVORITE_IMAGE_FOLDER_NAME;
 
+/**
+ * Presigned URL을 얻기 위한 API들
+ * 롤링페이퍼 최애 사진 업로드에 쓰일 용도인지,
+ * 포스티잇 배경 사진 업로드에 쓰일 용도인지에 따라 다른 URL 반환
+ */
 @RestController
 @RequestMapping("/images")
 @RequiredArgsConstructor

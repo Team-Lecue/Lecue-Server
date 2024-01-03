@@ -72,7 +72,7 @@ public class RollingPaper extends BaseTimeEntity {
         return new RollingPaper(uuid, favoriteName, favoriteImage, title, description, backgroundColor, user);
     }
 
-    // TODO 테스트용, 추후 삭제
+    // TODO S3 테스트용, 추후 삭제
     public RollingPaper(String uuid, String favoriteName, String favoriteImage, String title, String description, int backgroundColor) {
         this.uuid = uuid;
         this.favoriteName = favoriteName;
@@ -82,7 +82,7 @@ public class RollingPaper extends BaseTimeEntity {
         this.backgroundColor = backgroundColor;
     }
 
-    // TODO 테스트용, 추후 삭제
+    // TODO S3 테스트용, 추후 삭제
     public static RollingPaper test(String favoriteImage, String title) {
         return new RollingPaper("test", "test", favoriteImage, title, "test", 1);
     }

@@ -19,6 +19,7 @@ public class TestService {
     private final TestJpaRepository rollingPaperJpaRepository;
     private final S3Service s3Service;
 
+    // MultipartFile 기반 이미지 업로드 (서버에 직접 이미지를 전송하는 경우 사용)
     @Transactional
     public String create(TestCreateRequest request, MultipartFile image) {
         try {
@@ -33,6 +34,7 @@ public class TestService {
         }
     }
 
+    // Presigned URL 기반 이미지 업로드 (서버에는 이미지명 String만 넘어옴)
     @Transactional
     public String createV2(TestCreateImageRequest request) {
         try {
@@ -54,6 +56,7 @@ public class TestService {
         }
     }
 
+    // 롤링페이퍼 삭제시 업로드된 이미지도 함께 삭제
     @Transactional
     public void deleteById(Long rolling_paper_id) {
         try {
