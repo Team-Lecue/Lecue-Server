@@ -19,7 +19,7 @@ public class S3Controller {
 
     private final S3Service s3Service;
 
-    @GetMapping("/rolling_paper")
+    @GetMapping("/rolling-paper")
     public ApiResponse<PreSignedUrlResponse> getPreSignedUrlRollingPaper() {
         return ApiResponse.success(PRESIGNED_URL_SUCCESS, s3Service.getUploadPreSignedUrl(ROLLING_PAPER_FAVORITE_IMAGE_FOLDER_NAME.getValue()));
     }
