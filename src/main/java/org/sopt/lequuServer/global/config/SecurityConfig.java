@@ -23,7 +23,7 @@ public class SecurityConfig {
     private static final String[] AUTH_WHITELIST = {
             "/kakao/**", "/loading", "/error", "/login", "/reissue",
             "/test/**", "/health", "/actuator/health",
-            "/images/**", "/swagger-ui/**", "/swagger-resources/**", "/api-docs/**"
+            "/images/**"
     };
 
     @Bean
