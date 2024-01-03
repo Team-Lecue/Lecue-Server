@@ -2,8 +2,8 @@ package org.sopt.lequuServer.domain.user.model;
 
 import jakarta.persistence.*;
 import lombok.*;
-import org.sopt.lequuServer.domain.postit.model.Postit;
-import org.sopt.lequuServer.domain.rollingpaper.model.RollingPaper;
+import org.sopt.lequuServer.domain.note.model.Note;
+import org.sopt.lequuServer.domain.book.model.Book;
 import org.sopt.lequuServer.domain.sticker.model.PostedSticker;
 import org.sopt.lequuServer.global.common.model.BaseTimeEntity;
 
@@ -13,8 +13,6 @@ import java.util.List;
 @Entity
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-@AllArgsConstructor(access = AccessLevel.PROTECTED)
-@Builder
 @Table(name = "user")
 public class User extends BaseTimeEntity {
 
@@ -60,17 +58,17 @@ public class User extends BaseTimeEntity {
      * 연관 되어 있는 엔티티
      */
     @OneToMany(mappedBy = "user")
-    private final List<RollingPaper> rollingPapers = new ArrayList<>();
+    private final List<Book> books = new ArrayList<>();
 
-    public void addRollingPaper(RollingPaper rollingPaper) {
-        rollingPapers.add(rollingPaper);
+    public void addBook(Book book) {
+        books.add(book);
     }
 
     @OneToMany(mappedBy = "user")
-    private final List<Postit> postits = new ArrayList<>();
+    private final List<Note> notes = new ArrayList<>();
 
-    public void addPostit(Postit postit) {
-        postits.add(postit);
+    public void addNote(Note note) {
+        notes.add(note);
     }
 
     @OneToMany(mappedBy = "user")
@@ -79,12 +77,16 @@ public class User extends BaseTimeEntity {
     public void addPostedSticker(PostedSticker postedSticker) {
         postedStickers.add(postedSticker);
     }
-
+  
     /**
      * 유저가 최초로 생성될 때 필요한 최소 정보
      */
+    @Builder
     public User(SocialPlatform socialPlatform, String socialId) {
         this.socialPlatform = socialPlatform;
         this.socialId = socialId;
+
+    public static User of(SocialPlatform socialPlatform, String socialId) {
+        return new User(nickname);
     }
 }

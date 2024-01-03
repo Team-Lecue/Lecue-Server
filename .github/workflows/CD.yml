@@ -1,7 +1,7 @@
 name: CD
 
 on:
-  pull_request:
+  push:
     branches: [ "develop" ]
 
 jobs:
@@ -55,8 +55,8 @@ jobs:
             --build-arg AWS_SECRET_ACCESS_KEY=${{ secrets.AWS_SECRET_KEY }} \
             --build-arg AWS_DEFAULT_REGION=ap-northeast-2 \
             --build-arg AWS_OUTPUT_FORMAT=None \
-            -t lequu/lequu . 
-          docker push lequu/lequu
+            -t lequu/lequu-server . 
+          docker push lequu/lequu-server
 
   deploy-cd:
     needs: deploy-ci

@@ -8,8 +8,8 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor(access = AccessLevel.PRIVATE)
 public enum ImageFolderName {
 
-    ROLLING_PAPER_FAVORITE_IMAGE_FOLDER_NAME("rolling_papers/favorite_image/"),
-    POSTIT_BACKGROUND_IMAGE_FOLDER_NAME("postits/background_image/");
+    BOOK_FAVORITE_IMAGE_FOLDER_NAME("books/favorite_image/"),
+    NOTE_BACKGROUND_IMAGE_FOLDER_NAME("notes/background_image/");
 
     private final String value;
 

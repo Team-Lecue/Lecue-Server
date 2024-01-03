@@ -2,15 +2,13 @@ package org.sopt.lequuServer.domain.sticker.model;
 
 import jakarta.persistence.*;
 import lombok.*;
-import org.sopt.lequuServer.domain.rollingpaper.model.RollingPaper;
+import org.sopt.lequuServer.domain.book.model.Book;
 import org.sopt.lequuServer.domain.user.model.User;
 import org.sopt.lequuServer.global.common.model.BaseTimeEntity;
 
 @Entity
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-@AllArgsConstructor(access = AccessLevel.PROTECTED)
-@Builder
 @Table(name = "posted_sticker")
 public class PostedSticker extends BaseTimeEntity {
 
@@ -23,29 +21,27 @@ public class PostedSticker extends BaseTimeEntity {
 
     private int positionY;
 
-    private int degree;
-
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
     private User user;
 
-    @ManyToOne
-    @JoinColumn(name = "rolling_paper_id")
-    private RollingPaper rollingPaper;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "book_id")
+    private Book book;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "sticker_id")
     private Sticker sticker;
 
-    public PostedSticker(int positionX, int positionY, int degree, RollingPaper rollingPaper, Sticker sticker) {
+    @Builder
+    public PostedSticker(int positionX, int positionY, Book book, Sticker sticker) {
         this.positionX = positionX;
         this.positionY = positionY;
-        this.degree = degree;
-        this.rollingPaper = rollingPaper;
+        this.book = book;
         this.sticker = sticker;
     }
 
-    public static PostedSticker of(int positionX, int positionY, int degree, RollingPaper rollingPaper, Sticker sticker) {
-        return new PostedSticker(positionX, positionY, degree, rollingPaper, sticker);
+    public static PostedSticker of(int positionX, int positionY, Book book, Sticker sticker) {
+        return new PostedSticker(positionX, positionY, book, sticker);
     }
 }
