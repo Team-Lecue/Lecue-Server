@@ -67,6 +67,9 @@ dependencies {
 
 	//JSON
 	implementation 'com.googlecode.json-simple:json-simple:1.1.1'
+
+	//h2
+	runtimeOnly 'com.h2database:h2'
 }
 
 tasks.named('bootBuildImage') {
