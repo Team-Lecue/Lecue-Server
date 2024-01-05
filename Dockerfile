@@ -27,4 +27,4 @@ ENV AWS_DEFAULT_REGION=${AWS_DEFAULT_REGION}
 ENV AWS_OUTPUT_FORMAT=${AWS_OUTPUT_FORMAT}
 
 # 컨테이너 실행 시 Java 애플리케이션 실행
-CMD ["java", "-Duser.timezone=Asia/Seoul", "-jar", "lequuServer.jar"]
+CMD ["java", "-Duser.timezone=Asia/Seoul", "-jar", "-Dspring.profiles.active=dev", "lequuServer.jar"]

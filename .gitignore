@@ -41,5 +41,4 @@ out/
 
 ### Config ###
 application-secret.properties
-scripts/
 application.yaml
