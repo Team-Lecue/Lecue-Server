@@ -53,8 +53,7 @@ public class KakaoLoginService {
         KakaoUserResponse userResponse = kakaoApiClient.getUserInformation("Bearer " + socialAccessToken);
 
         loginUser.updateSocialInfo(userResponse.getKakaoAccount().getProfile().getNickname(),
-                userResponse.getKakaoAccount().getProfile().getProfileImageUrl(),
-                socialAccessToken); //카카오 Access 토큰도 매번 업데이트
+                userResponse.getKakaoAccount().getProfile().getProfileImageUrl());
     }
 
     private static String parseCodeString(String codeString) {

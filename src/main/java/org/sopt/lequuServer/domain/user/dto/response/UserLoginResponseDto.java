@@ -25,13 +25,11 @@ public class UserLoginResponseDto {
 
     private String socialProfileImage;
 
-    private String socialAccessToken;
-
     public static UserLoginResponseDto of(User loginUser, TokenDto tokenDto) {
 
         return new UserLoginResponseDto(
                 loginUser.getId(), loginUser.getNickname(), tokenDto,
-                loginUser.getSocialPlatform(), loginUser.getSocialNickname(), loginUser.getSocialProfileImage(),
-                loginUser.getSocialAccessToken());
+                loginUser.getSocialPlatform(), loginUser.getSocialNickname(), loginUser.getSocialProfileImage()
+        );
     }
 }
