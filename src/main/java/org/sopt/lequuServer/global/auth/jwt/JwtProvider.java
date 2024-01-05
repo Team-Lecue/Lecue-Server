@@ -63,6 +63,7 @@ public class JwtProvider {
     }
 
     // Refresh 토큰 생성
+
     /**
      * Redis 내부에
      * userId: refreshToken 형태로 저장
@@ -130,7 +131,7 @@ public class JwtProvider {
         if (tokenRepository.existsById(userId)) {
             tokenRepository.deleteById(userId);
         } else {
-            throw new CustomException(NOT_FOUND_REFRESH_TOKEN);
+            throw new CustomException(NOT_FOUND_REFRESH_TOKEN_ERROR);
         }
     }
 
@@ -156,7 +157,7 @@ public class JwtProvider {
 
     public static Long getUserFromPrincial(Principal principal) {
         if (isNull(principal)) {
-            throw new CustomException(EMPTY_PRINCIPLE_EXCEPTION);
+            throw new CustomException(EMPTY_PRINCIPLE_ERROR);
         }
 
         return Long.valueOf(principal.getName());

@@ -12,8 +12,8 @@ import org.springframework.transaction.annotation.Transactional;
 import static org.sopt.lequuServer.global.exception.enums.ErrorType.INVALID_CODE_HEADER_ERROR;
 
 @Service
-@Transactional
 @RequiredArgsConstructor
+@Transactional
 public class KakaoLoginService {
 
     @Value("${kakao.client-id}")
@@ -58,7 +58,7 @@ public class KakaoLoginService {
 
     private static String parseCodeString(String codeString) {
         String[] strings = codeString.split(" ");
-        if (strings.length != 2){
+        if (strings.length != 2) {
             throw new CustomException(INVALID_CODE_HEADER_ERROR);
         }
         return strings[1];

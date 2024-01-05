@@ -1,11 +1,11 @@
 package org.sopt.lequuServer.global.s3.service;
 
 import lombok.val;
-import org.sopt.lequuServer.global.exception.model.CustomException;
 import org.sopt.lequuServer.global.config.AWSConfig;
+import org.sopt.lequuServer.global.exception.model.CustomException;
 import org.sopt.lequuServer.global.s3.dto.PreSignedUrlResponse;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 import software.amazon.awssdk.core.sync.RequestBody;
 import software.amazon.awssdk.services.s3.S3Client;
@@ -25,7 +25,7 @@ import java.util.UUID;
 
 import static org.sopt.lequuServer.global.exception.enums.ErrorType.*;
 
-@Component
+@Service
 public class S3Service {
 
     private final String bucketName;
@@ -106,6 +106,7 @@ public class S3Service {
             throw new CustomException(GET_UPLOAD_PRESIGNED_URL_ERROR);
         }
     }
+
     public PreSignedUrlResponse getPreSignedUrl(final String prefix) {
         val uuidFileName = generateImageFileName(); // val: lombok에서 제공하는 타입 추론 -> 뒤에 내용을 보고 자동으로 String이라고 타입을 추론
         val key = prefix + uuidFileName; // 경로 + 파일 이름
@@ -129,7 +130,7 @@ public class S3Service {
     }
 
     // imageKey 기반으로 실제 S3 URL 도출
-    public String getURL(final String imageKey){
+    public String getURL(final String imageKey) {
         try {
             GetUrlRequest request = GetUrlRequest.builder()
                     .bucket(bucketName)
@@ -141,7 +142,7 @@ public class S3Service {
             URL url = s3Client.utilities().getUrl(request);
 
             String urlWithKey = "https://" + bucketName + ".s3.ap-northeast-2.amazonaws.com/" + imageKey;
-            if(urlWithKey.equals(url.toString())){
+            if (urlWithKey.equals(url.toString())) {
                 return url.toString();
             }
             throw new RuntimeException("S3에서 이미지를 불러오는 데에 실패했습니다.");

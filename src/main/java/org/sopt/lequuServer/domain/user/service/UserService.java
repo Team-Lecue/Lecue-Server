@@ -3,19 +3,18 @@ package org.sopt.lequuServer.domain.user.service;
 import lombok.RequiredArgsConstructor;
 import org.sopt.lequuServer.domain.user.dto.request.SocialLoginRequestDto;
 import org.sopt.lequuServer.domain.user.dto.response.UserLoginResponseDto;
+import org.sopt.lequuServer.domain.user.model.SocialPlatform;
 import org.sopt.lequuServer.domain.user.model.User;
 import org.sopt.lequuServer.domain.user.repository.UserJpaRepository;
+import org.sopt.lequuServer.global.auth.fegin.kakao.KakaoLoginService;
 import org.sopt.lequuServer.global.auth.jwt.JwtProvider;
 import org.sopt.lequuServer.global.auth.jwt.TokenDto;
 import org.sopt.lequuServer.global.auth.security.UserAuthentication;
-import org.sopt.lequuServer.global.exception.enums.ErrorType;
 import org.sopt.lequuServer.global.exception.model.CustomException;
-import org.sopt.lequuServer.domain.user.model.SocialPlatform;
-import org.sopt.lequuServer.global.auth.fegin.kakao.KakaoLoginService;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import static org.sopt.lequuServer.global.exception.enums.ErrorType.INVALID_TOKEN_HEADER_ERROR;
+import static org.sopt.lequuServer.global.exception.enums.ErrorType.*;
 
 @Service
 @RequiredArgsConstructor
@@ -74,13 +73,13 @@ public class UserService {
 
     private void validateUserId(Long userId) {
         if (!userRepository.existsById(userId)) {
-            throw new CustomException(ErrorType.INVALID_USER);
+            throw new CustomException(NOT_FOUND_USER_ERROR);
         }
     }
 
     private User getUserBySocialAndSocialId(SocialPlatform socialPlatform, String socialId) {
         return userRepository.findBySocialPlatformAndSocialId(socialPlatform, socialId)
-                .orElseThrow(() -> new CustomException(ErrorType.INVALID_USER));
+                .orElseThrow(() -> new CustomException(NOT_FOUND_USER_ERROR));
     }
 
     private boolean isUserBySocialAndSocialId(SocialPlatform socialPlatform, String socialId) {
@@ -92,13 +91,13 @@ public class UserService {
             case "KAKAO":
                 return kakaoLoginService.getKakaoId(socialAccessToken);
             default:
-                throw new CustomException(ErrorType.INVALID_SOCIAL_ACCESS_TOKEN);
+                throw new CustomException(INVALID_SOCIAL_ACCESS_TOKEN);
         }
     }
 
     private static String parseTokenString(String tokenString) {
         String[] strings = tokenString.split(" ");
-        if (strings.length != 2){
+        if (strings.length != 2) {
             throw new CustomException(INVALID_TOKEN_HEADER_ERROR);
         }
         return strings[1];
