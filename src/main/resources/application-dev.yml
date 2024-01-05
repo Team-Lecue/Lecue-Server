@@ -1,7 +1,7 @@
 spring:
   config:
     activate:
-      on-profile: local
+      on-profile: dev
 
   datasource:
     driver-class-name: ${DB_NAME_DEV}
