@@ -33,10 +33,9 @@ public class UserService {
         socialAccessToken = parseTokenString(socialAccessToken);
 
         SocialPlatform socialPlatform = request.getSocialPlatform();
-        String socialId = login(request.getSocialPlatform(), socialAccessToken);
+        String socialId = login(socialPlatform, socialAccessToken);
 
         boolean isRegistered = isUserBySocialAndSocialId(socialPlatform, socialId);
-
         if (!isRegistered) {
             User user = User.builder()
                     .socialPlatform(socialPlatform)
@@ -46,17 +45,12 @@ public class UserService {
         }
 
         User loginUser = getUserBySocialAndSocialId(socialPlatform, socialId);
-
         // 카카오 로그인은 정보 더 많이 받아올 수 있으므로 추가 설정
         if (socialPlatform == SocialPlatform.KAKAO) {
             kakaoLoginService.setKakaoInfo(loginUser, socialAccessToken);
         }
 
-        if (isRegistered && loginUser.getRefreshToken() != null) {
-            jwtProvider.deleteRefreshToken(loginUser.getRefreshToken());
-        }
         TokenDto tokenDto = jwtProvider.issueToken(new UserAuthentication(loginUser.getId(), null, null));
-        loginUser.updateRefreshToken(tokenDto.getRefreshToken());
 
         return UserLoginResponseDto.of(loginUser, tokenDto);
     }
@@ -67,30 +61,21 @@ public class UserService {
         refreshToken = parseTokenString(refreshToken);
 
         Long userId = jwtProvider.validateRefreshToken(refreshToken);
+        validateUserId(userId);  // userId가 DB에 저장된 유효한 값인지 검사
 
-        if (userId == -1L) {
-            throw new CustomException(ErrorType.NOT_MATCH_REFRESH_TOKEN);
-        }
-        User user = getUserById(userId);  // userId가 DB에 저장된 유효한 값인지 검사
-
-        jwtProvider.deleteRefreshToken(refreshToken);
-        TokenDto reissuedToken =  jwtProvider.issueToken(new UserAuthentication(userId, null, null));
-        user.updateRefreshToken(reissuedToken.getRefreshToken());
-        return reissuedToken;
+        jwtProvider.deleteRefreshToken(userId);
+        return jwtProvider.issueToken(new UserAuthentication(userId, null, null));
     }
 
     @Transactional
     public void logout(Long userId) {
-        User user = getUserById(userId);
-        if (user.getRefreshToken() != null) {
-            jwtProvider.deleteRefreshToken(user.getRefreshToken());
-        }
-        user.updateRefreshToken(null);
+        jwtProvider.deleteRefreshToken(userId);
     }
 
-    private User getUserById(Long userId) {
-        return userRepository.findById(userId)
-                .orElseThrow(() -> new CustomException(ErrorType.INVALID_USER));
+    private void validateUserId(Long userId) {
+        if (!userRepository.existsById(userId)) {
+            throw new CustomException(ErrorType.INVALID_USER);
+        }
     }
 
     private User getUserBySocialAndSocialId(SocialPlatform socialPlatform, String socialId) {

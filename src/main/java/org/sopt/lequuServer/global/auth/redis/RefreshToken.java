@@ -18,9 +18,9 @@ import java.util.concurrent.TimeUnit;
 public class RefreshToken {
 
     @Id
-    private String refreshToken;
-
     private Long userId;
+
+    private String refreshToken;
 
     @TimeToLive(unit = TimeUnit.SECONDS)
     private Integer expiration;
