@@ -1,8 +1,9 @@
 package org.sopt.lequuServer.domain.sticker.model;
 
 import jakarta.persistence.*;
-import lombok.*;
-import org.sopt.lequuServer.domain.book.model.Book;
+import lombok.AccessLevel;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 import org.sopt.lequuServer.global.common.model.BaseTimeEntity;
 
 @Entity
@@ -23,17 +24,15 @@ public class Sticker extends BaseTimeEntity {
     @Column(nullable = false)
     private StickerCategory category;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "book_id")
-    private Book book;
+    private Long bookId;
 
-    public Sticker(String stickerImage, StickerCategory category, Book book) {
+    public Sticker(String stickerImage, StickerCategory category, Long bookId) {
         this.stickerImage = stickerImage;
         this.category = category;
-        this.book = book;
+        this.bookId = bookId;
     }
 
-    public static Sticker of(String stickerImage, StickerCategory category, Book book) {
-        return new Sticker(stickerImage, category, book);
+    public static Sticker of(String stickerImage, StickerCategory category, Long bookId) {
+        return new Sticker(stickerImage, category, bookId);
     }
 }
