@@ -1,7 +1,6 @@
 package org.sopt.lequuServer.domain.sticker.service;
 
 import lombok.RequiredArgsConstructor;
-import org.sopt.lequuServer.domain.book.model.Book;
 import org.sopt.lequuServer.domain.book.repository.BookJpaRepository;
 import org.sopt.lequuServer.domain.sticker.dto.response.StickerPackResponse;
 import org.sopt.lequuServer.domain.sticker.model.Sticker;
@@ -11,6 +10,7 @@ import org.sopt.lequuServer.global.exception.model.CustomException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Arrays;
 import java.util.List;
 
 @Service
@@ -27,12 +27,10 @@ public class StickerService {
             throw new CustomException(ErrorType.NOT_FOUND_BOOK_ERROR);
         }
 
-        // 공통 스티커팩
-        List<Sticker> defaultStickerPackList = stickerRepository.findStickersByBookId(0L);
-        // 해당 레큐북 스티커팩
-        List<Sticker> stickerPackList = stickerRepository.findStickersByBookId(bookId);
-        defaultStickerPackList.addAll(stickerPackList);
-
-        return StickerPackResponse.of(defaultStickerPackList);
+        // 공통 스티커팩 + 해당 레큐북 스티커팩
+        List<Long> bookIds = Arrays.asList(0L, bookId);
+        List<Sticker> stickerPack = stickerRepository.findStickersByBookIds(bookIds);
+        
+        return StickerPackResponse.of(stickerPack);
     }
 }
