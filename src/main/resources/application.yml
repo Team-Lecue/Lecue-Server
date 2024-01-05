@@ -1,22 +1,6 @@
-server:
-  address: 0.0.0.0
-
 spring:
-  datasource:
-    driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://${DATABASE_ENDPOINT_URL}:3306/${DATABASE_NAME}?serverTimezone=UTC&characterEncoding=UTF-8
-    username: ${DATABASE_USER}
-    password: ${DATABASE_PASSWORD}
-
-  jpa:
-    show-sql: true
-    hibernate:
-      ddl-auto: update
-    properties:
-      hibernate:
-        format_sql: true
-        show_sql: true
-        default_batch_fetch_size: 500
+  profiles:
+    active: local
 
   servlet:
     multipart:
@@ -24,13 +8,8 @@ spring:
       max-file-size: 3MB
       max-request-size: 5MB
 
-  data:
-    redis:
-      host: redis
-      port: 6379
-
-  config:
-    import: optional:application-secret.properties
+jwt:
+  secret: ${JWT_SECRET}
 
 cloud:
   aws:
@@ -39,11 +18,3 @@ cloud:
       secretKey: ${SECRET_KEY}
       aws-region: ap-northeast-2
       s3-bucket-name: ${BUCKET_NAME}
-
-kakao:
-  client-id: ${KAKAO_ID}
-  authorization-grant-type: authorization_code
-  redirect-uri: ${KAKAO_REDIRECT}
-
-jwt:
-  secret: ${JWT_SECRET}
