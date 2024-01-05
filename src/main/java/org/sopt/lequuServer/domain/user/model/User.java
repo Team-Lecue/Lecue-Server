@@ -39,19 +39,10 @@ public class User extends BaseTimeEntity {
 
     private String socialProfileImage;
 
-    private String socialAccessToken;
-
     // 로그인 새롭게 할 때마다 해당 필드들 업데이트
-    public void updateSocialInfo(String socialNickname, String socialProfileImage, String socialAccessToken) {
+    public void updateSocialInfo(String socialNickname, String socialProfileImage) {
         this.socialNickname = socialNickname;
         this.socialProfileImage = socialProfileImage;
-        this.socialAccessToken = socialAccessToken;
-    }
-
-    private String refreshToken;
-
-    public void updateRefreshToken(String refreshToken) {
-        this.refreshToken = refreshToken;
     }
 
     /**

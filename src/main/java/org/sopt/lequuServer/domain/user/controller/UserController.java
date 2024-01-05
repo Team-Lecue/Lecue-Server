@@ -39,7 +39,7 @@ public class UserController {
         return ApiResponse.success(REISSUE_SUCCESS, userService.reissueToken(refreshToken));
     }
 
-    @PostMapping("/log-out") // Spring Security 자체의 logout과 겹치지 않기 위해 이렇게 설정
+    @PatchMapping("/log-out") // Spring Security 자체의 logout과 겹치지 않기 위해 이렇게 설정
     @ResponseStatus(HttpStatus.OK)
     public ApiResponse<?> logout(Principal principal) {
 

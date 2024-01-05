@@ -1,0 +1,31 @@
+spring:
+  config:
+    activate:
+      on-profile: local
+    import: optional:application-secret.properties
+
+  datasource:
+    driver-class-name: ${DB_NAME_LOCAL}
+    url: ${DB_URL_LOCAL}
+    username: ${DB_USER_LOCAL}
+    password: ${DB_PW_LOCAL}
+
+  jpa:
+    show-sql: true
+    hibernate:
+      ddl-auto: create
+    properties:
+      hibernate:
+        format_sql: true
+        show_sql: true
+        default_batch_fetch_size: 500
+
+  data:
+    redis:
+      host: localhost
+      port: 6379
+
+kakao:
+  client-id: ${KAKAO_ID}
+  authorization-grant-type: authorization_code
+  redirect-uri: ${KAKAO_REDIRECT_LOCAL}
