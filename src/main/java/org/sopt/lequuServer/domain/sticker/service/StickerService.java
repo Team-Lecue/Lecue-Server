@@ -3,7 +3,7 @@ package org.sopt.lequuServer.domain.sticker.service;
 import lombok.RequiredArgsConstructor;
 import org.sopt.lequuServer.domain.sticker.dto.response.StickerPackResponse;
 import org.sopt.lequuServer.domain.sticker.model.Sticker;
-import org.sopt.lequuServer.domain.sticker.repository.StickerJpaRepository;
+import org.sopt.lequuServer.domain.sticker.repository.StickerRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -15,7 +15,7 @@ import java.util.List;
 @Transactional(readOnly = true)
 public class StickerService {
 
-    private final StickerJpaRepository stickerRepository;
+    private final StickerRepository stickerRepository;
 
     public List<StickerPackResponse> getStickerPackList(Long bookId) {
 
