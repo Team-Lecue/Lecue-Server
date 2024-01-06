@@ -1,7 +1,7 @@
 package org.sopt.lequuServer.global.auth.fegin.kakao;
 
 import lombok.RequiredArgsConstructor;
-import org.sopt.lequuServer.domain.user.model.User;
+import org.sopt.lequuServer.domain.member.model.Member;
 import org.sopt.lequuServer.global.auth.fegin.kakao.response.KakaoAccessTokenResponse;
 import org.sopt.lequuServer.global.auth.fegin.kakao.response.KakaoUserResponse;
 import org.sopt.lequuServer.global.exception.model.CustomException;
@@ -47,12 +47,12 @@ public class KakaoLoginService {
         return Long.toString(userResponse.getId());
     }
 
-    public void setKakaoInfo(User loginUser, String socialAccessToken) {
+    public void setKakaoInfo(Member loginMember, String socialAccessToken) {
 
         // 카카오 Access 토큰으로 유저 정보 불러오기
         KakaoUserResponse userResponse = kakaoApiClient.getUserInformation("Bearer " + socialAccessToken);
 
-        loginUser.updateSocialInfo(userResponse.getKakaoAccount().getProfile().getNickname(),
+        loginMember.updateSocialInfo(userResponse.getKakaoAccount().getProfile().getNickname(),
                 userResponse.getKakaoAccount().getProfile().getProfileImageUrl());
     }
 

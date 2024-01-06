@@ -1,4 +1,4 @@
-package org.sopt.lequuServer.domain.user.model;
+package org.sopt.lequuServer.domain.member.model;
 
 import lombok.AccessLevel;
 import lombok.Getter;
