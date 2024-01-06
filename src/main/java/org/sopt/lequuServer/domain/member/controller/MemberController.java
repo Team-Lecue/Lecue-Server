@@ -16,6 +16,7 @@ import java.security.Principal;
 import static org.sopt.lequuServer.global.exception.enums.SuccessType.*;
 
 @RestController
+@RequestMapping("/api")
 @RequiredArgsConstructor
 public class MemberController {
 
