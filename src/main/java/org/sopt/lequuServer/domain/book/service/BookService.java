@@ -5,9 +5,10 @@ import org.sopt.lequuServer.domain.book.dto.request.BookCreateRequest;
 import org.sopt.lequuServer.domain.book.dto.response.BookCreateResponse;
 import org.sopt.lequuServer.domain.book.model.Book;
 import org.sopt.lequuServer.domain.book.repository.BookJpaRepository;
-import org.sopt.lequuServer.domain.user.model.User;
-import org.sopt.lequuServer.domain.user.repository.UserJpaRepository;
+import org.sopt.lequuServer.domain.member.model.Member;
+import org.sopt.lequuServer.domain.member.repository.MemberJpaRepository;
 import org.sopt.lequuServer.global.auth.jwt.JwtProvider;
+import org.sopt.lequuServer.global.exception.enums.ErrorType;
 import org.sopt.lequuServer.global.exception.model.CustomException;
 import org.sopt.lequuServer.global.s3.service.S3Service;
 import org.springframework.stereotype.Service;
@@ -16,8 +17,6 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.Optional;
 import java.util.UUID;
 
-import static org.sopt.lequuServer.global.exception.enums.ErrorType.INVALID_USER;
-import static org.sopt.lequuServer.global.exception.enums.ErrorType.NOT_FOUND_BOOK_ID;
 import static org.sopt.lequuServer.global.s3.enums.ImageFolderName.BOOK_FAVORITE_IMAGE_FOLDER_NAME;
 
 @Service
@@ -26,7 +25,7 @@ import static org.sopt.lequuServer.global.s3.enums.ImageFolderName.BOOK_FAVORITE
 public class BookService {
 
     private final BookJpaRepository bookJpaRepository;
-    private final UserJpaRepository userJpaRepository;
+    private final MemberJpaRepository memberJpaRepository;
     private final S3Service s3Service;
     private final JwtProvider jwtProvider;
 
@@ -45,15 +44,15 @@ public class BookService {
 
         // 유효한 토큰이 가지고 있는 유저 정보가 올바른지
         Long userId = jwtProvider.getUserFromJwt(token);
-        Optional<User> findById = userJpaRepository.findById(userId);
+        Optional<Member> findById = memberJpaRepository.findById(userId);
 
         // 전송된 토큰으로 식별되는 유저가 없을 경우
         if (findById.isEmpty()) {
-            throw new CustomException(INVALID_USER);
+            throw new CustomException(ErrorType.NOT_FOUND_MEMBER_ERROR);
         }
 
         // optional 객체 안에 있는 실제 User 객체를 꺼냄
-        User user = findById.get();
+        Member member = findById.get();
 
         // 유저 검증이 완료된 후에 새로운 Book 객체를 생성할 수 있는 것
         // UUID 생성
@@ -69,7 +68,7 @@ public class BookService {
                 .title(request.title())
                 .description(request.description())
                 .backgroundColor(request.backgroundColor())
-                .user(user)
+                .member(member)
                 .build();
 
         Book saveBook = bookJpaRepository.save(book);   // save된 객체를 가져와야 객체의 id를 받아올 수 있음
