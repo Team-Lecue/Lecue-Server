@@ -1,9 +1,9 @@
-package org.sopt.lequuServer.domain.user.controller;
+package org.sopt.lequuServer.domain.member.controller;
 
 import lombok.RequiredArgsConstructor;
-import org.sopt.lequuServer.domain.user.dto.request.SocialLoginRequestDto;
-import org.sopt.lequuServer.domain.user.dto.response.UserLoginResponseDto;
-import org.sopt.lequuServer.domain.user.service.UserService;
+import org.sopt.lequuServer.domain.member.dto.request.SocialLoginRequestDto;
+import org.sopt.lequuServer.domain.member.dto.response.MemberLoginResponseDto;
+import org.sopt.lequuServer.domain.member.service.MemberService;
 import org.sopt.lequuServer.global.auth.fegin.kakao.KakaoLoginService;
 import org.sopt.lequuServer.global.auth.jwt.JwtProvider;
 import org.sopt.lequuServer.global.auth.jwt.TokenDto;
@@ -16,19 +16,20 @@ import java.security.Principal;
 import static org.sopt.lequuServer.global.exception.enums.SuccessType.*;
 
 @RestController
+@RequestMapping("/api")
 @RequiredArgsConstructor
-public class UserController {
+public class MemberController {
 
-    private final UserService userService;
+    private final MemberService memberService;
     private final KakaoLoginService kakaoLoginService;
 
     @PostMapping("/login")
     @ResponseStatus(HttpStatus.OK)
-    public ApiResponse<UserLoginResponseDto> login(
+    public ApiResponse<MemberLoginResponseDto> login(
             @RequestHeader("Authorization") String socialAccessToken,
             @RequestBody SocialLoginRequestDto request) {
 
-        return ApiResponse.success(LOGIN_SUCCESS, userService.login(socialAccessToken, request));
+        return ApiResponse.success(LOGIN_SUCCESS, memberService.login(socialAccessToken, request));
     }
 
     @GetMapping("/reissue")
@@ -36,14 +37,14 @@ public class UserController {
     public ApiResponse<TokenDto> reissue(
             @RequestHeader("Authorization") String refreshToken) {
 
-        return ApiResponse.success(REISSUE_SUCCESS, userService.reissueToken(refreshToken));
+        return ApiResponse.success(REISSUE_SUCCESS, memberService.reissueToken(refreshToken));
     }
 
     @PatchMapping("/log-out") // Spring Security 자체의 logout과 겹치지 않기 위해 이렇게 설정
     @ResponseStatus(HttpStatus.OK)
     public ApiResponse<?> logout(Principal principal) {
 
-        userService.logout(JwtProvider.getUserFromPrincial(principal));
+        memberService.logout(JwtProvider.getUserFromPrincial(principal));
         return ApiResponse.success(LOGOUT_SUCCESS);
     }
 

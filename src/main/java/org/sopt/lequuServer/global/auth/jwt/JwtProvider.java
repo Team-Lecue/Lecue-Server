@@ -26,8 +26,8 @@ import static org.sopt.lequuServer.global.exception.enums.ErrorType.*;
 @RequiredArgsConstructor
 public class JwtProvider {
 
-    private static final Long ACCESS_TOKEN_EXPIRATION_TIME = 60 * 1000L;  // 액세스 토큰 만료 시간: 1분으로 지정
-    private static final Long REFRESH_TOKEN_EXPIRATION_TIME = 60 * 1000L * 2;  // 리프레시 토큰 만료 시간: 2분으로 지정
+    private static final Long ACCESS_TOKEN_EXPIRATION_TIME = 60 * 1000L * 60 * 24 * 365;  // 액세스 토큰 만료 시간: 1년으로 지정
+    private static final Long REFRESH_TOKEN_EXPIRATION_TIME = 60 * 1000L * 2 * 60 * 24 * 365;  // 리프레시 토큰 만료 시간: 2년으로 지정
 
     @Value("${jwt.secret}")
     private String JWT_SECRET;
@@ -63,6 +63,7 @@ public class JwtProvider {
     }
 
     // Refresh 토큰 생성
+
     /**
      * Redis 내부에
      * userId: refreshToken 형태로 저장
@@ -130,7 +131,7 @@ public class JwtProvider {
         if (tokenRepository.existsById(userId)) {
             tokenRepository.deleteById(userId);
         } else {
-            throw new CustomException(NOT_FOUND_REFRESH_TOKEN);
+            throw new CustomException(NOT_FOUND_REFRESH_TOKEN_ERROR);
         }
     }
 
@@ -156,7 +157,7 @@ public class JwtProvider {
 
     public static Long getUserFromPrincial(Principal principal) {
         if (isNull(principal)) {
-            throw new CustomException(EMPTY_PRINCIPLE_EXCEPTION);
+            throw new CustomException(EMPTY_PRINCIPLE_ERROR);
         }
 
         return Long.valueOf(principal.getName());

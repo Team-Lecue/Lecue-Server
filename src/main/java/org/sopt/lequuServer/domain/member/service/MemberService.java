@@ -1,34 +1,33 @@
-package org.sopt.lequuServer.domain.user.service;
+package org.sopt.lequuServer.domain.member.service;
 
 import lombok.RequiredArgsConstructor;
-import org.sopt.lequuServer.domain.user.dto.request.SocialLoginRequestDto;
-import org.sopt.lequuServer.domain.user.dto.response.UserLoginResponseDto;
-import org.sopt.lequuServer.domain.user.model.User;
-import org.sopt.lequuServer.domain.user.repository.UserJpaRepository;
+import org.sopt.lequuServer.domain.member.dto.request.SocialLoginRequestDto;
+import org.sopt.lequuServer.domain.member.dto.response.MemberLoginResponseDto;
+import org.sopt.lequuServer.domain.member.model.SocialPlatform;
+import org.sopt.lequuServer.domain.member.model.Member;
+import org.sopt.lequuServer.domain.member.repository.MemberJpaRepository;
+import org.sopt.lequuServer.global.auth.fegin.kakao.KakaoLoginService;
 import org.sopt.lequuServer.global.auth.jwt.JwtProvider;
 import org.sopt.lequuServer.global.auth.jwt.TokenDto;
 import org.sopt.lequuServer.global.auth.security.UserAuthentication;
-import org.sopt.lequuServer.global.exception.enums.ErrorType;
 import org.sopt.lequuServer.global.exception.model.CustomException;
-import org.sopt.lequuServer.domain.user.model.SocialPlatform;
-import org.sopt.lequuServer.global.auth.fegin.kakao.KakaoLoginService;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import static org.sopt.lequuServer.global.exception.enums.ErrorType.INVALID_TOKEN_HEADER_ERROR;
+import static org.sopt.lequuServer.global.exception.enums.ErrorType.*;
 
 @Service
 @RequiredArgsConstructor
 @Transactional(readOnly = true)
-public class UserService {
+public class MemberService {
 
     private final JwtProvider jwtProvider;
-    private final UserJpaRepository userRepository;
+    private final MemberJpaRepository userRepository;
 
     private final KakaoLoginService kakaoLoginService;
 
     @Transactional
-    public UserLoginResponseDto login(String socialAccessToken, SocialLoginRequestDto request) {
+    public MemberLoginResponseDto login(String socialAccessToken, SocialLoginRequestDto request) {
 
         socialAccessToken = parseTokenString(socialAccessToken);
 
@@ -37,22 +36,22 @@ public class UserService {
 
         boolean isRegistered = isUserBySocialAndSocialId(socialPlatform, socialId);
         if (!isRegistered) {
-            User user = User.builder()
+            Member member = Member.builder()
                     .socialPlatform(socialPlatform)
                     .socialId(socialId).build();
 
-            userRepository.save(user);
+            userRepository.save(member);
         }
 
-        User loginUser = getUserBySocialAndSocialId(socialPlatform, socialId);
+        Member loginMember = getUserBySocialAndSocialId(socialPlatform, socialId);
         // 카카오 로그인은 정보 더 많이 받아올 수 있으므로 추가 설정
         if (socialPlatform == SocialPlatform.KAKAO) {
-            kakaoLoginService.setKakaoInfo(loginUser, socialAccessToken);
+            kakaoLoginService.setKakaoInfo(loginMember, socialAccessToken);
         }
 
-        TokenDto tokenDto = jwtProvider.issueToken(new UserAuthentication(loginUser.getId(), null, null));
+        TokenDto tokenDto = jwtProvider.issueToken(new UserAuthentication(loginMember.getId(), null, null));
 
-        return UserLoginResponseDto.of(loginUser, tokenDto);
+        return MemberLoginResponseDto.of(loginMember, tokenDto);
     }
 
     @Transactional
@@ -74,13 +73,13 @@ public class UserService {
 
     private void validateUserId(Long userId) {
         if (!userRepository.existsById(userId)) {
-            throw new CustomException(ErrorType.INVALID_USER);
+            throw new CustomException(NOT_FOUND_MEMBER_ERROR);
         }
     }
 
-    private User getUserBySocialAndSocialId(SocialPlatform socialPlatform, String socialId) {
+    private Member getUserBySocialAndSocialId(SocialPlatform socialPlatform, String socialId) {
         return userRepository.findBySocialPlatformAndSocialId(socialPlatform, socialId)
-                .orElseThrow(() -> new CustomException(ErrorType.INVALID_USER));
+                .orElseThrow(() -> new CustomException(NOT_FOUND_MEMBER_ERROR));
     }
 
     private boolean isUserBySocialAndSocialId(SocialPlatform socialPlatform, String socialId) {
@@ -92,13 +91,13 @@ public class UserService {
             case "KAKAO":
                 return kakaoLoginService.getKakaoId(socialAccessToken);
             default:
-                throw new CustomException(ErrorType.INVALID_SOCIAL_ACCESS_TOKEN);
+                throw new CustomException(INVALID_SOCIAL_ACCESS_TOKEN);
         }
     }
 
     private static String parseTokenString(String tokenString) {
         String[] strings = tokenString.split(" ");
-        if (strings.length != 2){
+        if (strings.length != 2) {
             throw new CustomException(INVALID_TOKEN_HEADER_ERROR);
         }
         return strings[1];
