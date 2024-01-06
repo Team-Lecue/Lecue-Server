@@ -38,6 +38,8 @@ public class Book extends BaseTimeEntity {
 
     private int backgroundColor;
 
+    private boolean isPopular;
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "member_id")
     private Member member;
@@ -65,6 +67,7 @@ public class Book extends BaseTimeEntity {
         this.description = description;
         this.backgroundColor = backgroundColor;
         this.member = member;
+        this.isPopular = false;
     }
 
     public static Book of(String uuid, String favoriteName, String favoriteImage, String title, String description, int backgroundColor, Member member) {
