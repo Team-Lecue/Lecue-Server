@@ -25,7 +25,7 @@ public class BookService {
     private final S3Service s3Service;
 
     @Transactional
-    public BookCreateResponse createBook(BookCreateRequest request, Long userId) {
+    public BookCreateResponse createBook(BookCreateRequest request, Long memberId) {
 
         /**
          * 요청을 한 유저를 가장 먼저 검증하고
@@ -34,7 +34,7 @@ public class BookService {
          * 청을 한 유저 검증 -> Filter에서 다 해줌
          */
 
-        Member member = memberRepository.findByIdOrThrow(userId);
+        Member member = memberRepository.findByIdOrThrow(memberId);
 
         // 유저 검증이 완료된 후에 새로운 Book 객체를 생성할 수 있는 것
         // UUID 생성
