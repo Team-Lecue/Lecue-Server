@@ -5,7 +5,7 @@ import org.sopt.lequuServer.domain.member.dto.request.SocialLoginRequestDto;
 import org.sopt.lequuServer.domain.member.dto.response.MemberLoginResponseDto;
 import org.sopt.lequuServer.domain.member.model.SocialPlatform;
 import org.sopt.lequuServer.domain.member.model.Member;
-import org.sopt.lequuServer.domain.member.repository.MemberJpaRepository;
+import org.sopt.lequuServer.domain.member.repository.MemberRepository;
 import org.sopt.lequuServer.global.auth.fegin.kakao.KakaoLoginService;
 import org.sopt.lequuServer.global.auth.jwt.JwtProvider;
 import org.sopt.lequuServer.global.auth.jwt.TokenDto;
@@ -22,7 +22,7 @@ import static org.sopt.lequuServer.global.exception.enums.ErrorType.*;
 public class MemberService {
 
     private final JwtProvider jwtProvider;
-    private final MemberJpaRepository userRepository;
+    private final MemberRepository userRepository;
 
     private final KakaoLoginService kakaoLoginService;
 
@@ -87,12 +87,10 @@ public class MemberService {
     }
 
     private String login(SocialPlatform socialPlatform, String socialAccessToken) {
-        switch (socialPlatform.toString()) {
-            case "KAKAO":
-                return kakaoLoginService.getKakaoId(socialAccessToken);
-            default:
-                throw new CustomException(INVALID_SOCIAL_ACCESS_TOKEN);
-        }
+        return switch (socialPlatform.toString()) {
+            case "KAKAO" -> kakaoLoginService.getKakaoId(socialAccessToken);
+            default -> throw new CustomException(INVALID_SOCIAL_ACCESS_TOKEN);
+        };
     }
 
     private static String parseTokenString(String tokenString) {
