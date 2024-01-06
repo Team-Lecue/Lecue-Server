@@ -4,7 +4,7 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.sopt.lequuServer.domain.book.dto.request.BookCreateRequest;
 import org.sopt.lequuServer.domain.book.dto.response.BookCreateResponse;
-import org.sopt.lequuServer.domain.book.service.BookService;
+import org.sopt.lequuServer.domain.book.facade.BookFacade;
 import org.sopt.lequuServer.global.auth.jwt.JwtProvider;
 import org.sopt.lequuServer.global.common.dto.ApiResponse;
 import org.sopt.lequuServer.global.exception.enums.SuccessType;
@@ -20,10 +20,10 @@ import java.security.Principal;
 @RequiredArgsConstructor
 public class BookController {
 
-    private final BookService bookService;
+    private final BookFacade bookFacade;
 
     @PostMapping
     public ApiResponse<BookCreateResponse> createBook(@Valid @RequestBody BookCreateRequest request, Principal principal) {
-        return ApiResponse.success(SuccessType.BOOK_CREATE_SUCCESS, bookService.createBook(request, JwtProvider.getUserFromPrincial(principal)));
+        return ApiResponse.success(SuccessType.BOOK_CREATE_SUCCESS, bookFacade.createBook(request, JwtProvider.getUserFromPrincial(principal)));
     }
 }

@@ -21,9 +21,9 @@ import static org.sopt.lequuServer.global.exception.enums.ErrorType.*;
 @Transactional(readOnly = true)
 public class MemberService {
 
-    private final JwtProvider jwtProvider;
-    private final MemberRepository userRepository;
+    private final MemberRepository memberRepository;
 
+    private final JwtProvider jwtProvider;
     private final KakaoLoginService kakaoLoginService;
 
     @Transactional
@@ -40,7 +40,7 @@ public class MemberService {
                     .socialPlatform(socialPlatform)
                     .socialId(socialId).build();
 
-            userRepository.save(member);
+            memberRepository.save(member);
         }
 
         Member loginMember = getUserBySocialAndSocialId(socialPlatform, socialId);
@@ -72,18 +72,18 @@ public class MemberService {
     }
 
     private void validateMemberId(Long memberId) {
-        if (!userRepository.existsById(memberId)) {
+        if (!memberRepository.existsById(memberId)) {
             throw new CustomException(NOT_FOUND_MEMBER_ERROR);
         }
     }
 
     private Member getUserBySocialAndSocialId(SocialPlatform socialPlatform, String socialId) {
-        return userRepository.findBySocialPlatformAndSocialId(socialPlatform, socialId)
+        return memberRepository.findBySocialPlatformAndSocialId(socialPlatform, socialId)
                 .orElseThrow(() -> new CustomException(NOT_FOUND_MEMBER_ERROR));
     }
 
     private boolean isUserBySocialAndSocialId(SocialPlatform socialPlatform, String socialId) {
-        return userRepository.existsBySocialPlatformAndSocialId(socialPlatform, socialId);
+        return memberRepository.existsBySocialPlatformAndSocialId(socialPlatform, socialId);
     }
 
     private String login(SocialPlatform socialPlatform, String socialAccessToken) {
@@ -99,5 +99,9 @@ public class MemberService {
             throw new CustomException(INVALID_TOKEN_HEADER_ERROR);
         }
         return strings[1];
+    }
+
+    public Member getMember(Long memberId) {
+        return memberRepository.findByIdOrThrow(memberId);
     }
 }
