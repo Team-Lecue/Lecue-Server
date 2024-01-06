@@ -1,5 +1,3 @@
-
-
 package org.sopt.lequuServer.domain.book.repository;
 
 import org.sopt.lequuServer.domain.book.model.Book;

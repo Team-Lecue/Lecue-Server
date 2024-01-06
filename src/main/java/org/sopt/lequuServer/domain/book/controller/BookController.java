@@ -1,5 +1,6 @@
 package org.sopt.lequuServer.domain.book.controller;
 
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.sopt.lequuServer.domain.book.dto.request.BookCreateRequest;
 import org.sopt.lequuServer.domain.book.dto.response.BookCreateResponse;
@@ -16,7 +17,7 @@ public class BookController {
     private final BookService bookService;
 
     @PostMapping
-    public ApiResponse<BookCreateResponse> createBook(@RequestBody BookCreateRequest request, @RequestHeader("Authorization") String authorization) {
+    public ApiResponse<BookCreateResponse> createBook(@Valid @RequestBody BookCreateRequest request, @RequestHeader("Authorization") String authorization) {
         return ApiResponse.success(SuccessType.BOOK_CREATE_SUCCESS, bookService.createBook(request, authorization));
     }
 
