@@ -22,6 +22,7 @@ public enum SuccessType {
 
     STICKER_PACK_LIST_SUCCESS(HttpStatus.OK, "스티커팩 목록 조회에 성공했습니다."),
     GET_SPLASH_SUCCESS(HttpStatus.OK, "스플래시 조회에 성공했습니다."),
+    GET_HOME_SUCCESS(HttpStatus.OK, "홈 화면 조회에 성공했습니다."),
     ;
 
     private final HttpStatus httpStatus;
