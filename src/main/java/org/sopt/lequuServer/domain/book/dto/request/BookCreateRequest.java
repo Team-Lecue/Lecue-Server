@@ -19,6 +19,7 @@ public record BookCreateRequest(
         @Size(min = 1, max = 100, message = "레큐북 소개는 1자 이상 100자 이하여야합니다.")
         String description,
 
+        // TODO 숫자 1 or 2로 제한할 수 있는 것 추가
         int backgroundColor
 ) {
 }
