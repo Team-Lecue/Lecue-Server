@@ -10,7 +10,8 @@ import org.sopt.lequuServer.global.common.model.BaseTimeEntity;
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Table(name = "note")
-public class Note extends BaseTimeEntity {
+public class
+Note extends BaseTimeEntity {
 
     @Id
     @Column(name = "note_id")

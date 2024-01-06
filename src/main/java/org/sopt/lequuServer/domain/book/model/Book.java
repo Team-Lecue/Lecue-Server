@@ -59,7 +59,7 @@ public class Book extends BaseTimeEntity {
     }
 
     @Builder
-    public Book(String uuid, String favoriteName, String favoriteImage, String title, String description, int backgroundColor, Member member) {
+    public Book(String uuid, String favoriteName, String favoriteImage, String title, String description, int backgroundColor, Member member, boolean isPopular) {
         this.uuid = uuid;
         this.favoriteName = favoriteName;
         this.favoriteImage = favoriteImage;
@@ -67,11 +67,11 @@ public class Book extends BaseTimeEntity {
         this.description = description;
         this.backgroundColor = backgroundColor;
         this.member = member;
-        this.isPopular = false;
+        this.isPopular = isPopular;
     }
 
-    public static Book of(String uuid, String favoriteName, String favoriteImage, String title, String description, int backgroundColor, Member member) {
-        return new Book(uuid, favoriteName, favoriteImage, title, description, backgroundColor, member);
+    public static Book of(String uuid, String favoriteName, String favoriteImage, String title, String description, int backgroundColor, Member member, boolean isPopular) {
+        return new Book(uuid, favoriteName, favoriteImage, title, description, backgroundColor, member, isPopular);
     }
 
     // TODO S3 테스트용, 추후 삭제
