@@ -3,7 +3,6 @@
 > 함께 꾸미며 ✨최애✨에게 진심을 전하는 롤링페이퍼 서비스
 
 <img src="https://github.com/Team-Lecue/Lecue-Server/assets/67463603/77faaad4-1dc0-49ff-a19c-71f07e52b9ac" width="600"/>
-<img src="https://github.com/Team-Lecue/Lecue-Server/assets/67463603/03192175-c0ba-4faa-9235-086f1385fb84" width="136"/>
 
 <hr>
 
@@ -90,12 +89,14 @@
 
 ## 💌 Convention Docs
 
-### 🔗 [Link](https://rileybyeon.notion.site/Backend-Convention-809638273ff2424a83e1182632f6aada?pvs=4)
+### 🔗 [레버들은 어떻게 일할까..? 브랜치 전략 등 바로 보러 가기!](https://rileybyeon.notion.site/Backend-Convention-809638273ff2424a83e1182632f6aada?pvs=4)
 
 ## 💌 API Docs
 
-### 🔗 [Link](https://rileybyeon.notion.site/813232d6af2d48a0b8354a31292e55fc?v=40ebbfda36b04d4f82d95369cb2b089c&pvs=4)
+### 🔗 [레버의 깔꼼~쓰껄~한 API 명세서 보러 가기!](https://rileybyeon.notion.site/813232d6af2d48a0b8354a31292e55fc?v=40ebbfda36b04d4f82d95369cb2b089c&pvs=4)
 
 ## 💌 ERD
+
+🎨 `sticker`와 📝 `book`은 `JPA의 연관관계 매핑`을 사용하지 않음 ❌
 
 <img width="600" alt="image" src="https://github.com/Team-Lecue/Lecue-Server/assets/67463603/4a7883b9-fed6-4039-bec6-1d7770f6b7ab">
