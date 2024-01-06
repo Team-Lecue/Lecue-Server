@@ -3,7 +3,7 @@ package org.sopt.lequuServer.domain.sticker.model;
 import jakarta.persistence.*;
 import lombok.*;
 import org.sopt.lequuServer.domain.book.model.Book;
-import org.sopt.lequuServer.domain.user.model.User;
+import org.sopt.lequuServer.domain.member.model.Member;
 import org.sopt.lequuServer.global.common.model.BaseTimeEntity;
 
 @Entity
@@ -22,8 +22,8 @@ public class PostedSticker extends BaseTimeEntity {
     private int positionY;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_id")
-    private User user;
+    @JoinColumn(name = "member_id")
+    private Member member;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "book_id")

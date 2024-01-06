@@ -26,6 +26,8 @@ public enum SuccessType {
     BOOK_CREATE_SUCCESS(HttpStatus.CREATED, "레큐북이 성공적으로 생성됐습니다."),
     ;
 
+    STICKER_PACK_LIST_SUCCESS(HttpStatus.OK, "스티커팩 목록 조회에 성공했습니다.");
+
     private final HttpStatus httpStatus;
     private final String message;
 

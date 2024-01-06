@@ -1,4 +1,4 @@
-package org.sopt.lequuServer.domain.user.model;
+package org.sopt.lequuServer.domain.member.model;
 
 import jakarta.persistence.*;
 import lombok.*;
@@ -13,11 +13,11 @@ import java.util.List;
 @Entity
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-@Table(name = "user")
-public class User extends BaseTimeEntity {
+@Table(name = "member")
+public class Member extends BaseTimeEntity {
 
     @Id
-    @Column(name = "user_id")
+    @Column(name = "member_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
@@ -48,37 +48,37 @@ public class User extends BaseTimeEntity {
     /**
      * 연관 되어 있는 엔티티
      */
-    @OneToMany(mappedBy = "user")
+    @OneToMany(mappedBy = "member")
     private final List<Book> books = new ArrayList<>();
 
     public void addBook(Book book) {
         books.add(book);
     }
 
-    @OneToMany(mappedBy = "user")
+    @OneToMany(mappedBy = "member")
     private final List<Note> notes = new ArrayList<>();
 
     public void addNote(Note note) {
         notes.add(note);
     }
 
-    @OneToMany(mappedBy = "user")
+    @OneToMany(mappedBy = "member")
     private final List<PostedSticker> postedStickers = new ArrayList<>();
 
     public void addPostedSticker(PostedSticker postedSticker) {
         postedStickers.add(postedSticker);
     }
-  
+
     /**
      * 유저가 최초로 생성될 때 필요한 최소 정보
      */
     @Builder
-    public User(SocialPlatform socialPlatform, String socialId) {
+    public Member(SocialPlatform socialPlatform, String socialId) {
         this.socialPlatform = socialPlatform;
         this.socialId = socialId;
     }
 
-    public static User of(SocialPlatform socialPlatform, String socialId) {
-        return new User(socialPlatform, socialId);
+    public static Member of(SocialPlatform socialPlatform, String socialId) {
+        return new Member(socialPlatform, socialId);
     }
 }
