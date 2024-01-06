@@ -7,14 +7,10 @@ import org.sopt.lequuServer.domain.book.model.Book;
 import org.sopt.lequuServer.domain.book.repository.BookRepository;
 import org.sopt.lequuServer.domain.member.model.Member;
 import org.sopt.lequuServer.domain.member.repository.MemberRepository;
-import org.sopt.lequuServer.global.auth.jwt.JwtProvider;
-import org.sopt.lequuServer.global.exception.enums.ErrorType;
-import org.sopt.lequuServer.global.exception.model.CustomException;
 import org.sopt.lequuServer.global.s3.service.S3Service;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.Optional;
 import java.util.UUID;
 
 import static org.sopt.lequuServer.global.s3.enums.ImageFolderName.BOOK_FAVORITE_IMAGE_FOLDER_NAME;
@@ -27,10 +23,9 @@ public class BookService {
     private final BookRepository bookRepository;
     private final MemberRepository memberRepository;
     private final S3Service s3Service;
-    private final JwtProvider jwtProvider;
 
     @Transactional
-    public BookCreateResponse createBook(BookCreateRequest request, String authorization) {
+    public BookCreateResponse createBook(BookCreateRequest request, Long userId) {
 
         /**
          * 요청을 한 유저를 가장 먼저 검증하고
@@ -39,20 +34,7 @@ public class BookService {
          * 청을 한 유저 검증 -> Filter에서 다 해줌
          */
 
-        // Bearer을 제외한 토큰 string만 뺴오는곳
-        String token = authorization.split(" ")[1];   // Bearer는 [0]에 담긴 것, 토큰 스트링이 [1]에 담긴 것
-
-        // 유효한 토큰이 가지고 있는 유저 정보가 올바른지
-        Long userId = jwtProvider.getUserFromJwt(token);
-        Optional<Member> findById = memberRepository.findById(userId);
-
-        // 전송된 토큰으로 식별되는 유저가 없을 경우
-        if (findById.isEmpty()) {
-            throw new CustomException(ErrorType.NOT_FOUND_MEMBER_ERROR);
-        }
-
-        // optional 객체 안에 있는 실제 User 객체를 꺼냄
-        Member member = findById.get();
+        Member member = memberRepository.findByIdOrThrow(userId);
 
         // 유저 검증이 완료된 후에 새로운 Book 객체를 생성할 수 있는 것
         // UUID 생성
@@ -71,9 +53,6 @@ public class BookService {
                 .member(member)
                 .build();
 
-        Book saveBook = bookRepository.save(book);   // save된 객체를 가져와야 객체의 id를 받아올 수 있음
-
-        return BookCreateResponse.of(saveBook);
+        return BookCreateResponse.of(bookRepository.save(book));
     }
-
 }
