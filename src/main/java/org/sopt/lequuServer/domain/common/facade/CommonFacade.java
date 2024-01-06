@@ -1,6 +1,7 @@
 package org.sopt.lequuServer.domain.common.facade;
 
 import lombok.RequiredArgsConstructor;
+import org.sopt.lequuServer.domain.common.dto.response.SplashDto;
 import org.sopt.lequuServer.domain.note.service.NoteService;
 import org.springframework.stereotype.Service;
 
@@ -10,8 +11,8 @@ public class CommonFacade {
 
     private final NoteService noteService;
 
-    public Long getSplash() {
-        return noteService.getAllNoteCount();
+    public SplashDto getSplash() {
+        return SplashDto.of(noteService.getAllNoteCount());
     }
 
 }

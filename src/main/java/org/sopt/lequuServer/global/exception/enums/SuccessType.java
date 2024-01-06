@@ -21,7 +21,7 @@ public enum SuccessType {
     KAKAO_ACCESS_TOKEN_SUCCESS(HttpStatus.OK, "카카오 엑세스 토큰을 가져오는데 성공했습니다."),
 
     STICKER_PACK_LIST_SUCCESS(HttpStatus.OK, "스티커팩 목록 조회에 성공했습니다."),
-    GET_SPLASH_SUCCESS(HttpStatus.OK, "전체 노트의 수를 성공적으로 조회했습니다."),
+    GET_SPLASH_SUCCESS(HttpStatus.OK, "스플래시 조회에 성공했습니다."),
     ;
 
     private final HttpStatus httpStatus;
