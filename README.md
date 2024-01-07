@@ -44,7 +44,7 @@
 
 ## 💌 Architecture
 
-<img width="7000" alt="image" src="https://github.com/Team-Lecue/Lecue-Server/assets/67463603/e35e3bcf-e7d4-4530-8ed0-07451409278e">
+<img width="1000" alt="image" src="https://github.com/Team-Lecue/Lecue-Server/assets/67463603/29b83d0b-f831-469b-8c67-1ba9778148ae">
 
 ## 💌 Structure
 
@@ -99,4 +99,4 @@
 
 🎨 `sticker`와 📝 `book`은 `JPA의 연관관계 매핑`을 사용하지 않음 ❌
 
-<img width="450" alt="image" src="https://github.com/Team-Lecue/Lecue-Server/assets/67463603/4a7883b9-fed6-4039-bec6-1d7770f6b7ab">
+<img width="530" alt="image" src="https://github.com/Team-Lecue/Lecue-Server/assets/67463603/4a7883b9-fed6-4039-bec6-1d7770f6b7ab">
