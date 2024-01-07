@@ -2,23 +2,21 @@ package org.sopt.lequuServer.domain.sticker.service;
 
 import lombok.RequiredArgsConstructor;
 import org.sopt.lequuServer.domain.book.model.Book;
-import org.sopt.lequuServer.domain.book.repository.BookJpaRepository;
+import org.sopt.lequuServer.domain.book.repository.BookRepository;
+import org.sopt.lequuServer.domain.member.model.Member;
+import org.sopt.lequuServer.domain.member.repository.MemberRepository;
+import org.sopt.lequuServer.domain.sticker.dto.request.StickerPostRequest;
 import org.sopt.lequuServer.domain.sticker.dto.response.StickerPackResponse;
 import org.sopt.lequuServer.domain.sticker.dto.response.StickerPostResponse;
 import org.sopt.lequuServer.domain.sticker.model.PostedSticker;
 import org.sopt.lequuServer.domain.sticker.model.Sticker;
 import org.sopt.lequuServer.domain.sticker.repository.PostedStickerRepository;
 import org.sopt.lequuServer.domain.sticker.repository.StickerRepository;
-import org.sopt.lequuServer.domain.member.model.Member;
-import org.sopt.lequuServer.domain.member.repository.MemberRepository;
-import org.sopt.lequuServer.global.exception.model.CustomException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Arrays;
 import java.util.List;
-
-import static org.sopt.lequuServer.global.exception.enums.ErrorType.NOT_FOUND_BOOK_ERROR;
 
 @Service
 @RequiredArgsConstructor
@@ -26,7 +24,7 @@ import static org.sopt.lequuServer.global.exception.enums.ErrorType.NOT_FOUND_BO
 public class StickerService {
 
     private final MemberRepository memberRepository;
-    private final BookRepsitory bookRepository;
+    private final BookRepository bookRepository;
     private final StickerRepository stickerRepository;
     private final PostedStickerRepository postedStickerRepository;
 
@@ -40,11 +38,11 @@ public class StickerService {
     }
 
     @Transactional
-    public StickerPostResponse postSticker(Long userId, StickerPostRequest request) {
-        User user = userRepository.findByIdOrThrow(userId);
+    public StickerPostResponse postSticker(Long memberId, StickerPostRequest request) {
+        Member member = memberRepository.findByIdOrThrow(memberId);
         Book book = bookRepository.findByIdOrThrow(request.bookId());
         Sticker sticker = stickerRepository.findByIdOrThrow(request.stickerId());
 
-        return StickerPostResponse.of(postedStickerRepository.save(PostedSticker.of(request.positionX(), request.positionY(), user, book, sticker)));
+        return StickerPostResponse.of(postedStickerRepository.save(PostedSticker.of(request.positionX(), request.positionY(), member, book, sticker)));
     }
 }

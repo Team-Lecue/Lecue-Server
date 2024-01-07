@@ -13,11 +13,10 @@ public interface StickerRepository extends JpaRepository<Sticker, Long> {
 
     @Query("SELECT s FROM Sticker s WHERE s.bookId IN :bookIds")
     List<Sticker> findStickersByBookIds(@Param("bookIds") List<Long> bookIds);
-    
+
     default Sticker findByIdOrThrow(Long id) {
         return findById(id).orElseThrow(
                 () -> new CustomException(ErrorType.NOT_FOUND_STICKER_ERROR)
         );
     }
-    List<Sticker> findStickersByBookIds(@Param("bookIds") List<Long> bookIds);
 }

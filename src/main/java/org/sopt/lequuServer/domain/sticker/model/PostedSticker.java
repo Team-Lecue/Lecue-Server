@@ -34,15 +34,15 @@ public class PostedSticker extends BaseTimeEntity {
     private Sticker sticker;
 
     @Builder
-    public PostedSticker(int positionX, int positionY, User user, Book book, Sticker sticker) {
+    public PostedSticker(int positionX, int positionY, Member member, Book book, Sticker sticker) {
         this.positionX = positionX;
         this.positionY = positionY;
-        this.user = user;
+        this.member = member;
         this.book = book;
         this.sticker = sticker;
     }
 
-    public static PostedSticker of(int positionX, int positionY, User user, Book book, Sticker sticker) {
-        return new PostedSticker(positionX, positionY, user, book, sticker);
+    public static PostedSticker of(int positionX, int positionY, Member member, Book book, Sticker sticker) {
+        return new PostedSticker(positionX, positionY, member, book, sticker);
     }
 }
