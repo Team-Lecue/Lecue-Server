@@ -2,7 +2,7 @@ package org.sopt.lequuServer.domain.book.controller;
 
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import org.sopt.lequuServer.domain.book.dto.request.BookCreateRequest;
+import org.sopt.lequuServer.domain.book.dto.request.BookCreateRequestDto;
 import org.sopt.lequuServer.domain.book.dto.response.BookCreateResponseDto;
 import org.sopt.lequuServer.domain.book.facade.BookFacade;
 import org.sopt.lequuServer.global.auth.jwt.JwtProvider;
@@ -23,7 +23,7 @@ public class BookController {
     private final BookFacade bookFacade;
 
     @PostMapping
-    public ApiResponse<BookCreateResponseDto> createBook(@Valid @RequestBody BookCreateRequest request, Principal principal) {
+    public ApiResponse<BookCreateResponseDto> createBook(@Valid @RequestBody BookCreateRequestDto request, Principal principal) {
         return ApiResponse.success(SuccessType.BOOK_CREATE_SUCCESS, bookFacade.createBook(request, JwtProvider.getUserFromPrincial(principal)));
     }
 }

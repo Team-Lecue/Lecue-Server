@@ -1,9 +1,9 @@
 package org.sopt.lequuServer.domain.sticker.controller;
 
 import lombok.RequiredArgsConstructor;
-import org.sopt.lequuServer.domain.sticker.dto.request.StickerPostRequest;
-import org.sopt.lequuServer.domain.sticker.dto.response.StickerPostResponse;
-import org.sopt.lequuServer.domain.sticker.dto.response.StickerPackResponse;
+import org.sopt.lequuServer.domain.sticker.dto.request.StickerPostRequestDto;
+import org.sopt.lequuServer.domain.sticker.dto.response.StickerPostResponseDto;
+import org.sopt.lequuServer.domain.sticker.dto.response.StickerPackResponseDto;
 import org.sopt.lequuServer.domain.sticker.facade.StickerFacade;
 import org.sopt.lequuServer.domain.sticker.service.StickerService;
 import org.sopt.lequuServer.global.auth.jwt.JwtProvider;
@@ -20,15 +20,16 @@ import static org.sopt.lequuServer.global.exception.enums.SuccessType.*;
 @RequiredArgsConstructor
 public class StickerController {
 
+    private final StickerService stickerService;
     private final StickerFacade stickerFacade;
 
     @GetMapping("/{bookId}")
-    public ApiResponse<List<StickerPackResponse>> getStickerPackList(@PathVariable Long bookId) {
-        return ApiResponse.success(STICKER_PACK_LIST_SUCCESS, stickerFacade.getStickerPackList(bookId));
+    public ApiResponse<List<StickerPackResponseDto>> getStickerPackList(@PathVariable Long bookId) {
+        return ApiResponse.success(STICKER_PACK_LIST_SUCCESS, stickerService.getStickerPackList(bookId));
     }
 
     @PostMapping
-    public ApiResponse<StickerPostResponse> postSticker(Principal principal, @RequestBody StickerPostRequest request) {
+    public ApiResponse<StickerPostResponseDto> postSticker(Principal principal, @RequestBody StickerPostRequestDto request) {
         return ApiResponse.success(STICKER_POST_SUCCESS, stickerFacade.postSticker(JwtProvider.getUserFromPrincial(principal), request));
     }
 }
