@@ -12,7 +12,7 @@
 ################
 # 아이콘     코드                       대응하는 타입         설명
 # ✨       :sparkles:                  [FEAT]        새로운 기능 구현
-# ✏️️        :pencil2:         (FIX 검색)[MODIFY]      코드 수정
+# ✏️️        :pencil2:                   [FIX]         코드 수정
 # 🐛       :bug:                       [FIX]         버그 수정
 # 🚑       :ambulance:                 [HOTFIX]      핫 픽스
 # 📦       :package:     (PACKAGE 검색)[CHORE]       동작에 영향 없는 코드 or 디렉토리 구조 변경

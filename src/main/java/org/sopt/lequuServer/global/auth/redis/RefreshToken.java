@@ -18,7 +18,7 @@ import java.util.concurrent.TimeUnit;
 public class RefreshToken {
 
     @Id
-    private Long userId;
+    private Long memberId;
 
     private String refreshToken;
 
