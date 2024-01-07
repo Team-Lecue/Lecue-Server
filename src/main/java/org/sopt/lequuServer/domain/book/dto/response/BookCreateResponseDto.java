@@ -2,12 +2,12 @@ package org.sopt.lequuServer.domain.book.dto.response;
 
 import org.sopt.lequuServer.domain.book.model.Book;
 
-public record BookCreateResponse(
+public record BookCreateResponseDto(
         Long bookId,
         String bookUuid
 ) {
-    public static BookCreateResponse of(Book book) {
-        return new BookCreateResponse(
+    public static BookCreateResponseDto of(Book book) {
+        return new BookCreateResponseDto(
                 book.getId(),
                 book.getUuid()
         );
