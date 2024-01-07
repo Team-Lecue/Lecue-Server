@@ -15,7 +15,7 @@ import java.util.List;
 import static org.sopt.lequuServer.global.exception.enums.SuccessType.*;
 
 @RestController
-@RequestMapping("/stickers")
+@RequestMapping("/api/stickers")
 @RequiredArgsConstructor
 public class StickerController {
 

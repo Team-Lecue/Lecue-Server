@@ -8,7 +8,7 @@ import org.springframework.web.multipart.MultipartFile;
 import java.net.URI;
 
 @RestController
-@RequestMapping("/test/s3")
+@RequestMapping("/api/test/s3")
 @RequiredArgsConstructor
 public class TestController {
 

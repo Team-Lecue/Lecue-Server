@@ -18,7 +18,7 @@ import static org.sopt.lequuServer.global.s3.enums.ImageFolderName.NOTE_BACKGROU
  * 포스티잇 배경 사진 업로드에 쓰일 용도인지에 따라 다른 URL 반환
  */
 @RestController
-@RequestMapping("/images")
+@RequestMapping("/api/images")
 @RequiredArgsConstructor
 public class S3Controller {
 

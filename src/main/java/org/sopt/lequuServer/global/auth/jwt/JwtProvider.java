@@ -53,7 +53,7 @@ public class JwtProvider {
                 .setIssuedAt(now)
                 .setExpiration(new Date(now.getTime() + ACCESS_TOKEN_EXPIRATION_TIME));
 
-        claims.put("userId", authentication.getPrincipal());
+        claims.put("memberId", authentication.getPrincipal());
 
         return Jwts.builder()
                 .setHeaderParam(Header.TYPE, Header.JWT_TYPE)
@@ -66,7 +66,7 @@ public class JwtProvider {
 
     /**
      * Redis 내부에
-     * userId: refreshToken 형태로 저장
+     * memberId: refreshToken 형태로 저장
      */
     private String generateRefreshToken(Authentication authentication) {
         final Date now = new Date();
@@ -75,7 +75,7 @@ public class JwtProvider {
                 .setIssuedAt(now)
                 .setExpiration(new Date(now.getTime() + REFRESH_TOKEN_EXPIRATION_TIME));
 
-        claims.put("userId", authentication.getPrincipal());
+        claims.put("memberId", authentication.getPrincipal());
 
         String refreshToken = Jwts.builder()
                 .setHeaderParam(Header.TYPE, Header.JWT_TYPE)
@@ -85,7 +85,7 @@ public class JwtProvider {
 
         tokenRepository.save(
                 RefreshToken.builder()
-                        .userId(Long.parseLong(authentication.getPrincipal().toString()))
+                        .memberId(Long.parseLong(authentication.getPrincipal().toString()))
                         .refreshToken(refreshToken)
                         .expiration(REFRESH_TOKEN_EXPIRATION_TIME.intValue() / 1000)
                         .build()
@@ -118,27 +118,27 @@ public class JwtProvider {
     // Refresh 토큰 검증
     public Long validateRefreshToken(String refreshToken) {
         // Refresh 토큰 만료 : Redis에 해당 Refresh 토큰이 존재하지 않음
-        Long userId = getUserFromJwt(refreshToken);
-        if (tokenRepository.existsById(userId)) {
-            return userId;
+        Long memberId = getUserFromJwt(refreshToken);
+        if (tokenRepository.existsById(memberId)) {
+            return memberId;
         } else {
             throw new CustomException(INVALID_REFRESH_TOKEN);
         }
     }
 
-    // Refresh 토큰 삭제 (userId 기준으로)
-    public void deleteRefreshToken(Long userId) {
-        if (tokenRepository.existsById(userId)) {
-            tokenRepository.deleteById(userId);
+    // Refresh 토큰 삭제 (memberId 기준으로)
+    public void deleteRefreshToken(Long memberId) {
+        if (tokenRepository.existsById(memberId)) {
+            tokenRepository.deleteById(memberId);
         } else {
             throw new CustomException(NOT_FOUND_REFRESH_TOKEN_ERROR);
         }
     }
 
-    // 토큰에 담겨있는 userId 획득
+    // 토큰에 담겨있는 memberId 획득
     public Long getUserFromJwt(String token) {
         Claims claims = getBody(token);
-        return Long.parseLong(claims.get("userId").toString());
+        return Long.parseLong(claims.get("memberId").toString());
     }
 
     private Claims getBody(final String token) {

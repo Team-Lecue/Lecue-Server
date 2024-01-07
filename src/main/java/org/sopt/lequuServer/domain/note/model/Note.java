@@ -3,7 +3,7 @@ package org.sopt.lequuServer.domain.note.model;
 import jakarta.persistence.*;
 import lombok.*;
 import org.sopt.lequuServer.domain.book.model.Book;
-import org.sopt.lequuServer.domain.user.model.User;
+import org.sopt.lequuServer.domain.member.model.Member;
 import org.sopt.lequuServer.global.common.model.BaseTimeEntity;
 
 @Entity
@@ -26,23 +26,23 @@ public class Note extends BaseTimeEntity {
     private int textColor;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_id")
-    private User user;
+    @JoinColumn(name = "member_id")
+    private Member member;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "book_id")
     private Book book;
 
     @Builder
-    public Note(String content, String background, int textColor, User user, Book book) {
+    public Note(String content, String background, int textColor, Member member, Book book) {
         this.content = content;
         this.background = background;
         this.textColor = textColor;
-        this.user = user;
+        this.member = member;
         this.book = book;
     }
 
-    public static Note of(String content, String background, int textColor, User user, Book book) {
-        return new Note(content, background, textColor, user, book);
+    public static Note of(String content, String background, int textColor, Member member, Book book) {
+        return new Note(content, background, textColor, member, book);
     }
 }
