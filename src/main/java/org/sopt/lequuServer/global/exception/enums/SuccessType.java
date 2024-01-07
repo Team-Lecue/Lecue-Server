@@ -18,14 +18,18 @@ public enum SuccessType {
     LOGIN_SUCCESS(HttpStatus.OK, "로그인에 성공했습니다."),
     REISSUE_SUCCESS(HttpStatus.OK, "Access 토큰 재발급에 성공했습니다."),
     LOGOUT_SUCCESS(HttpStatus.OK, "로그아웃에 성공했습니다."),
-    KAKAO_ACCESS_TOKEN_SUCCESS(HttpStatus.OK, "카카오 엑세스 토큰을 가져오는데 성공했습니다"),
+    KAKAO_ACCESS_TOKEN_SUCCESS(HttpStatus.OK, "카카오 엑세스 토큰을 가져오는데 성공했습니다."),
+
     STICKER_PACK_LIST_SUCCESS(HttpStatus.OK, "스티커팩 목록 조회에 성공했습니다."),
     GET_SPLASH_SUCCESS(HttpStatus.OK, "스플래시 조회에 성공했습니다."),
+    GET_HOME_SUCCESS(HttpStatus.OK, "홈 화면 조회에 성공했습니다."),
+
     /**
      * 201 CREATED
      */
     BOOK_CREATE_SUCCESS(HttpStatus.CREATED, "레큐북이 성공적으로 생성됐습니다."),
     STICKER_POST_SUCCESS(HttpStatus.CREATED, "스티커 부착에 성공했습니다."),
+    CREATE_NOTE_SUCCESS(HttpStatus.CREATED, "레큐노트를 성공적으로 생성했습니다.")
     ;
 
     private final HttpStatus httpStatus;
