@@ -44,7 +44,7 @@
 
 ## 💌 Architecture
 
-<img width="1000" alt="image" src="https://github.com/Team-Lecue/Lecue-Server/assets/67463603/f8a2d952-d254-4c72-8b89-dd760d25f214">
+<img width="1000" alt="image" src="https://github.com/Team-Lecue/Lecue-Server/assets/67463603/76aa4e85-eab8-4b0c-84c0-e601b75f9460">
 
 ## 💌 Structure
 
