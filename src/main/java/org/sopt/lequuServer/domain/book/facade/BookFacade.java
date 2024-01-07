@@ -9,7 +9,7 @@ import org.sopt.lequuServer.domain.book.dto.response.BookCreateResponseDto;
 import org.sopt.lequuServer.domain.book.model.Book;
 import org.sopt.lequuServer.domain.book.service.BookService;
 import org.sopt.lequuServer.domain.member.model.Member;
-import org.sopt.lequuServer.domain.member.service.MemberService;
+import org.sopt.lequuServer.domain.member.repository.MemberRepository;
 import org.sopt.lequuServer.global.s3.service.S3Service;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -20,14 +20,14 @@ import org.springframework.transaction.annotation.Transactional;
 public class BookFacade {
 
     private final BookService bookService;
-    private final MemberService memberService;
+    private final MemberRepository memberRepository;
     private final S3Service s3Service;
 
     @Transactional
     public BookCreateResponseDto createBook(BookCreateRequest request, Long memberId) {
 
         // 유저 검증이 완료된 후에 새로운 Book 객체를 생성할 수 있는 것
-        Member member = memberService.getMember(memberId);
+        Member member = memberRepository.findByIdOrThrow(memberId);
 
         /**
          * 요청을 한 유저를 가장 먼저 검증하고

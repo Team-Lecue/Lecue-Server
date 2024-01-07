@@ -27,6 +27,7 @@ public enum SuccessType {
     /**
      * 201 CREATED
      */
+    CREATE_NOTE_SUCCESS(HttpStatus.CREATED, "레큐노트를 성공적으로 생성했습니다."),
     BOOK_CREATE_SUCCESS(HttpStatus.CREATED, "레큐북이 성공적으로 생성됐습니다.")
     ;
 

@@ -1,13 +1,11 @@
 package org.sopt.lequuServer.domain.member.repository;
 
+import java.util.Optional;
 import org.sopt.lequuServer.domain.member.model.Member;
 import org.sopt.lequuServer.domain.member.model.SocialPlatform;
+import org.sopt.lequuServer.global.exception.enums.ErrorType;
 import org.sopt.lequuServer.global.exception.model.CustomException;
 import org.springframework.data.jpa.repository.JpaRepository;
-
-import java.util.Optional;
-
-import static org.sopt.lequuServer.global.exception.enums.ErrorType.NOT_FOUND_MEMBER_ERROR;
 
 public interface MemberRepository extends JpaRepository<Member, Long> {
 
@@ -17,6 +15,6 @@ public interface MemberRepository extends JpaRepository<Member, Long> {
 
     default Member findByIdOrThrow(Long id) {
         return this.findById(id)
-                .orElseThrow(() -> new CustomException(NOT_FOUND_MEMBER_ERROR));
+                .orElseThrow(() -> new CustomException(ErrorType.NOT_FOUND_MEMBER_ERROR));
     }
 }

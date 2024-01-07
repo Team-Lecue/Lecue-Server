@@ -3,6 +3,8 @@ package org.sopt.lequuServer.domain.book.repository;
 import java.util.List;
 import org.sopt.lequuServer.domain.book.model.Book;
 import org.springframework.data.domain.PageRequest;
+import org.sopt.lequuServer.global.exception.enums.ErrorType;
+import org.sopt.lequuServer.global.exception.model.CustomException;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -10,4 +12,9 @@ import org.springframework.data.repository.query.Param;
 public interface BookRepository extends JpaRepository<Book, Long> {
     @Query(value = "select b from Book b where b.isPopular = :isPopular")
     List<Book> getAllByPopular(@Param("isPopular") Boolean isPopular, PageRequest pageRequest);
+
+    default Book findByIdOrThrow(Long id) {
+        return this.findById(id).orElseThrow(
+                () -> new CustomException(ErrorType.NOT_FOUND_BOOK_ERROR));
+    }
 }
