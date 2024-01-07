@@ -22,6 +22,11 @@ public enum SuccessType {
 
     STICKER_PACK_LIST_SUCCESS(HttpStatus.OK, "스티커팩 목록 조회에 성공했습니다."),
     GET_SPLASH_SUCCESS(HttpStatus.OK, "스플래시 조회에 성공했습니다."),
+
+    /**
+     * 201 CREATED
+     */
+    CREATE_NOTE_SUCCESS(HttpStatus.CREATED, "레큐노트를 성공적으로 생성했습니다."),
     ;
 
     private final HttpStatus httpStatus;

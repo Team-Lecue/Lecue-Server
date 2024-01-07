@@ -1,6 +1,7 @@
 package org.sopt.lequuServer.domain.note.service;
 
 import lombok.RequiredArgsConstructor;
+import org.sopt.lequuServer.domain.note.model.Note;
 import org.sopt.lequuServer.domain.note.repository.NoteRepository;
 import org.springframework.stereotype.Service;
 
@@ -15,5 +16,7 @@ public class NoteService {
         return noteRepository.count();
     }
 
-
+    public Note saveNote(Note note) {
+        return noteRepository.save(note);
+    }
 }
