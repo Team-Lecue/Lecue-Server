@@ -18,8 +18,4 @@ public class BookService {
     public BookCreateResponseDto createBook(Book book) {
         return BookCreateResponseDto.of(bookRepository.save(book));
     }
-
-    public Book getBook(Long bookId) {
-        return bookRepository.findByIdOrThrow(bookId);
-    }
 }

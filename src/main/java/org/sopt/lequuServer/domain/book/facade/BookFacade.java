@@ -1,10 +1,7 @@
 package org.sopt.lequuServer.domain.book.facade;
 
-import static org.sopt.lequuServer.global.s3.enums.ImageFolderName.BOOK_FAVORITE_IMAGE_FOLDER_NAME;
-
-import java.util.UUID;
 import lombok.RequiredArgsConstructor;
-import org.sopt.lequuServer.domain.book.dto.request.BookCreateRequest;
+import org.sopt.lequuServer.domain.book.dto.request.BookCreateRequestDto;
 import org.sopt.lequuServer.domain.book.dto.response.BookCreateResponseDto;
 import org.sopt.lequuServer.domain.book.model.Book;
 import org.sopt.lequuServer.domain.book.service.BookService;
@@ -12,17 +9,22 @@ import org.sopt.lequuServer.domain.member.model.Member;
 import org.sopt.lequuServer.domain.member.repository.MemberRepository;
 import org.sopt.lequuServer.global.s3.service.S3Service;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import java.util.UUID;
+
+import static org.sopt.lequuServer.global.s3.enums.ImageFolderName.BOOK_FAVORITE_IMAGE_FOLDER_NAME;
 
 @Service
 @RequiredArgsConstructor
+@Transactional(readOnly = true)
 public class BookFacade {
 
     private final BookService bookService;
     private final MemberRepository memberRepository;
     private final S3Service s3Service;
 
-    @Transactional
-    public BookCreateResponseDto createBook(BookCreateRequest request, Long memberId) {
+    public BookCreateResponseDto createBook(BookCreateRequestDto request, Long memberId) {
 
         // 유저 검증이 완료된 후에 새로운 Book 객체를 생성할 수 있는 것
         Member member = memberRepository.findByIdOrThrow(memberId);
@@ -49,6 +51,6 @@ public class BookFacade {
                 .member(member)
                 .build();
 
-        return BookCreateResponse.of(bookService.createBook(book));
+        return bookService.createBook(book);
     }
 }
