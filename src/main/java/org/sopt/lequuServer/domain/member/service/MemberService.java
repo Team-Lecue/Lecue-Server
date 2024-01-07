@@ -1,9 +1,5 @@
 package org.sopt.lequuServer.domain.member.service;
 
-import static org.sopt.lequuServer.global.exception.enums.ErrorType.INVALID_SOCIAL_ACCESS_TOKEN;
-import static org.sopt.lequuServer.global.exception.enums.ErrorType.INVALID_TOKEN_HEADER_ERROR;
-import static org.sopt.lequuServer.global.exception.enums.ErrorType.NOT_FOUND_MEMBER_ERROR;
-
 import lombok.RequiredArgsConstructor;
 import org.sopt.lequuServer.domain.member.dto.request.SocialLoginRequestDto;
 import org.sopt.lequuServer.domain.member.dto.response.MemberLoginResponseDto;
@@ -17,6 +13,8 @@ import org.sopt.lequuServer.global.auth.security.UserAuthentication;
 import org.sopt.lequuServer.global.exception.model.CustomException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import static org.sopt.lequuServer.global.exception.enums.ErrorType.*;
 
 @Service
 @RequiredArgsConstructor
@@ -102,5 +100,4 @@ public class MemberService {
         }
         return strings[1];
     }
-
 }

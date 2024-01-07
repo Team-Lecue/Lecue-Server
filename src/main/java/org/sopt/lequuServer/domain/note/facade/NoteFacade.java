@@ -10,9 +10,11 @@ import org.sopt.lequuServer.domain.note.dto.response.NoteResponseDto;
 import org.sopt.lequuServer.domain.note.model.Note;
 import org.sopt.lequuServer.domain.note.service.NoteService;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @RequiredArgsConstructor
+@Transactional(readOnly = true)
 public class NoteFacade {
 
     private final MemberRepository memberRepository;
