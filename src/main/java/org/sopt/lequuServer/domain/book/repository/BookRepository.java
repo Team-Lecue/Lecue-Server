@@ -8,6 +8,6 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
 public interface BookRepository extends JpaRepository<Book, Long> {
-    @Query(value = "select b from Book  b where b.isPopular = :isPopular")
+    @Query(value = "select b from Book b where b.isPopular = :isPopular")
     List<Book> getAllByPopular(@Param("isPopular") Boolean isPopular, PageRequest pageRequest);
 }
