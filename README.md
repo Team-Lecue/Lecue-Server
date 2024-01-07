@@ -2,7 +2,7 @@
 
 > 함께 꾸미며 ✨최애✨에게 진심을 전하는 롤링페이퍼 서비스
 
-<img src="https://github.com/Team-Lecue/Lecue-Server/assets/67463603/77faaad4-1dc0-49ff-a19c-71f07e52b9ac" width="600"/>
+<img src="https://github.com/Team-Lecue/Lecue-Server/assets/67463603/77faaad4-1dc0-49ff-a19c-71f07e52b9ac" width="300"/>
 
 <hr>
 
@@ -44,7 +44,7 @@
 
 ## 💌 Architecture
 
-<img width="500" alt="image" src="">
+<img width="7000" alt="image" src="https://github.com/Team-Lecue/Lecue-Server/assets/67463603/e35e3bcf-e7d4-4530-8ed0-07451409278e">
 
 ## 💌 Structure
 
@@ -99,4 +99,4 @@
 
 🎨 `sticker`와 📝 `book`은 `JPA의 연관관계 매핑`을 사용하지 않음 ❌
 
-<img width="600" alt="image" src="https://github.com/Team-Lecue/Lecue-Server/assets/67463603/4a7883b9-fed6-4039-bec6-1d7770f6b7ab">
+<img width="450" alt="image" src="https://github.com/Team-Lecue/Lecue-Server/assets/67463603/4a7883b9-fed6-4039-bec6-1d7770f6b7ab">
