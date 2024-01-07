@@ -2,11 +2,11 @@ package org.sopt.lequuServer.domain.sticker.dto.response;
 
 import org.sopt.lequuServer.domain.sticker.model.PostedSticker;
 
-public record StickerPostResponse(
+public record StickerPostResponseDto(
         Long postedStickerId
 ) {
-    public static StickerPostResponse of(PostedSticker postedSticker) {
-        return new StickerPostResponse(
+    public static StickerPostResponseDto of(PostedSticker postedSticker) {
+        return new StickerPostResponseDto(
                 postedSticker.getId()
         );
     }

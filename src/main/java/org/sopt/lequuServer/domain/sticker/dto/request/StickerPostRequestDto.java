@@ -1,6 +1,6 @@
 package org.sopt.lequuServer.domain.sticker.dto.request;
 
-public record StickerPostRequest(
+public record StickerPostRequestDto(
         Long bookId,
         Long stickerId,
         int positionX,
