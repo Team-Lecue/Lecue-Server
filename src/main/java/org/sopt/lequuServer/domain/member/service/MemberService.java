@@ -1,10 +1,14 @@
 package org.sopt.lequuServer.domain.member.service;
 
+import static org.sopt.lequuServer.global.exception.enums.ErrorType.INVALID_SOCIAL_ACCESS_TOKEN;
+import static org.sopt.lequuServer.global.exception.enums.ErrorType.INVALID_TOKEN_HEADER_ERROR;
+import static org.sopt.lequuServer.global.exception.enums.ErrorType.NOT_FOUND_MEMBER_ERROR;
+
 import lombok.RequiredArgsConstructor;
 import org.sopt.lequuServer.domain.member.dto.request.SocialLoginRequestDto;
 import org.sopt.lequuServer.domain.member.dto.response.MemberLoginResponseDto;
-import org.sopt.lequuServer.domain.member.model.SocialPlatform;
 import org.sopt.lequuServer.domain.member.model.Member;
+import org.sopt.lequuServer.domain.member.model.SocialPlatform;
 import org.sopt.lequuServer.domain.member.repository.MemberRepository;
 import org.sopt.lequuServer.global.auth.fegin.kakao.KakaoLoginService;
 import org.sopt.lequuServer.global.auth.jwt.JwtProvider;
@@ -14,15 +18,13 @@ import org.sopt.lequuServer.global.exception.model.CustomException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import static org.sopt.lequuServer.global.exception.enums.ErrorType.*;
-
 @Service
 @RequiredArgsConstructor
 @Transactional(readOnly = true)
 public class MemberService {
 
     private final JwtProvider jwtProvider;
-    private final MemberRepository userRepository;
+    private final MemberRepository memberRepository;
 
     private final KakaoLoginService kakaoLoginService;
 
@@ -40,7 +42,7 @@ public class MemberService {
                     .socialPlatform(socialPlatform)
                     .socialId(socialId).build();
 
-            userRepository.save(member);
+            memberRepository.save(member);
         }
 
         Member loginMember = getUserBySocialAndSocialId(socialPlatform, socialId);
@@ -72,18 +74,18 @@ public class MemberService {
     }
 
     private void validateUserId(Long userId) {
-        if (!userRepository.existsById(userId)) {
+        if (!memberRepository.existsById(userId)) {
             throw new CustomException(NOT_FOUND_MEMBER_ERROR);
         }
     }
 
     private Member getUserBySocialAndSocialId(SocialPlatform socialPlatform, String socialId) {
-        return userRepository.findBySocialPlatformAndSocialId(socialPlatform, socialId)
+        return memberRepository.findBySocialPlatformAndSocialId(socialPlatform, socialId)
                 .orElseThrow(() -> new CustomException(NOT_FOUND_MEMBER_ERROR));
     }
 
     private boolean isUserBySocialAndSocialId(SocialPlatform socialPlatform, String socialId) {
-        return userRepository.existsBySocialPlatformAndSocialId(socialPlatform, socialId);
+        return memberRepository.existsBySocialPlatformAndSocialId(socialPlatform, socialId);
     }
 
     private String login(SocialPlatform socialPlatform, String socialAccessToken) {
@@ -99,5 +101,9 @@ public class MemberService {
             throw new CustomException(INVALID_TOKEN_HEADER_ERROR);
         }
         return strings[1];
+    }
+
+    public Member getMemberById(Long id) {
+        return memberRepository.getMemberById(id);
     }
 }
