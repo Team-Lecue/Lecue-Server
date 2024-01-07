@@ -9,7 +9,6 @@ import org.sopt.lequuServer.domain.member.model.Member;
 import org.sopt.lequuServer.domain.member.service.MemberService;
 import org.sopt.lequuServer.global.s3.service.S3Service;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.UUID;
 
@@ -17,14 +16,12 @@ import static org.sopt.lequuServer.global.s3.enums.ImageFolderName.BOOK_FAVORITE
 
 @Service
 @RequiredArgsConstructor
-@Transactional(readOnly = true)
 public class BookFacade {
 
     private final BookService bookService;
     private final MemberService memberService;
     private final S3Service s3Service;
 
-    @Transactional
     public BookCreateResponse createBook(BookCreateRequest request, Long memberId) {
 
         // 유저 검증이 완료된 후에 새로운 Book 객체를 생성할 수 있는 것
@@ -52,6 +49,6 @@ public class BookFacade {
                 .member(member)
                 .build();
 
-        return bookService.createBook(book);
+        return BookCreateResponse.of(bookService.createBook(book));
     }
 }
