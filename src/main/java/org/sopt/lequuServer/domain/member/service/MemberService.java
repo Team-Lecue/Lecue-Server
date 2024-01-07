@@ -1,14 +1,10 @@
 package org.sopt.lequuServer.domain.member.service;
 
-import static org.sopt.lequuServer.global.exception.enums.ErrorType.INVALID_SOCIAL_ACCESS_TOKEN;
-import static org.sopt.lequuServer.global.exception.enums.ErrorType.INVALID_TOKEN_HEADER_ERROR;
-import static org.sopt.lequuServer.global.exception.enums.ErrorType.NOT_FOUND_MEMBER_ERROR;
-
 import lombok.RequiredArgsConstructor;
 import org.sopt.lequuServer.domain.member.dto.request.SocialLoginRequestDto;
 import org.sopt.lequuServer.domain.member.dto.response.MemberLoginResponseDto;
-import org.sopt.lequuServer.domain.member.model.Member;
 import org.sopt.lequuServer.domain.member.model.SocialPlatform;
+import org.sopt.lequuServer.domain.member.model.Member;
 import org.sopt.lequuServer.domain.member.repository.MemberRepository;
 import org.sopt.lequuServer.global.auth.fegin.kakao.KakaoLoginService;
 import org.sopt.lequuServer.global.auth.jwt.JwtProvider;
@@ -18,14 +14,16 @@ import org.sopt.lequuServer.global.exception.model.CustomException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import static org.sopt.lequuServer.global.exception.enums.ErrorType.*;
+
 @Service
 @RequiredArgsConstructor
 @Transactional(readOnly = true)
 public class MemberService {
 
-    private final JwtProvider jwtProvider;
     private final MemberRepository memberRepository;
 
+    private final JwtProvider jwtProvider;
     private final KakaoLoginService kakaoLoginService;
 
     @Transactional
@@ -61,20 +59,20 @@ public class MemberService {
 
         refreshToken = parseTokenString(refreshToken);
 
-        Long userId = jwtProvider.validateRefreshToken(refreshToken);
-        validateUserId(userId);  // userId가 DB에 저장된 유효한 값인지 검사
+        Long memberId = jwtProvider.validateRefreshToken(refreshToken);
+        validateMemberId(memberId);  // memberId가 DB에 저장된 유효한 값인지 검사
 
-        jwtProvider.deleteRefreshToken(userId);
-        return jwtProvider.issueToken(new UserAuthentication(userId, null, null));
+        jwtProvider.deleteRefreshToken(memberId);
+        return jwtProvider.issueToken(new UserAuthentication(memberId, null, null));
     }
 
     @Transactional
-    public void logout(Long userId) {
-        jwtProvider.deleteRefreshToken(userId);
+    public void logout(Long memberId) {
+        jwtProvider.deleteRefreshToken(memberId);
     }
 
-    private void validateUserId(Long userId) {
-        if (!memberRepository.existsById(userId)) {
+    private void validateMemberId(Long memberId) {
+        if (!memberRepository.existsById(memberId)) {
             throw new CustomException(NOT_FOUND_MEMBER_ERROR);
         }
     }
@@ -103,7 +101,7 @@ public class MemberService {
         return strings[1];
     }
 
-    public Member getMemberById(Long id) {
-        return memberRepository.getMemberById(id);
+    public Member getMember(Long memberId) {
+        return memberRepository.findByIdOrThrow(memberId);
     }
 }
