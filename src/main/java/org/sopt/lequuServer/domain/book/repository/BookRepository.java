@@ -13,7 +13,7 @@ public interface BookRepository extends JpaRepository<Book, Long> {
     @Query(value = "select b from Book b where b.isPopular = :isPopular")
     List<Book> getAllByPopular(@Param("isPopular") Boolean isPopular, PageRequest pageRequest);
 
-    default Book getBookById(Long id) {
+    default Book findByIdOrThrow(Long id) {
         return this.findById(id).orElseThrow(
                 () -> new CustomException(ErrorType.NOT_FOUND_BOOK_ERROR));
     }

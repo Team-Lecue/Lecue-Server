@@ -19,7 +19,3 @@ public class BookService {
         return BookCreateResponseDto.of(bookRepository.save(book));
     }
 }
-    public Book getBookById(Long id) {
-        return bookRepository.getBookById(id);
-    }
-}
