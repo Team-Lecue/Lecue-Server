@@ -71,4 +71,5 @@ jobs:
           key: ${{ secrets.RELEASE_SERVER_KEY }}
           script: |
             cd ~
+            docker image rm lequu/lequu-server:latest -f
             ./deploy.sh
