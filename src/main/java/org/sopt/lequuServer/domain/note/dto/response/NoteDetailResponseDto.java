@@ -15,11 +15,15 @@ public record NoteDetailResponseDto(
         String noteBackgroundImage
 ) {
     public static NoteDetailResponseDto of(Note note, int renderType, int noteBackgroundColor, String noteBackgroundImage) {
-        LocalDateTime createdAt = note.getCreatedAt();
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy.MM.dd");
-        String noteDate = createdAt.format(formatter);
+        String noteDate = getString(note);
 
         return new NoteDetailResponseDto(note.getId(), renderType, note.getContent(), noteDate,
                 note.getMember().getNickname(), noteBackgroundColor, noteBackgroundImage);
+    }
+
+    private static String getString(Note note) {
+        LocalDateTime createdAt = note.getCreatedAt();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy.MM.dd");
+        return createdAt.format(formatter);
     }
 }

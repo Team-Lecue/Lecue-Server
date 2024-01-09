@@ -27,38 +27,43 @@ public record BookDetailResponseDto(
         List<PostedStickerDetailResponseDto> postedStickerList
 ) {
     public static BookDetailResponseDto of(Book book) {
-        LocalDateTime createdAt = book.getCreatedAt();
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy.MM.dd");
-        String bookDate = createdAt.format(formatter);
+        String bookDate = getString(book);
 
-        // Note 리스트를 noteId 기준 내림차순으로 정렬
+        // 레큐노트 리스트를 noteId 기준 내림차순으로 정렬
         List<Note> sortedNotes = book.getNotes().stream()
                 .sorted(comparing(Note::getId).reversed())
                 .toList();
 
+        // 레큐노트 리스트 가공
         int renderTypeCounter = 1;
         List<NoteDetailResponseDto> noteList = new ArrayList<>();
-
         for (Note note : sortedNotes) {
             String background = note.getBackground();
 
             if (background.endsWith(".jpg")) {
                 noteList.add(NoteDetailResponseDto.of(note, renderTypeCounter, -1, background));
             } else {
-                noteList.add(NoteDetailResponseDto.of(note, renderTypeCounter, Integer.parseInt(background), null));
+                noteList.add(NoteDetailResponseDto.of(note, renderTypeCounter, Integer.parseInt(background), ""));
             }
             renderTypeCounter = (renderTypeCounter % 6 == 0) ? 1 : renderTypeCounter + 1;
         }
 
+        // 부착된 스티커 리스트 가공
         List<PostedSticker> postedStickers = book.getPostedStickers();
         List<PostedStickerDetailResponseDto> postedStickerList = new ArrayList<>();
         for (PostedSticker postedSticker : postedStickers) {
             postedStickerList.add(PostedStickerDetailResponseDto.of(postedSticker));
         }
 
-        return new BookDetailResponseDto(book.getId(), book.getFavoriteImage(), book.getFavoriteName(), book.getTitle(), book.getDescription(),
-                bookDate, book.getMember().getNickname(), book.getBackgroundColor(), book.getNotes().size(),
-                noteList, postedStickerList
+        return new BookDetailResponseDto(book.getId(), book.getFavoriteImage(), book.getFavoriteName(),
+                book.getTitle(), book.getDescription(), bookDate, book.getMember().getNickname(),
+                book.getBackgroundColor(), book.getNotes().size(), noteList, postedStickerList
         );
+    }
+
+    private static String getString(Book book) {
+        LocalDateTime createdAt = book.getCreatedAt();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy.MM.dd");
+        return createdAt.format(formatter);
     }
 }
