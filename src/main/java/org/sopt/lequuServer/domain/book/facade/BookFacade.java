@@ -24,7 +24,6 @@ import static org.sopt.lequuServer.global.s3.enums.ImageFolderName.BOOK_FAVORITE
 
 @Service
 @RequiredArgsConstructor
-@Transactional(readOnly = true)
 public class BookFacade {
 
     private final BookService bookService;
