@@ -8,6 +8,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface BookRepository extends JpaRepository<Book, Long> {
 
@@ -16,6 +17,13 @@ public interface BookRepository extends JpaRepository<Book, Long> {
 
     default Book findByIdOrThrow(Long id) {
         return this.findById(id).orElseThrow(
+                () -> new CustomException(ErrorType.NOT_FOUND_BOOK_ERROR));
+    }
+
+    Optional<Book> findByUuid(String uuid);
+
+    default Book findByUuidOrThrow(String uuid) {
+        return this.findByUuid(uuid).orElseThrow(
                 () -> new CustomException(ErrorType.NOT_FOUND_BOOK_ERROR));
     }
 }

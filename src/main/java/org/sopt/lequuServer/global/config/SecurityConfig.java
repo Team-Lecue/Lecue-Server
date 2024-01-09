@@ -24,7 +24,7 @@ public class SecurityConfig {
             "/api/kakao/**", "/loading", "/error", "/api/login", "/api/reissue",
             "/api/test/**", "/health", "/actuator/health",
             "/api/images/**", "/", "/swagger-ui/**", "/swagger-resources/**", "/api-docs/**",
-            "/api/common/**"
+            "/api/common/**", "/api/books/detail/**"
     };
 
     @Bean
