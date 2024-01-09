@@ -128,6 +128,7 @@ public class InitDb {
                         .build();
                 em.persist(sticker);
             }
+
             for (int i = 0; i < 2; i++) {
                 Sticker sticker = Sticker.builder()
                         .bookId(1L)
