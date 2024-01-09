@@ -4,13 +4,19 @@ import lombok.RequiredArgsConstructor;
 import org.sopt.lequuServer.domain.book.dto.request.BookCreateRequestDto;
 import org.sopt.lequuServer.domain.book.dto.response.BookCreateResponseDto;
 import org.sopt.lequuServer.domain.book.model.Book;
+import org.sopt.lequuServer.domain.book.repository.BookRepository;
 import org.sopt.lequuServer.domain.book.service.BookService;
 import org.sopt.lequuServer.domain.member.model.Member;
 import org.sopt.lequuServer.domain.member.repository.MemberRepository;
+import org.sopt.lequuServer.domain.note.model.Note;
+import org.sopt.lequuServer.domain.note.repository.NoteRepository;
+import org.sopt.lequuServer.domain.sticker.model.PostedSticker;
+import org.sopt.lequuServer.domain.sticker.repository.PostedStickerRepository;
 import org.sopt.lequuServer.global.s3.service.S3Service;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
 import java.util.UUID;
 
 import static org.sopt.lequuServer.global.s3.enums.ImageFolderName.BOOK_FAVORITE_IMAGE_FOLDER_NAME;
@@ -23,6 +29,9 @@ public class BookFacade {
     private final BookService bookService;
     private final MemberRepository memberRepository;
     private final S3Service s3Service;
+    private final NoteRepository noteRepository;
+    private final PostedStickerRepository postedStickerRepository;
+    private final BookRepository bookRepository;
 
     public BookCreateResponseDto createBook(BookCreateRequestDto request, Long memberId) {
 
@@ -52,5 +61,28 @@ public class BookFacade {
                 .build();
 
         return bookService.createBook(book, member);
+    }
+
+    @Transactional
+    public void deleteBook(Long bookId) {
+        // bookId가 올바른건지 검증
+        Book book = bookRepository.findByIdOrThrow(bookId);
+
+        // 레큐북 id에 속하는 레큐노트 삭제
+        List<Note> notes = book.getNotes();
+        noteRepository.deleteAllInBatch(notes);
+
+        /** 순회 돌면서 삭제할 때 이용
+         for (Note note : notes) {
+         note.getId()
+         }
+         */
+
+        // 레큐북 id에 속하는 붙여진 스티커 삭제
+        List<PostedSticker> postedStickers = book.getPostedStickers();
+        postedStickerRepository.deleteAllInBatch(postedStickers);
+
+        // 정상적인 book id가 전송되면
+        bookRepository.deleteById(bookId);
     }
 }

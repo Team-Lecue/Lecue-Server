@@ -28,7 +28,7 @@ public class BookController {
 
     @DeleteMapping("/{bookId}")
     public ApiResponse<?> createBook(@PathVariable Long bookId) {
-        bookService.deleteBook(bookId);
+        bookFacade.deleteBook(bookId);
         return ApiResponse.success(SuccessType.BOOK_DELETE_SUCCESS);
     }
 }
