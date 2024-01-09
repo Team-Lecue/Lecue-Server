@@ -33,7 +33,7 @@ public class InitDb {
             "https://lequu-server-bucket.s3.ap-northeast-2.amazonaws.com/stickers/character_3.svg",
             "https://lequu-server-bucket.s3.ap-northeast-2.amazonaws.com/stickers/character_4.svg",
             "https://lequu-server-bucket.s3.ap-northeast-2.amazonaws.com/stickers/character_5.svg",
-            "hhttps://lequu-server-bucket.s3.ap-northeast-2.amazonaws.com/stickers/character_6.svg"
+            "https://lequu-server-bucket.s3.ap-northeast-2.amazonaws.com/stickers/character_6.svg"
     );
 
     @Component
