@@ -28,7 +28,7 @@ public class InitDb {
     }
 
     private static final List<String> CHARACTER_STICKERS = Arrays.asList(
-            "https://lequu-server-bucket.s3.ap-northeast-2.amazonaws.com/stickers/8d83b1c1-1e2c-437b-a2f5-e3ce96ce6d35.jpg",
+            "https://lequu-server-bucket.s3.ap-northeast-2.amazonaws.com/stickers/04d691f2-eb9c-4556-8962-005c58ce61cf.jpg",
             "https://lequu-server-bucket.s3.ap-northeast-2.amazonaws.com/stickers/0215b8a5-d7a1-40c3-b291-5174b1747074.jpg",
             "https://lequu-server-bucket.s3.ap-northeast-2.amazonaws.com/stickers/c446705f-d96f-4cef-b490-62979fc52cd9.jpg",
             "https://lequu-server-bucket.s3.ap-northeast-2.amazonaws.com/stickers/1d8ac983-4862-4687-b27a-324a4ecb8ae6.jpg",
