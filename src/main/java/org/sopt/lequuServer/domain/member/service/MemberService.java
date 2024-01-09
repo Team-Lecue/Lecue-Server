@@ -2,16 +2,16 @@ package org.sopt.lequuServer.domain.member.service;
 
 import lombok.RequiredArgsConstructor;
 import org.sopt.lequuServer.domain.book.model.Book;
-import org.sopt.lequuServer.domain.book.repository.BookRepository;
 import org.sopt.lequuServer.domain.member.dto.request.MemberNicknameRequestDto;
 import org.sopt.lequuServer.domain.member.dto.request.SocialLoginRequestDto;
 import org.sopt.lequuServer.domain.member.dto.response.MemberLoginResponseDto;
 import org.sopt.lequuServer.domain.member.dto.response.MemberNicknameResponseDto;
 import org.sopt.lequuServer.domain.member.dto.response.MypageBookResponseDto;
+import org.sopt.lequuServer.domain.member.dto.response.MypageNoteResponseDto;
 import org.sopt.lequuServer.domain.member.model.Member;
 import org.sopt.lequuServer.domain.member.model.SocialPlatform;
 import org.sopt.lequuServer.domain.member.repository.MemberRepository;
-import org.sopt.lequuServer.domain.note.repository.NoteRepository;
+import org.sopt.lequuServer.domain.note.model.Note;
 import org.sopt.lequuServer.global.auth.fegin.kakao.KakaoLoginService;
 import org.sopt.lequuServer.global.auth.jwt.JwtProvider;
 import org.sopt.lequuServer.global.auth.jwt.TokenDto;
@@ -33,10 +33,6 @@ public class MemberService {
 
     private final JwtProvider jwtProvider;
     private final KakaoLoginService kakaoLoginService;
-
-    private final NoteRepository noteRepository;
-    private final BookRepository bookRepository;
-
 
     @Transactional
     public MemberLoginResponseDto login(String socialAccessToken, SocialLoginRequestDto request) {
@@ -131,8 +127,19 @@ public class MemberService {
 
         // 회원이 소유한 Book 리스트 가져오기
         List<Book> books = member.getBooks();
-        
+
         return MypageBookResponseDto.of(nickname, books);
+    }
+
+    public MypageNoteResponseDto getMypageNote(Long memberId) {
+
+        // 회원 id 찾기
+        Member member = memberRepository.findByIdOrThrow(memberId);
+
+        // 회원이 소유한 Note 리스트 가져오기
+        List<Note> notes = member.getNotes();
+
+        return MypageNoteResponseDto.of(notes);
     }
 }
 

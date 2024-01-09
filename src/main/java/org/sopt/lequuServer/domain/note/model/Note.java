@@ -20,8 +20,10 @@ public class Note extends BaseTimeEntity {
     @Column(nullable = false)
     private String content;
 
+    private int backgroundColor;
+
     @Column(nullable = false)
-    private String background;
+    private String backgroundImage;
 
     private int textColor;
 
@@ -34,15 +36,16 @@ public class Note extends BaseTimeEntity {
     private Book book;
 
     @Builder
-    public Note(String content, String background, int textColor, Member member, Book book) {
+    public Note(String content, int backgroundColor, String backgroundImage, int textColor, Member member, Book book) {
         this.content = content;
-        this.background = background;
+        this.backgroundColor = backgroundColor;
+        this.backgroundImage = backgroundImage;
         this.textColor = textColor;
         this.member = member;
         this.book = book;
     }
 
-    public static Note of(String content, String background, int textColor, Member member, Book book) {
-        return new Note(content, background, textColor, member, book);
+    public static Note of(String content, int backgroundColor, String backgroundImage, int textColor, Member member, Book book) {
+        return new Note(content, backgroundColor, backgroundImage, textColor, member, book);
     }
 }
