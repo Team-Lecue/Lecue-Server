@@ -30,6 +30,6 @@ public class StickerFacade {
 
         PostedSticker postedSticker = PostedSticker.of(request.positionX(), request.positionY(), member, book, sticker);
 
-        return stickerService.postSticker(postedSticker);
+        return stickerService.postSticker(postedSticker, member, book);
     }
 }

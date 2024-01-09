@@ -51,6 +51,6 @@ public class BookFacade {
                 .member(member)
                 .build();
 
-        return bookService.createBook(book);
+        return bookService.createBook(book, member);
     }
 }

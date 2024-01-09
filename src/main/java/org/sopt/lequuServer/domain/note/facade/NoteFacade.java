@@ -25,6 +25,6 @@ public class NoteFacade {
         Member member = memberRepository.findByIdOrThrow(userId);
         Book book = bookRepository.findByIdOrThrow(noteCreateDto.bookId());
 
-        return noteService.saveNote(Note.of(noteCreateDto.content(), noteCreateDto.background(), noteCreateDto.textColor(), member, book));
+        return noteService.saveNote(Note.of(noteCreateDto.content(), noteCreateDto.background(), noteCreateDto.textColor(), member, book), member, book);
     }
 }

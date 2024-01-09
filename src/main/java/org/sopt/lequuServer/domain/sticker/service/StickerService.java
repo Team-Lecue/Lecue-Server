@@ -1,6 +1,8 @@
 package org.sopt.lequuServer.domain.sticker.service;
 
 import lombok.RequiredArgsConstructor;
+import org.sopt.lequuServer.domain.book.model.Book;
+import org.sopt.lequuServer.domain.member.model.Member;
 import org.sopt.lequuServer.domain.sticker.dto.response.StickerPackResponseDto;
 import org.sopt.lequuServer.domain.sticker.dto.response.StickerPostResponseDto;
 import org.sopt.lequuServer.domain.sticker.model.PostedSticker;
@@ -27,7 +29,11 @@ public class StickerService {
     }
 
     @Transactional
-    public StickerPostResponseDto postSticker(PostedSticker postedSticker) {
+    public StickerPostResponseDto postSticker(PostedSticker postedSticker, Member member, Book book) {
+
+        member.addPostedSticker(postedSticker);
+        book.addPostedSticker(postedSticker);
+        
         return StickerPostResponseDto.of(postedStickerRepository.save(postedSticker));
     }
 }
