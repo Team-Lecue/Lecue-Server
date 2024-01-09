@@ -9,7 +9,8 @@ import lombok.RequiredArgsConstructor;
 public enum StickerCategory {
 
     ALPHABET("알파벳"),
-    BIRTHDAY("생일");
+    BIRTHDAY("생일"),
+    CHARACTER("캐릭터");
 
     private final String value;
 }
