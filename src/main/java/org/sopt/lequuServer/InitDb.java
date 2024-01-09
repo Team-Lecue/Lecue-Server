@@ -111,7 +111,7 @@ public class InitDb {
             }
             for (int i = 0; i < 2; i++) {
                 Sticker sticker = Sticker.builder()
-                        .bookId(7L)
+                        .bookId(1L)
                         .category(ALPHABET)
                         .stickerImage("https://lequu-server-bucket.s3.ap-northeast-2.amazonaws.com/8d83b1c1-1e2c-437b-a2f5-e3ce96ce6d35.jpg")
                         .build();
@@ -119,7 +119,7 @@ public class InitDb {
             }
             for (int i = 0; i < 3; i++) {
                 Sticker sticker = Sticker.builder()
-                        .bookId(7L)
+                        .bookId(1L)
                         .category(BIRTHDAY)
                         .stickerImage("https://lequu-server-bucket.s3.ap-northeast-2.amazonaws.com/8d83b1c1-1e2c-437b-a2f5-e3ce96ce6d35.jpg")
                         .build();

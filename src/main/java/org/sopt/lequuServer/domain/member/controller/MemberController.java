@@ -1,8 +1,11 @@
 package org.sopt.lequuServer.domain.member.controller;
 
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.sopt.lequuServer.domain.member.dto.request.MemberNicknameRequestDto;
 import org.sopt.lequuServer.domain.member.dto.request.SocialLoginRequestDto;
 import org.sopt.lequuServer.domain.member.dto.response.MemberLoginResponseDto;
+import org.sopt.lequuServer.domain.member.dto.response.MemberNicknameResponseDto;
 import org.sopt.lequuServer.domain.member.service.MemberService;
 import org.sopt.lequuServer.global.auth.fegin.kakao.KakaoLoginService;
 import org.sopt.lequuServer.global.auth.jwt.JwtProvider;
@@ -54,5 +57,12 @@ public class MemberController {
             @RequestHeader("Authorization") String code) {
 
         return ApiResponse.success(KAKAO_ACCESS_TOKEN_SUCCESS, kakaoLoginService.getKakaoAccessToken(code));
+    }
+
+    @PatchMapping("/nickname")
+    @ResponseStatus(HttpStatus.OK)
+    public ApiResponse<MemberNicknameResponseDto> setMemberNickname(Principal principal, @Valid @RequestBody MemberNicknameRequestDto request) {
+
+        return ApiResponse.success(SET_MEMBER_NICKNAME_SUCCESS, memberService.setMemberNickname(JwtProvider.getUserFromPrincial(principal), request));
     }
 }
