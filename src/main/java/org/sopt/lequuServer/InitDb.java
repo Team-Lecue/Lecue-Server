@@ -7,8 +7,13 @@ import org.sopt.lequuServer.domain.book.model.Book;
 import org.sopt.lequuServer.domain.member.model.Member;
 import org.sopt.lequuServer.domain.member.model.SocialPlatform;
 import org.sopt.lequuServer.domain.note.model.Note;
+import org.sopt.lequuServer.domain.sticker.model.PostedSticker;
+import org.sopt.lequuServer.domain.sticker.model.Sticker;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
+
+import static org.sopt.lequuServer.domain.sticker.model.StickerCategory.ALPHABET;
+import static org.sopt.lequuServer.domain.sticker.model.StickerCategory.BIRTHDAY;
 
 @Component
 @RequiredArgsConstructor
@@ -29,48 +34,106 @@ public class InitDb {
 
         @Transactional
         public void dbInit() {
-            Member member = Member.builder()
+            Member member1 = Member.builder()
                     .socialPlatform(SocialPlatform.KAKAO)
-                    .socialId("dwq4d1sa68xx1qw61")
+                    .socialId("3251153440")
                     .build();
-            em.persist(member);
+            member1.updateSocialInfo("레큐", "http://k.kakaocdn.net/dn/1G9kp/btsAot8liOn/8CWudi3uy07rvFNUkk3ER0/img_640x640.jpg");
+            em.persist(member1);
 
-            for (int i = 0; i < 7; i++) {
+            Book book1 = Book.builder()
+                    .uuid("ee4f66f9-9cf4-4b28-90f4-f71d0ecba021")
+                    .favoriteName("LeoJ")
+                    .favoriteImage("https://lequu-server-bucket.s3.ap-northeast-2.amazonaws.com/b4006561-382b-479e-ae1d-e841922e883f.jpg")
+                    .title("1번째 레큐북")
+                    .description("레큐북의 내용입니다!")
+                    .backgroundColor(1)
+                    .member(member1)
+                    .isPopular(true)
+                    .build();
+            em.persist(book1);
+            for (int i = 1; i < 7; i++) {
                 Book book = Book.builder()
-                        .uuid("dwq65d19asx6qw1c")
-                        .favoriteName(String.valueOf(i))
-                        .favoriteImage("dqw84dsaac9q9")
-                        .title(String.valueOf(i))
-                        .description("test")
-                        .backgroundColor(11)
-                        .member(member)
+                        .uuid("ee4f66f9-9cf4-4b28-90f4-f71d0ecba02" + String.valueOf(i + 1))
+                        .favoriteName("LeoJ")
+                        .favoriteImage("https://lequu-server-bucket.s3.ap-northeast-2.amazonaws.com/b4006561-382b-479e-ae1d-e841922e883f.jpg")
+                        .title(String.valueOf(i + 1) + "번째 레큐북")
+                        .description("레큐북의 내용입니다!")
+                        .backgroundColor(1)
+                        .member(member1)
                         .isPopular(true)
                         .build();
                 em.persist(book);
             }
 
-            Book book1 = Book.builder()
-                    .uuid("dwq65d19asx6qw1c")
-                    .favoriteName("test")
-                    .favoriteImage("dqw84dsaac9q9")
-                    .title("test")
-                    .description("test")
-                    .backgroundColor(11)
-                    .member(member)
-                    .isPopular(true)
-                    .build();
-            em.persist(book1);
-
-            for (int i = 0; i < 7; i++) {
+            for (int i = 0; i < 3; i++) {
                 Note note = Note.builder()
-                        .content(String.valueOf(i))
-                        .background("back")
+                        .content("레큐노트 내용입니다 블라블라블라 블라블라블라 블라블라블라 블라블라블라 블라블라블라 블라블라블라 블라블라블라")
+                        .background("https://lequu-server-bucket.s3.ap-northeast-2.amazonaws.com/676c2ca3-f868-423f-8000-a0bcb67dc797.jpg")
                         .textColor(i)
-                        .member(member)
+                        .member(member1)
                         .book(book1)
                         .build();
                 em.persist(note);
             }
+            for (int i = 0; i < 3; i++) {
+                Note note = Note.builder()
+                        .content("레큐노트 내용입니다 블라블라블라 블라블라블라 블라블라블라 블라블라블라 블라블라블라 블라블라블라 블라블라블라")
+                        .background(String.valueOf(i))
+                        .textColor(i)
+                        .member(member1)
+                        .book(book1)
+                        .build();
+                em.persist(note);
+            }
+
+            Sticker sticker1 = Sticker.builder()
+                    .bookId(0L)
+                    .category(ALPHABET)
+                    .stickerImage("https://lequu-server-bucket.s3.ap-northeast-2.amazonaws.com/8d83b1c1-1e2c-437b-a2f5-e3ce96ce6d35.jpg")
+                    .build();
+            em.persist(sticker1);
+            for (int i = 0; i < 3; i++) {
+                Sticker sticker = Sticker.builder()
+                        .bookId(0L)
+                        .category(ALPHABET)
+                        .stickerImage("https://lequu-server-bucket.s3.ap-northeast-2.amazonaws.com/8d83b1c1-1e2c-437b-a2f5-e3ce96ce6d35.jpg")
+                        .build();
+                em.persist(sticker);
+            }
+            for (int i = 0; i < 6; i++) {
+                Sticker sticker = Sticker.builder()
+                        .bookId(0L)
+                        .category(BIRTHDAY)
+                        .stickerImage("https://lequu-server-bucket.s3.ap-northeast-2.amazonaws.com/8d83b1c1-1e2c-437b-a2f5-e3ce96ce6d35.jpg")
+                        .build();
+                em.persist(sticker);
+            }
+            for (int i = 0; i < 2; i++) {
+                Sticker sticker = Sticker.builder()
+                        .bookId(7L)
+                        .category(ALPHABET)
+                        .stickerImage("https://lequu-server-bucket.s3.ap-northeast-2.amazonaws.com/8d83b1c1-1e2c-437b-a2f5-e3ce96ce6d35.jpg")
+                        .build();
+                em.persist(sticker);
+            }
+            for (int i = 0; i < 3; i++) {
+                Sticker sticker = Sticker.builder()
+                        .bookId(7L)
+                        .category(BIRTHDAY)
+                        .stickerImage("https://lequu-server-bucket.s3.ap-northeast-2.amazonaws.com/8d83b1c1-1e2c-437b-a2f5-e3ce96ce6d35.jpg")
+                        .build();
+                em.persist(sticker);
+            }
+
+            PostedSticker postedSticker = PostedSticker.builder()
+                    .member(member1)
+                    .book(book1)
+                    .sticker(sticker1)
+                    .positionX(30)
+                    .positionY(60)
+                    .build();
+            em.persist(postedSticker);
         }
     }
 }

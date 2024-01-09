@@ -9,7 +9,8 @@ import lombok.RequiredArgsConstructor;
 public enum ImageFolderName {
 
     BOOK_FAVORITE_IMAGE_FOLDER_NAME("books/favorite_image/"),
-    NOTE_BACKGROUND_IMAGE_FOLDER_NAME("notes/background_image/");
+    NOTE_BACKGROUND_IMAGE_FOLDER_NAME("notes/background_image/"),
+    STICKER_IMAGE_FOLDER_NAME("stickers/");
 
     private final String value;
 

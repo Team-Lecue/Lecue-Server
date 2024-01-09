@@ -2,6 +2,7 @@ package org.sopt.lequuServer.domain.sticker.model;
 
 import jakarta.persistence.*;
 import lombok.AccessLevel;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.sopt.lequuServer.global.common.model.BaseTimeEntity;
@@ -26,6 +27,7 @@ public class Sticker extends BaseTimeEntity {
 
     private Long bookId;
 
+    @Builder
     public Sticker(String stickerImage, StickerCategory category, Long bookId) {
         this.stickerImage = stickerImage;
         this.category = category;
