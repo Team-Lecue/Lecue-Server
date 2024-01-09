@@ -12,6 +12,7 @@ import org.sopt.lequuServer.domain.note.model.Note;
 import org.sopt.lequuServer.domain.note.repository.NoteRepository;
 import org.sopt.lequuServer.domain.sticker.model.PostedSticker;
 import org.sopt.lequuServer.domain.sticker.repository.PostedStickerRepository;
+import org.sopt.lequuServer.domain.sticker.repository.StickerRepository;
 import org.sopt.lequuServer.global.s3.service.S3Service;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -32,6 +33,7 @@ public class BookFacade {
     private final NoteRepository noteRepository;
     private final PostedStickerRepository postedStickerRepository;
     private final BookRepository bookRepository;
+    private final StickerRepository stickerRepository;
 
     public BookCreateResponseDto createBook(BookCreateRequestDto request, Long memberId) {
 
@@ -81,6 +83,9 @@ public class BookFacade {
         // 레큐북 id에 속하는 붙여진 스티커 삭제
         List<PostedSticker> postedStickers = book.getPostedStickers();
         postedStickerRepository.deleteAllInBatch(postedStickers);
+
+        // 레큐북 id에 속하는 스티커 삭제
+        stickerRepository.deleteStickersByBookId(bookId);
 
         // 정상적인 book id가 전송되면
         bookRepository.deleteById(bookId);
