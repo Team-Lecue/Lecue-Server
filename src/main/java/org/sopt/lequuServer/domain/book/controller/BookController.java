@@ -5,7 +5,6 @@ import lombok.RequiredArgsConstructor;
 import org.sopt.lequuServer.domain.book.dto.request.BookCreateRequestDto;
 import org.sopt.lequuServer.domain.book.dto.response.BookCreateResponseDto;
 import org.sopt.lequuServer.domain.book.facade.BookFacade;
-import org.sopt.lequuServer.domain.book.service.BookService;
 import org.sopt.lequuServer.global.auth.jwt.JwtProvider;
 import org.sopt.lequuServer.global.common.dto.ApiResponse;
 import org.sopt.lequuServer.global.exception.enums.SuccessType;
@@ -20,7 +19,6 @@ import java.security.Principal;
 public class BookController {
 
     private final BookFacade bookFacade;
-    private final BookService bookService;
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
@@ -29,7 +27,7 @@ public class BookController {
     }
 
     @DeleteMapping("/{bookId}")
-    public ApiResponse<?> createBook(@PathVariable Long bookId) {
+    public ApiResponse<?> deleteBook(@PathVariable Long bookId) {
         bookFacade.deleteBook(bookId);
         return ApiResponse.success(SuccessType.BOOK_DELETE_SUCCESS);
     }
