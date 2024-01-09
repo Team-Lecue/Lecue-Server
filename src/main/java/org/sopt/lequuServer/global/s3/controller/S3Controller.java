@@ -9,8 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import static org.sopt.lequuServer.global.exception.enums.SuccessType.*;
-import static org.sopt.lequuServer.global.s3.enums.ImageFolderName.BOOK_FAVORITE_IMAGE_FOLDER_NAME;
-import static org.sopt.lequuServer.global.s3.enums.ImageFolderName.NOTE_BACKGROUND_IMAGE_FOLDER_NAME;
+import static org.sopt.lequuServer.global.s3.enums.ImageFolderName.*;
 
 /**
  * Presigned URL을 얻기 위한 API들
@@ -32,5 +31,10 @@ public class S3Controller {
     @GetMapping("/note")
     public ApiResponse<PreSignedUrlResponse> getPreSignedUrlNote() {
         return ApiResponse.success(PRESIGNED_URL_SUCCESS, s3Service.getUploadPreSignedUrl(NOTE_BACKGROUND_IMAGE_FOLDER_NAME.getValue()));
+    }
+
+    @GetMapping("/sticker")
+    public ApiResponse<PreSignedUrlResponse> getPreSignedUrlSticker() {
+        return ApiResponse.success(PRESIGNED_URL_SUCCESS, s3Service.getUploadPreSignedUrl(STICKER_IMAGE_FOLDER_NAME.getValue()));
     }
 }

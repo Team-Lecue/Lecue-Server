@@ -8,25 +8,25 @@ import java.util.Map;
 
 import static java.util.stream.Collectors.*;
 
-public record StickerPackResponse(
+public record StickerPackResponseDto(
         String stickerCategory,
-        List<StickerResponse> stickerList
+        List<StickerResponseDto> stickerList
 ) {
 
     // 스티커의 카테고리를 기준으로 분류해 List 생성
-    public static List<StickerPackResponse> of(List<Sticker> stickers) {
-        Map<StickerCategory, List<StickerResponse>> groupedStickerList = stickers.stream()
+    public static List<StickerPackResponseDto> of(List<Sticker> stickers) {
+        Map<StickerCategory, List<StickerResponseDto>> groupedStickerList = stickers.stream()
                 .collect(groupingBy(
                         Sticker::getCategory,
                         mapping(
-                                StickerResponse::of,
+                                StickerResponseDto::of,
                                 toList()
                         )
                 ));
 
         return groupedStickerList.entrySet().stream()
                 .sorted(Map.Entry.comparingByKey())
-                .map(entry -> new StickerPackResponse(entry.getKey().getValue(), entry.getValue()))
+                .map(entry -> new StickerPackResponseDto(entry.getKey().getValue(), entry.getValue()))
                 .collect(toList());
     }
 }

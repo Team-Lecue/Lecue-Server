@@ -3,7 +3,7 @@ package org.sopt.lequuServer.domain.book.dto.request;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 
-public record BookCreateRequest(
+public record BookCreateRequestDto(
 
         @NotBlank
         @Size(min = 1, max = 12, message = "최애 이름은 1자 이상 12자 이하여야합니다.")
