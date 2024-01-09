@@ -1,13 +1,17 @@
 package org.sopt.lequuServer.domain.member.service;
 
 import lombok.RequiredArgsConstructor;
+import org.sopt.lequuServer.domain.book.model.Book;
+import org.sopt.lequuServer.domain.book.repository.BookRepository;
 import org.sopt.lequuServer.domain.member.dto.request.MemberNicknameRequestDto;
 import org.sopt.lequuServer.domain.member.dto.request.SocialLoginRequestDto;
 import org.sopt.lequuServer.domain.member.dto.response.MemberLoginResponseDto;
 import org.sopt.lequuServer.domain.member.dto.response.MemberNicknameResponseDto;
+import org.sopt.lequuServer.domain.member.dto.response.MypageBookResponseDto;
 import org.sopt.lequuServer.domain.member.model.Member;
 import org.sopt.lequuServer.domain.member.model.SocialPlatform;
 import org.sopt.lequuServer.domain.member.repository.MemberRepository;
+import org.sopt.lequuServer.domain.note.repository.NoteRepository;
 import org.sopt.lequuServer.global.auth.fegin.kakao.KakaoLoginService;
 import org.sopt.lequuServer.global.auth.jwt.JwtProvider;
 import org.sopt.lequuServer.global.auth.jwt.TokenDto;
@@ -15,6 +19,8 @@ import org.sopt.lequuServer.global.auth.security.UserAuthentication;
 import org.sopt.lequuServer.global.exception.model.CustomException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
 
 import static org.sopt.lequuServer.global.exception.enums.ErrorType.*;
 
@@ -27,6 +33,10 @@ public class MemberService {
 
     private final JwtProvider jwtProvider;
     private final KakaoLoginService kakaoLoginService;
+
+    private final NoteRepository noteRepository;
+    private final BookRepository bookRepository;
+
 
     @Transactional
     public MemberLoginResponseDto login(String socialAccessToken, SocialLoginRequestDto request) {
@@ -110,4 +120,19 @@ public class MemberService {
 
         return MemberNicknameResponseDto.of(memberId);
     }
+
+    public MypageBookResponseDto getMypageBook(Long memberId) {
+
+        // 회원 id 찾기
+        Member member = memberRepository.findByIdOrThrow(memberId);
+
+        // 회원 id로 memberNickname 조회
+        String nickname = member.getNickname();
+
+        // 회원이 소유한 Book 리스트 가져오기
+        List<Book> books = member.getBooks();
+        
+        return MypageBookResponseDto.of(nickname, books);
+    }
 }
+
