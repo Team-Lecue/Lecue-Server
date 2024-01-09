@@ -1,10 +1,8 @@
 package org.sopt.lequuServer.domain.member.service;
 
 import lombok.RequiredArgsConstructor;
-import org.sopt.lequuServer.domain.member.dto.request.MemberNicknameRequestDto;
 import org.sopt.lequuServer.domain.member.dto.request.SocialLoginRequestDto;
 import org.sopt.lequuServer.domain.member.dto.response.MemberLoginResponseDto;
-import org.sopt.lequuServer.domain.member.dto.response.MemberNicknameResponseDto;
 import org.sopt.lequuServer.domain.member.model.Member;
 import org.sopt.lequuServer.domain.member.model.SocialPlatform;
 import org.sopt.lequuServer.domain.member.repository.MemberRepository;
@@ -101,13 +99,5 @@ public class MemberService {
             throw new CustomException(INVALID_TOKEN_HEADER_ERROR);
         }
         return strings[1];
-    }
-
-    @Transactional
-    public MemberNicknameResponseDto setMemberNickname(Long memberId, MemberNicknameRequestDto request) {
-        Member member = memberRepository.findByIdOrThrow(memberId);
-        member.updateNickname(request.nickname());
-
-        return MemberNicknameResponseDto.of(memberId);
     }
 }
