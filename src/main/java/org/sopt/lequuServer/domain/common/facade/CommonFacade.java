@@ -23,9 +23,8 @@ public class CommonFacade {
     }
 
     public List<PopularBookResponseDto> getHome() {
-        return bookRepository.getAllByPopular(true, PageRequest.of(0, 6))
+        return bookRepository.getAllByPopular(PageRequest.of(0, 6))
                 .stream().map(PopularBookResponseDto::of)
                 .toList();
     }
-
 }

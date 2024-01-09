@@ -49,7 +49,7 @@ public class InitDb {
                     .description("레큐북의 내용입니다!")
                     .backgroundColor(1)
                     .member(member1)
-                    .isPopular(true)
+                    .popularRate(0)
                     .build();
             em.persist(book1);
             for (int i = 1; i < 7; i++) {
@@ -61,7 +61,7 @@ public class InitDb {
                         .description("레큐북의 내용입니다!")
                         .backgroundColor(1)
                         .member(member1)
-                        .isPopular(true)
+                        .popularRate(i)
                         .build();
                 em.persist(book);
             }
