@@ -8,7 +8,7 @@ import org.springframework.boot.autoconfigure.security.servlet.UserDetailsServic
 import org.springframework.cloud.openfeign.EnableFeignClients;
 
 @SpringBootApplication(exclude = { UserDetailsServiceAutoConfiguration.class })
-@OpenAPIDefinition(servers = {@Server(url ="https://www.lecue.p-e.kr", description = "Default Server URL")})
+@OpenAPIDefinition(servers = {@Server(url ="/", description = "Default Server URL")})
 @EnableFeignClients
 public class LequuServerApplication {
 
