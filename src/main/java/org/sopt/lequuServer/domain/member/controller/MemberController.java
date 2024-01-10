@@ -18,6 +18,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
+import java.util.List;
 
 import static org.sopt.lequuServer.global.exception.enums.SuccessType.*;
 
@@ -77,7 +78,7 @@ public class MemberController {
 
     @GetMapping("/mypage/note")
     @ResponseStatus(HttpStatus.OK)
-    public ApiResponse<MypageNoteResponseDto> getMypageNote(Principal principal) {
+    public ApiResponse<List<MypageNoteResponseDto>> getMypageNote(Principal principal) {
         return ApiResponse.success(GET_MYPAGE_NOTE_SUCCESS, memberService.getMypageNote(JwtProvider.getUserFromPrincial(principal)));
     }
 }

@@ -21,6 +21,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import static org.sopt.lequuServer.global.exception.enums.ErrorType.*;
 
@@ -131,7 +132,7 @@ public class MemberService {
         return MypageBookResponseDto.of(nickname, books);
     }
 
-    public MypageNoteResponseDto getMypageNote(Long memberId) {
+    public List<MypageNoteResponseDto> getMypageNote(Long memberId) {
 
         // 회원 id 찾기
         Member member = memberRepository.findByIdOrThrow(memberId);
@@ -139,7 +140,9 @@ public class MemberService {
         // 회원이 소유한 Note 리스트 가져오기
         List<Note> notes = member.getNotes();
 
-        return MypageNoteResponseDto.of(notes);
+        return notes.stream()
+                .map(MypageNoteResponseDto::of)
+                .collect(Collectors.toList());
     }
 }
 

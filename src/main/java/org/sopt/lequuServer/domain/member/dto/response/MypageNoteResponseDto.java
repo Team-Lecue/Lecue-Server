@@ -2,18 +2,32 @@ package org.sopt.lequuServer.domain.member.dto.response;
 
 import org.sopt.lequuServer.domain.note.model.Note;
 
-import java.util.List;
-import java.util.stream.Collectors;
+import java.time.format.DateTimeFormatter;
 
 public record MypageNoteResponseDto(
+        String bookUuid,
 
-        List<MypageNoteListResponseDto> mypageNoteList
+        String title,
+
+        Long noteId,
+        String content,
+
+        String noteDate,
+
+        int noteBackgroundColor,
+        String noteBackgroundImage
 ) {
-    public static MypageNoteResponseDto of(List<Note> notes) {
-        List<MypageNoteListResponseDto> mypageNoteList = notes.stream()
-                .map(MypageNoteListResponseDto::of)
-                .collect(Collectors.toList());
+    public static MypageNoteResponseDto of(Note note) {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy.MM.dd");
+        String noteDate = note.getCreatedAt().format(formatter);
 
-        return new MypageNoteResponseDto(mypageNoteList);
+        String background = note.getBackground();
+        if (background.endsWith(".jpg")) {
+            return new MypageNoteResponseDto(note.getBook().getUuid(), note.getBook().getTitle(),
+                    note.getId(), note.getContent(), noteDate, -1, background);
+        } else {
+            return new MypageNoteResponseDto(note.getBook().getUuid(), note.getBook().getTitle(),
+                    note.getId(), note.getContent(), noteDate, Integer.parseInt(background), "");
+        }
     }
 }
