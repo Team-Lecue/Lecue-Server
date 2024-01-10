@@ -29,11 +29,11 @@ public class NoteFacade {
         Member member = memberRepository.findByIdOrThrow(userId);
         Book book = bookRepository.findByIdOrThrow(noteCreateDto.bookId());
 
-        String background = noteCreateDto.backgroundImages();
+        String background = noteCreateDto.background();
         if (background.endsWith(".jpg")) {
-            background = s3Service.getURL(NOTE_BACKGROUND_IMAGE_FOLDER_NAME.getValue() + noteCreateDto.backgroundImages());
+            background = s3Service.getURL(NOTE_BACKGROUND_IMAGE_FOLDER_NAME.getValue() + noteCreateDto.background());
         }
 
-        return noteService.saveNote(Note.of(noteCreateDto.content(), noteCreateDto.backgroundColor(), noteCreateDto.backgroundImages(), noteCreateDto.textColor(), member, book), member, book);
+        return noteService.saveNote(Note.of(noteCreateDto.content(), noteCreateDto.background(), noteCreateDto.textColor(), member, book), member, book);
     }
 }

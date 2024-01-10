@@ -2,7 +2,6 @@ package org.sopt.lequuServer.domain.member.dto.response;
 
 import org.sopt.lequuServer.domain.note.model.Note;
 
-import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 public record MypageNoteListResponseDto(
@@ -11,6 +10,7 @@ public record MypageNoteListResponseDto(
         Long noteId,
         String content,
         String noteDate,
+
         int noteBackgroundColor,
         String noteBackgroundImage
 ) {
@@ -18,14 +18,15 @@ public record MypageNoteListResponseDto(
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy.MM.dd");
         String noteDate = note.getCreatedAt().format(formatter);
 
-        return new MypageNoteListResponseDto(
-                note.getBook().getUuid(),
-                note.getBook().getTitle(),
-                note.getId(),
-                note.getContent(),
-                noteDate,
-                note.getBackgroundColor(),
-                note.getBackgroundImage()
-        );
+        String background = note.getBackground();
+        if (background.endsWith(".jpg")) {
+            return new MypageNoteListResponseDto(note.getBook().getUuid(), note.getBook().getTitle(),
+                    note.getId(), note.getContent(),
+                    noteDate, -1, background);
+        } else {
+            return new MypageNoteListResponseDto(note.getBook().getUuid(), note.getBook().getTitle(),
+                    note.getId(), note.getContent(),
+                    noteDate, Integer.parseInt(background), "");
+        }
     }
 }
