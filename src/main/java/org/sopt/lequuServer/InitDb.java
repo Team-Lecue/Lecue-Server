@@ -28,12 +28,12 @@ public class InitDb {
     }
 
     private static final List<String> CHARACTER_STICKERS = Arrays.asList(
-            "https://lequu-server-bucket.s3.ap-northeast-2.amazonaws.com/stickers/8d83b1c1-1e2c-437b-a2f5-e3ce96ce6d35.jpg",
-            "https://lequu-server-bucket.s3.ap-northeast-2.amazonaws.com/stickers/0215b8a5-d7a1-40c3-b291-5174b1747074.jpg",
-            "https://lequu-server-bucket.s3.ap-northeast-2.amazonaws.com/stickers/c446705f-d96f-4cef-b490-62979fc52cd9.jpg",
-            "https://lequu-server-bucket.s3.ap-northeast-2.amazonaws.com/stickers/1d8ac983-4862-4687-b27a-324a4ecb8ae6.jpg",
-            "https://lequu-server-bucket.s3.ap-northeast-2.amazonaws.com/stickers/ea9a990a-e6e5-4789-9911-a967095d3cdc.jpg",
-            "https://lequu-server-bucket.s3.ap-northeast-2.amazonaws.com/stickers/38e4509e-61ba-42e7-a823-8b379c1be022.jpg"
+            "https://lequu-server-bucket.s3.ap-northeast-2.amazonaws.com/stickers/character_1.svg",
+            "https://lequu-server-bucket.s3.ap-northeast-2.amazonaws.com/stickers/character_2.svg",
+            "https://lequu-server-bucket.s3.ap-northeast-2.amazonaws.com/stickers/character_3.svg",
+            "https://lequu-server-bucket.s3.ap-northeast-2.amazonaws.com/stickers/character_4.svg",
+            "https://lequu-server-bucket.s3.ap-northeast-2.amazonaws.com/stickers/character_5.svg",
+            "https://lequu-server-bucket.s3.ap-northeast-2.amazonaws.com/stickers/character_6.svg"
     );
 
     @Component
@@ -100,8 +100,8 @@ public class InitDb {
 
             Sticker sticker1 = Sticker.builder()
                     .bookId(0L)
-                    .category(ALPHABET)
-                    .stickerImage("https://lequu-server-bucket.s3.ap-northeast-2.amazonaws.com/stickers/8d83b1c1-1e2c-437b-a2f5-e3ce96ce6d35.jpg")
+                    .category(BIRTHDAY)
+                    .stickerImage("https://lequu-server-bucket.s3.ap-northeast-2.amazonaws.com/stickers/birth_1.svg")
                     .build();
             em.persist(sticker1);
             for (int i = 0; i < 3; i++) {

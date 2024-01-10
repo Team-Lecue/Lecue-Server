@@ -3,6 +3,7 @@ package org.sopt.lequuServer.domain.book.facade;
 import lombok.RequiredArgsConstructor;
 import org.sopt.lequuServer.domain.book.dto.request.BookCreateRequestDto;
 import org.sopt.lequuServer.domain.book.dto.response.BookCreateResponseDto;
+import org.sopt.lequuServer.domain.book.dto.response.BookDetailResponseDto;
 import org.sopt.lequuServer.domain.book.model.Book;
 import org.sopt.lequuServer.domain.book.repository.BookRepository;
 import org.sopt.lequuServer.domain.book.service.BookService;
@@ -24,16 +25,15 @@ import static org.sopt.lequuServer.global.s3.enums.ImageFolderName.BOOK_FAVORITE
 
 @Service
 @RequiredArgsConstructor
-@Transactional(readOnly = true)
 public class BookFacade {
 
     private final BookService bookService;
     private final MemberRepository memberRepository;
-    private final S3Service s3Service;
-    private final NoteRepository noteRepository;
-    private final PostedStickerRepository postedStickerRepository;
     private final BookRepository bookRepository;
+    private final NoteRepository noteRepository;
     private final StickerRepository stickerRepository;
+    private final PostedStickerRepository postedStickerRepository;
+    private final S3Service s3Service;
 
     public BookCreateResponseDto createBook(BookCreateRequestDto request, Long memberId) {
 
@@ -89,5 +89,11 @@ public class BookFacade {
 
         // 정상적인 book id가 전송되면
         bookRepository.deleteById(bookId);
+    }
+
+    public BookDetailResponseDto getBookDetail(String bookUuid) {
+        Book book = bookRepository.findByUuidOrThrow(bookUuid);
+
+        return BookDetailResponseDto.of(book);
     }
 }
