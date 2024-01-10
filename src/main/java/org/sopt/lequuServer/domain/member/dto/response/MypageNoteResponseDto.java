@@ -28,6 +28,5 @@ public record MypageNoteResponseDto(
         }
         return new MypageNoteResponseDto(note.getBook().getUuid(), note.getBook().getTitle(),
                 note.getId(), note.getContent(), noteDate, Integer.parseInt(background), "");
-
     }
 }
