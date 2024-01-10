@@ -27,7 +27,7 @@ public record BookDetailResponseDto(
         List<PostedStickerDetailResponseDto> postedStickerList
 ) {
     public static BookDetailResponseDto of(Book book) {
-        String bookDate = getString(book);
+        String bookDate = formatLocalDate(book);
 
         // 레큐노트 리스트를 noteId 기준 내림차순으로 정렬
         List<Note> sortedNotes = book.getNotes().stream()
@@ -61,7 +61,7 @@ public record BookDetailResponseDto(
         );
     }
 
-    private static String getString(Book book) {
+    private static String formatLocalDate(Book book) {
         LocalDateTime createdAt = book.getCreatedAt();
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy.MM.dd");
         return createdAt.format(formatter);
