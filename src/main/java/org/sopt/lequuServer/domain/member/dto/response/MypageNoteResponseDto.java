@@ -25,9 +25,9 @@ public record MypageNoteResponseDto(
         if (background.endsWith(".jpg")) {
             return new MypageNoteResponseDto(note.getBook().getUuid(), note.getBook().getTitle(),
                     note.getId(), note.getContent(), noteDate, -1, background);
-        } else {
-            return new MypageNoteResponseDto(note.getBook().getUuid(), note.getBook().getTitle(),
-                    note.getId(), note.getContent(), noteDate, Integer.parseInt(background), "");
         }
+        return new MypageNoteResponseDto(note.getBook().getUuid(), note.getBook().getTitle(),
+                note.getId(), note.getContent(), noteDate, Integer.parseInt(background), "");
+
     }
 }
