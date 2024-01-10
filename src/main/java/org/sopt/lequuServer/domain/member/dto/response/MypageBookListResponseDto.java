@@ -16,9 +16,8 @@ public record MypageBookListResponseDto(
         int noteNum
 ) {
     public static MypageBookListResponseDto of(Book book) {
-        LocalDateTime createdAt = book.getCreatedAt();
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy.MM.dd");
-        String bookDate = createdAt.format(formatter);
+        String bookDate = book.getCreatedAt().format(formatter);
 
         return new MypageBookListResponseDto(
                 book.getId(),
