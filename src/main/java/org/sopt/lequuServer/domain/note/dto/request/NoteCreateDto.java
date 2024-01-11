@@ -17,7 +17,7 @@ public record NoteCreateDto(
         String content,
         @Schema(example = "0")
         int textColor,
-        @Schema(example = "0")
+        @Schema(example = "0 or ~.jpg")
         String background
 ) {
 }

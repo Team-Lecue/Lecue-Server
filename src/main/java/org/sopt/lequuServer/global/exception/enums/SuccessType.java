@@ -24,6 +24,8 @@ public enum SuccessType {
     STICKER_PACK_LIST_SUCCESS(HttpStatus.OK, "스티커팩 목록 조회에 성공했습니다."),
     GET_SPLASH_SUCCESS(HttpStatus.OK, "스플래시 조회에 성공했습니다."),
     GET_HOME_SUCCESS(HttpStatus.OK, "홈 화면 조회에 성공했습니다."),
+    GET_MYPAGE_BOOK_SUCCESS(HttpStatus.OK, "마이페이지의 유저 닉네임과 내 레큐북 조회에 성공했습니다."),
+    GET_MYPAGE_NOTE_SUCCESS(HttpStatus.OK, "마이페이지 내 레큐노트 조회에 성공했습니다."),
 
     /**
      * 201 CREATED

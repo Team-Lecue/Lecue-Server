@@ -6,6 +6,8 @@ import org.sopt.lequuServer.domain.member.dto.request.MemberNicknameRequestDto;
 import org.sopt.lequuServer.domain.member.dto.request.SocialLoginRequestDto;
 import org.sopt.lequuServer.domain.member.dto.response.MemberLoginResponseDto;
 import org.sopt.lequuServer.domain.member.dto.response.MemberNicknameResponseDto;
+import org.sopt.lequuServer.domain.member.dto.response.MypageBookResponseDto;
+import org.sopt.lequuServer.domain.member.dto.response.MypageNoteResponseDto;
 import org.sopt.lequuServer.domain.member.service.MemberService;
 import org.sopt.lequuServer.global.auth.fegin.kakao.KakaoLoginService;
 import org.sopt.lequuServer.global.auth.jwt.JwtProvider;
@@ -16,8 +18,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
+import java.util.List;
 
-import static org.sopt.lequuServer.global.exception.enums.SuccessType.SET_MEMBER_NICKNAME_SUCCESS;
+import static org.sopt.lequuServer.global.exception.enums.SuccessType.*;
 
 @RestController
 @RequestMapping("/api")
@@ -65,5 +68,17 @@ public class MemberController {
     public ApiResponse<MemberNicknameResponseDto> setMemberNickname(Principal principal, @Valid @RequestBody MemberNicknameRequestDto request) {
 
         return ApiResponse.success(SET_MEMBER_NICKNAME_SUCCESS, memberService.setMemberNickname(JwtProvider.getUserFromPrincial(principal), request));
+    }
+
+    @GetMapping("/mypage/book")
+    @ResponseStatus(HttpStatus.OK)
+    public ApiResponse<MypageBookResponseDto> getMypageBook(Principal principal) {
+        return ApiResponse.success(GET_MYPAGE_BOOK_SUCCESS, memberService.getMypageBook(JwtProvider.getUserFromPrincial(principal)));
+    }
+
+    @GetMapping("/mypage/note")
+    @ResponseStatus(HttpStatus.OK)
+    public ApiResponse<List<MypageNoteResponseDto>> getMypageNote(Principal principal) {
+        return ApiResponse.success(GET_MYPAGE_NOTE_SUCCESS, memberService.getMypageNote(JwtProvider.getUserFromPrincial(principal)));
     }
 }
