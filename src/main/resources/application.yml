@@ -35,5 +35,5 @@ springdoc:
   show-login-endpoint: true
 
 sentry:
-  dsn: ${SENTRY_DSN:sentry-dsn}
+  dsn: ${SENTRY_DSN}
   traces-sample-rate: 1.0
