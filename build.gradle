@@ -27,7 +27,7 @@ sentry {
 
 	org = "lecue"
 	projectName = "java-spring-boot"
-	authToken = System.getenv("SENTRY_AUTH_TOKEN")
+	authToken = System.getenv("SENTRY_AUTH_TOKEN") ?: project.findProperty("sentry.authToken") ?: System.getenv("INPUT_SENTRY_AUTH_TOKEN")
 }
 
 dependencies {
