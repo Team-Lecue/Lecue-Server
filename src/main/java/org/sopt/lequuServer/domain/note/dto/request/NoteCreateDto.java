@@ -12,7 +12,7 @@ public record NoteCreateDto(
         @Size(min = 1, max = 1000, message = "레큐노트 내용은 1자 이상 1000자 이하여야 합니다.")
         String content,
 
-        @Schema(example = "0")
+        @Schema(description = "텍스트 컬러 번호(검정:0, 흰색:1)", example = "0")
         @Min(value = 0, message = "텍스트 컬러 번호는 0 또는 1이어야 합니다.")
         @Max(value = 1, message = "텍스트 컬러 번호는 0 또는 1이어야 합니다.")
         int textColor,
