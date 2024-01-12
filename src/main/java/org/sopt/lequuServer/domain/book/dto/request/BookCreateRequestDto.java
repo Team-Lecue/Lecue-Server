@@ -1,7 +1,6 @@
 package org.sopt.lequuServer.domain.book.dto.request;
 
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.Size;
+import jakarta.validation.constraints.*;
 
 public record BookCreateRequestDto(
 
@@ -19,7 +18,8 @@ public record BookCreateRequestDto(
         @Size(min = 1, max = 65, message = "레큐북 소개는 1자 이상 65자 이하여야합니다.")
         String description,
 
-        // TODO 숫자 1 or 2로 제한할 수 있는 것 추가
+        @Min(value = 0, message = "레큐북 배경색은 0 또는 1이어야합니다.")
+        @Max(value = 1, message = "레큐북 배경색은 0 또는 1이어야합니다.")
         int backgroundColor
 ) {
 }

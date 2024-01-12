@@ -5,7 +5,6 @@ import org.sopt.lequuServer.domain.book.repository.BookRepository;
 import org.sopt.lequuServer.domain.common.dto.response.PopularBookResponseDto;
 import org.sopt.lequuServer.domain.common.dto.response.SplashDto;
 import org.sopt.lequuServer.domain.note.repository.NoteRepository;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -23,7 +22,7 @@ public class CommonFacade {
     }
 
     public List<PopularBookResponseDto> getHome() {
-        return bookRepository.getAllByPopular(PageRequest.of(0, 6))
+        return bookRepository.findAllOrderByPopular()
                 .stream().map(PopularBookResponseDto::of)
                 .toList();
     }

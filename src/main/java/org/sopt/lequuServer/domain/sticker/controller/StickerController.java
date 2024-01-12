@@ -27,12 +27,12 @@ public class StickerController {
     @GetMapping("/{bookId}")
     @ResponseStatus(HttpStatus.OK)
     public ApiResponse<List<StickerPackResponseDto>> getStickerPackList(@PathVariable Long bookId) {
-        return ApiResponse.success(STICKER_PACK_LIST_SUCCESS, stickerService.getStickerPackList(bookId));
+        return ApiResponse.success(GET_STICKER_PACK_SUCCESS, stickerService.getStickerPackList(bookId));
     }
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public ApiResponse<StickerPostResponseDto> postSticker(Principal principal, @RequestBody StickerPostRequestDto request) {
-        return ApiResponse.success(STICKER_POST_SUCCESS, stickerFacade.postSticker(JwtProvider.getUserFromPrincial(principal), request));
+        return ApiResponse.success(POST_STICKER_SUCCESS, stickerFacade.postSticker(JwtProvider.getUserFromPrincial(principal), request));
     }
 }

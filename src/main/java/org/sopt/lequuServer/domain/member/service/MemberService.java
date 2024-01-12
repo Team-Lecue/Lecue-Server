@@ -23,6 +23,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import static java.util.Comparator.comparing;
 import static org.sopt.lequuServer.global.exception.enums.ErrorType.*;
 
 @Service
@@ -141,6 +142,7 @@ public class MemberService {
         List<Note> notes = member.getNotes();
 
         return notes.stream()
+                .sorted(comparing(Note::getCreatedAt).reversed())
                 .map(MypageNoteResponseDto::of)
                 .collect(Collectors.toList());
     }

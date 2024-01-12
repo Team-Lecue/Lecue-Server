@@ -30,19 +30,19 @@ public class BookController {
     @ResponseStatus(HttpStatus.CREATED)
     @Operation(summary = "레큐 북 생성")
     public ApiResponse<BookCreateResponseDto> createBook(@Valid @RequestBody BookCreateRequestDto request, Principal principal) {
-        return ApiResponse.success(SuccessType.BOOK_CREATE_SUCCESS, bookFacade.createBook(request, JwtProvider.getUserFromPrincial(principal)));
+        return ApiResponse.success(SuccessType.CREATE_BOOK_SUCCESS, bookFacade.createBook(request, JwtProvider.getUserFromPrincial(principal)));
     }
 
     @DeleteMapping("/{bookId}")
     @Operation(summary = "레큐 북 삭제")
     public ApiResponse<?> deleteBook(@PathVariable Long bookId) {
         bookFacade.deleteBook(bookId);
-        return ApiResponse.success(SuccessType.BOOK_DELETE_SUCCESS);
+        return ApiResponse.success(SuccessType.DELETE_BOOK_SUCCESS);
     }
 
     @GetMapping("/detail/{bookUuid}")
     @ResponseStatus(HttpStatus.OK)
     public ApiResponse<BookDetailResponseDto> getBookDetail(@PathVariable String bookUuid) {
-        return ApiResponse.success(SuccessType.PROCESS_SUCCESS, bookFacade.getBookDetail(bookUuid));
+        return ApiResponse.success(SuccessType.GET_BOOK_DETAIL_SUCCESS, bookFacade.getBookDetail(bookUuid));
     }
 }

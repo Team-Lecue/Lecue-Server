@@ -14,6 +14,7 @@ public record MypageNoteResponseDto(
 
         String noteDate,
 
+        int noteTextColor,
         int noteBackgroundColor,
         String noteBackgroundImage
 ) {
@@ -24,9 +25,9 @@ public record MypageNoteResponseDto(
         String background = note.getBackground();
         if (background.endsWith(".jpg")) {
             return new MypageNoteResponseDto(note.getBook().getUuid(), note.getBook().getTitle(),
-                    note.getId(), note.getContent(), noteDate, -1, background);
+                    note.getId(), note.getContent(), noteDate, note.getTextColor(), -1, background);
         }
         return new MypageNoteResponseDto(note.getBook().getUuid(), note.getBook().getTitle(),
-                note.getId(), note.getContent(), noteDate, Integer.parseInt(background), "");
+                note.getId(), note.getContent(), noteDate, note.getTextColor(), Integer.parseInt(background), "");
     }
 }

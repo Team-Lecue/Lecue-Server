@@ -11,6 +11,7 @@ public record NoteDetailResponseDto(
         String content,
         String noteDate,
         String noteNickname,
+        int noteTextColor,
         int noteBackgroundColor,
         String noteBackgroundImage
 ) {
@@ -18,7 +19,7 @@ public record NoteDetailResponseDto(
         String noteDate = formatLocalDate(note);
 
         return new NoteDetailResponseDto(note.getId(), renderType, note.getContent(), noteDate,
-                note.getMember().getNickname(), noteBackgroundColor, noteBackgroundImage);
+                note.getMember().getNickname(), note.getTextColor(), noteBackgroundColor, noteBackgroundImage);
     }
 
     private static String formatLocalDate(Note note) {

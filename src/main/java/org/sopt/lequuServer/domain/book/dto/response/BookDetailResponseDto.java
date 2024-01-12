@@ -31,7 +31,7 @@ public record BookDetailResponseDto(
 
         // 레큐노트 리스트를 noteId 기준 내림차순으로 정렬
         List<Note> sortedNotes = book.getNotes().stream()
-                .sorted(comparing(Note::getId).reversed())
+                .sorted(comparing(Note::getCreatedAt).reversed())
                 .toList();
 
         // 레큐노트 리스트 가공
