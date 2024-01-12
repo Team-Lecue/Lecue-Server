@@ -11,7 +11,7 @@ import java.util.Optional;
 
 public interface BookRepository extends JpaRepository<Book, Long> {
 
-    @Query(value = "SELECT b FROM Book b ORDER BY b.popularRate ASC")
+    @Query(value = "SELECT b FROM Book b WHERE b.popularRate > 0 ORDER BY b.popularRate ASC")
     List<Book> findAllOrderByPopular();
 
     default Book findByIdOrThrow(Long id) {
