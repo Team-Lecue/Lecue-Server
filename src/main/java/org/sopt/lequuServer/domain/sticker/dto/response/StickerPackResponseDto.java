@@ -1,5 +1,6 @@
 package org.sopt.lequuServer.domain.sticker.dto.response;
 
+import io.swagger.v3.oas.annotations.media.Schema;
 import org.sopt.lequuServer.domain.sticker.model.Sticker;
 import org.sopt.lequuServer.domain.sticker.model.StickerCategory;
 
@@ -9,7 +10,10 @@ import java.util.Map;
 import static java.util.stream.Collectors.*;
 
 public record StickerPackResponseDto(
+
+        @Schema(description = "스티커 카테코리", example = "생일")
         String stickerCategory,
+
         List<StickerResponseDto> stickerList
 ) {
 
