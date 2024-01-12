@@ -33,8 +33,3 @@ springdoc:
     cache:
       disabled: true
   show-login-endpoint: true
-
-sentry:
-  dsn: ${SENTRY_DSN}
-  traces-sample-rate: 1.0
-  exception-resolver-order: -2147483647

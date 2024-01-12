@@ -31,3 +31,8 @@ kakao:
 
 server:
   address: 0.0.0.0
+
+sentry:
+  dsn: ${SENTRY_DSN}
+  traces-sample-rate: 1.0
+  exception-resolver-order: -2147483647
