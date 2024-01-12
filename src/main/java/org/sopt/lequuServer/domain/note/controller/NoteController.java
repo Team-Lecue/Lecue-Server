@@ -21,7 +21,7 @@ import java.security.Principal;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/api/note")
+@RequestMapping("/api/notes")
 @Tag(name = "Note", description = "레큐 노트 API")
 @SecurityRequirement(name = "JWT Auth")
 public class NoteController {
@@ -32,6 +32,6 @@ public class NoteController {
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public ApiResponse<?> createNote(Principal principal, @RequestBody @Valid NoteCreateDto noteCreateDto) {
-        return ApiResponse.success(SuccessType.NOTE_CREATE_SUCCESS, noteFacade.createNote(JwtProvider.getUserFromPrincial(principal), noteCreateDto));
+        return ApiResponse.success(SuccessType.CREATE_NOTE_SUCCESS, noteFacade.createNote(JwtProvider.getUserFromPrincial(principal), noteCreateDto));
     }
 }

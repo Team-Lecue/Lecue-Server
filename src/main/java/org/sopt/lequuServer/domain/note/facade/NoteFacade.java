@@ -32,6 +32,6 @@ public class NoteFacade {
             background = s3Service.getURL(NOTE_BACKGROUND_IMAGE_FOLDER_NAME.getValue() + noteCreateDto.background());
         }
 
-        return noteService.saveNote(Note.of(noteCreateDto.content(), noteCreateDto.background(), noteCreateDto.textColor(), member, book), member, book);
+        return noteService.saveNote(Note.of(noteCreateDto.content(), background, noteCreateDto.textColor(), member, book), member, book);
     }
 }

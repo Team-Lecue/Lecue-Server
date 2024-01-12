@@ -81,7 +81,7 @@ public class InitDb {
                 Note note = Note.builder()
                         .content("레큐노트 내용입니다 블라블라블라 블라블라블라 블라블라블라 블라블라블라 블라블라블라 블라블라블라 블라블라블라")
                         .background("https://lequu-server-bucket.s3.ap-northeast-2.amazonaws.com/notes/background_image/676c2ca3-f868-423f-8000-a0bcb67dc797.jpg")
-                        .textColor(i)
+                        .textColor(0)
                         .member(member1)
                         .book(book1)
                         .build();
@@ -91,7 +91,7 @@ public class InitDb {
                 Note note = Note.builder()
                         .content("레큐노트 내용입니다 블라블라블라 블라블라블라 블라블라블라 블라블라블라 블라블라블라 블라블라블라 블라블라블라")
                         .background(String.valueOf(i))
-                        .textColor(i)
+                        .textColor(0)
                         .member(member1)
                         .book(book1)
                         .build();

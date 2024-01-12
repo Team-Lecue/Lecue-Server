@@ -4,12 +4,16 @@ import org.sopt.lequuServer.domain.book.model.Book;
 
 import java.util.List;
 
+import static java.util.Comparator.comparing;
+
 public record MypageBookResponseDto(
         String memberNickname,
         List<MypageBookListResponseDto> mypageBookList
 ) {
     public static MypageBookResponseDto of(String nickName, List<Book> books) {
+
         List<MypageBookListResponseDto> mypageBookList = books.stream()
+                .sorted(comparing(Book::getCreatedAt).reversed())
                 .map(MypageBookListResponseDto::of)
                 .toList();
 
