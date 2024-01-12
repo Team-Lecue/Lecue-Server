@@ -29,3 +29,8 @@ kakao:
   client-id: ${KAKAO_ID}
   authorization-grant-type: authorization_code
   redirect-uri: ${KAKAO_REDIRECT_LOCAL}
+
+sentry:
+  dsn:
+  traces-sample-rate: 1.0
+  exception-resolver-order: -2147483647
