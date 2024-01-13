@@ -10,6 +10,8 @@ public record MypageNoteResponseDto(
         @Schema(description = "레큐북 UUID", example = "ee4f66f9-9cf4-4b28-90f4-f71d0ecba021")
         String bookUuid,
 
+        @Schema(description = "최애 이름", example = "LeoJ")
+        String favoriteName,
 
         @Schema(description = "레큐북 제목", example = "1번째 레큐북")
         String title,
@@ -39,10 +41,10 @@ public record MypageNoteResponseDto(
 
         String background = note.getBackground();
         if (background.endsWith(".jpg")) {
-            return new MypageNoteResponseDto(note.getBook().getUuid(), note.getBook().getTitle(),
+            return new MypageNoteResponseDto(note.getBook().getUuid(), note.getBook().getFavoriteName(), note.getBook().getTitle(),
                     note.getId(), note.getContent(), noteDate, note.getTextColor(), -1, background);
         }
-        return new MypageNoteResponseDto(note.getBook().getUuid(), note.getBook().getTitle(),
+        return new MypageNoteResponseDto(note.getBook().getUuid(), note.getBook().getFavoriteName(), note.getBook().getTitle(),
                 note.getId(), note.getContent(), noteDate, note.getTextColor(), Integer.parseInt(background), "");
     }
 }

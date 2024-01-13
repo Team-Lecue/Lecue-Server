@@ -13,6 +13,9 @@ public record MypageBookListResponseDto(
         @Schema(description = "레큐북 UUID", example = "ee4f66f9-9cf4-4b28-90f4-f71d0ecba021")
         String bookUuid,
 
+        @Schema(description = "최애 이름", example = "LeoJ")
+        String favoriteName,
+
         @Schema(description = "레큐북 제목", example = "1번째 레큐북")
         String title,
 
@@ -32,6 +35,7 @@ public record MypageBookListResponseDto(
         return new MypageBookListResponseDto(
                 book.getId(),
                 book.getUuid(),
+                book.getFavoriteName(),
                 book.getTitle(),
                 bookDate,
                 book.getBackgroundColor(),
