@@ -119,7 +119,7 @@ public class MemberController {
     @GetMapping("/mypage/note")
     @io.swagger.v3.oas.annotations.responses.ApiResponse(
             responseCode = "200",
-            description = "마이페이지 내 레큐노트 조회에 성공했습니다.",
+            description = "마이페이의 유저 닉네임과 내 레큐노트 조회에 성공했습니다.",
             content = @Content(schema = @Schema(implementation = MypageNoteResponseDto.class))
     )
     @ResponseStatus(HttpStatus.OK)
