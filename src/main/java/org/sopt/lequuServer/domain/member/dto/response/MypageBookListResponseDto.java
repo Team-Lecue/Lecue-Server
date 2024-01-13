@@ -22,9 +22,6 @@ public record MypageBookListResponseDto(
         @Schema(description = "레큐북 생성 일시", example = "2024.01.11")
         String bookDate,
 
-        @Schema(description = "레큐북 배경 색깔(흰색:0, 검정:1)", example = "0")
-        int bookBackgroundColor,
-
         @Schema(description = "레큐노트 개수", example = "1974")
         int noteNum
 ) {
@@ -38,7 +35,6 @@ public record MypageBookListResponseDto(
                 book.getFavoriteName(),
                 book.getTitle(),
                 bookDate,
-                book.getBackgroundColor(),
                 book.getNotes().size()
         );
     }
