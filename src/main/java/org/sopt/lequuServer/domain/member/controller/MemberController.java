@@ -10,10 +10,7 @@ import lombok.RequiredArgsConstructor;
 import org.sopt.lequuServer.domain.common.dto.response.PopularBookResponseDto;
 import org.sopt.lequuServer.domain.member.dto.request.MemberNicknameRequestDto;
 import org.sopt.lequuServer.domain.member.dto.request.SocialLoginRequestDto;
-import org.sopt.lequuServer.domain.member.dto.response.MemberLoginResponseDto;
-import org.sopt.lequuServer.domain.member.dto.response.MemberNicknameResponseDto;
-import org.sopt.lequuServer.domain.member.dto.response.MypageBookResponseDto;
-import org.sopt.lequuServer.domain.member.dto.response.MypageNoteResponseDto;
+import org.sopt.lequuServer.domain.member.dto.response.*;
 import org.sopt.lequuServer.domain.member.service.MemberService;
 import org.sopt.lequuServer.global.auth.fegin.kakao.KakaoLoginService;
 import org.sopt.lequuServer.global.auth.jwt.JwtProvider;
@@ -24,7 +21,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
-import java.util.List;
 
 import static org.sopt.lequuServer.global.exception.enums.SuccessType.*;
 
@@ -128,7 +124,7 @@ public class MemberController {
     )
     @ResponseStatus(HttpStatus.OK)
     @Operation(summary = "마이페이지 레큐노트 조회")
-    public ApiResponse<List<MypageNoteResponseDto>> getMypageNote(Principal principal) {
+    public ApiResponse<MypageNoteResponseDto> getMypageNote(Principal principal) {
         return ApiResponse.success(GET_MYPAGE_NOTE_SUCCESS, memberService.getMypageNote(JwtProvider.getUserFromPrincial(principal)));
     }
 }

@@ -21,9 +21,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
-import static java.util.Comparator.comparing;
 import static org.sopt.lequuServer.global.exception.enums.ErrorType.*;
 
 @Service
@@ -133,18 +131,17 @@ public class MemberService {
         return MypageBookResponseDto.of(nickname, books);
     }
 
-    public List<MypageNoteResponseDto> getMypageNote(Long memberId) {
+    public MypageNoteResponseDto getMypageNote(Long memberId) {
 
         // 회원 id 찾기
         Member member = memberRepository.findByIdOrThrow(memberId);
 
+        String nickname = member.getNickname();
+
         // 회원이 소유한 Note 리스트 가져오기
         List<Note> notes = member.getNotes();
 
-        return notes.stream()
-                .sorted(comparing(Note::getCreatedAt).reversed())
-                .map(MypageNoteResponseDto::of)
-                .collect(Collectors.toList());
+        return MypageNoteResponseDto.of(nickname, notes);
     }
 }
 
