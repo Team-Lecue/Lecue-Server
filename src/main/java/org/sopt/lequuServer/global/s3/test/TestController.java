@@ -1,5 +1,6 @@
 package org.sopt.lequuServer.global.s3.test;
 
+import io.swagger.v3.oas.annotations.Hidden;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -10,6 +11,7 @@ import java.net.URI;
 @RestController
 @RequestMapping("/api/test/s3")
 @RequiredArgsConstructor
+@Hidden
 public class TestController {
 
     private final TestService bookService;
