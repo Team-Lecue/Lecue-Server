@@ -56,14 +56,8 @@ public class CommonController {
     @Hidden
     @GetMapping("/test")
     @ResponseStatus(HttpStatus.OK)
-    public ApiResponse<?> sentryTest() {
-        try {
-            throw new Exception("This is a test.");
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-            Sentry.captureException(e);
-        }
-        return null;
+    public ApiResponse<?> test() {
+        throw new RuntimeException("테스트용 에러 발생");
     }
 }
 

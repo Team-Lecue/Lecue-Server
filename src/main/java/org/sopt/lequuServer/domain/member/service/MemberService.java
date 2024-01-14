@@ -1,6 +1,7 @@
 package org.sopt.lequuServer.domain.member.service;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.sopt.lequuServer.domain.book.model.Book;
 import org.sopt.lequuServer.domain.member.dto.request.MemberNicknameRequestDto;
 import org.sopt.lequuServer.domain.member.dto.request.SocialLoginRequestDto;
@@ -16,6 +17,7 @@ import org.sopt.lequuServer.global.auth.fegin.kakao.KakaoLoginService;
 import org.sopt.lequuServer.global.auth.jwt.JwtProvider;
 import org.sopt.lequuServer.global.auth.jwt.TokenDto;
 import org.sopt.lequuServer.global.auth.security.UserAuthentication;
+import org.sopt.lequuServer.global.common.logging.LoggingMessage;
 import org.sopt.lequuServer.global.exception.model.CustomException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -24,6 +26,7 @@ import java.util.List;
 
 import static org.sopt.lequuServer.global.exception.enums.ErrorType.*;
 
+@Slf4j
 @Service
 @RequiredArgsConstructor
 @Transactional(readOnly = true)
@@ -55,6 +58,10 @@ public class MemberService {
         // 카카오 로그인은 정보 더 많이 받아올 수 있으므로 추가 설정
         if (socialPlatform == SocialPlatform.KAKAO) {
             kakaoLoginService.setKakaoInfo(loginMember, socialAccessToken);
+        }
+
+        if (!isRegistered && socialPlatform == SocialPlatform.KAKAO) {
+            log.info(LoggingMessage.memberRegisterLogMessage(loginMember));
         }
 
         TokenDto tokenDto = jwtProvider.issueToken(new UserAuthentication(loginMember.getId(), null, null));
@@ -113,7 +120,6 @@ public class MemberService {
     public MemberNicknameResponseDto setMemberNickname(Long memberId, MemberNicknameRequestDto request) {
         Member member = memberRepository.findByIdOrThrow(memberId);
         member.updateNickname(request.nickname().strip());
-
         return MemberNicknameResponseDto.of(memberId);
     }
 
