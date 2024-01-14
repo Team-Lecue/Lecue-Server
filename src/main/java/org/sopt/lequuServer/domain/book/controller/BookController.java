@@ -23,12 +23,12 @@ import java.security.Principal;
 @RequestMapping("/api/books")
 @RequiredArgsConstructor
 @Tag(name = "Book", description = "레큐북 API")
-@SecurityRequirement(name = "JWT Auth")
 public class BookController {
 
     private final BookFacade bookFacade;
 
     @PostMapping
+    @SecurityRequirement(name = "JWT Authorization")
     @io.swagger.v3.oas.annotations.responses.ApiResponse(
             responseCode = "201",
             description = "레큐북이 성공적으로 생성됐습니다.",
@@ -41,6 +41,7 @@ public class BookController {
     }
 
     @DeleteMapping("/{bookId}")
+    @SecurityRequirement(name = "JWT Authorization")
     @io.swagger.v3.oas.annotations.responses.ApiResponse(
             responseCode = "204",
             description = "레큐북을 성공적으로 삭제했습니다."

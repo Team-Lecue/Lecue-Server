@@ -28,6 +28,7 @@ public record NoteDetailResponseDto(
 
         @Schema(description = "레큐노트 배경 색깔(0~11, 이미지일 경우 -1)", example = "-1")
         int noteBackgroundColor,
+
         @Schema(description = "레큐노트 배경 이미지 URL(*.jpg, 색깔일 경우 “”)", example = "https://lequu-server-bucket.s3.ap-northeast-2.amazonaws.com/notes/background_image/676c2ca3-f868-423f-8000-a0bcb67dc797.jpg")
         String noteBackgroundImage
 ) {
