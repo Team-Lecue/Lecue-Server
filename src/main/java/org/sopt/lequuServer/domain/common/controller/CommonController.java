@@ -1,6 +1,5 @@
 package org.sopt.lequuServer.domain.common.controller;
 
-import io.sentry.Sentry;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -53,14 +52,8 @@ public class CommonController {
 
     @GetMapping("/test")
     @ResponseStatus(HttpStatus.OK)
-    public ApiResponse<?> sentryTest() {
-        try {
-            throw new Exception("This is a test.");
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-            Sentry.captureException(e);
-        }
-        return null;
+    public ApiResponse<?> test() {
+        throw new RuntimeException("테스트용 에러 발생");
     }
 }
 
