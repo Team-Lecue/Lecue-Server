@@ -18,6 +18,7 @@ cloud:
       secretKey: ${SECRET_KEY}
       aws-region: ap-northeast-2
       s3-bucket-name: ${BUCKET_NAME}
+      cloud-front: ${CLOUD_FRONT}
 
 springdoc:
   packages-to-scan: org.sopt.lequuServer

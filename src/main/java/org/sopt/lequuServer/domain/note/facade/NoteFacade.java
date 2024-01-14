@@ -1,5 +1,7 @@
 package org.sopt.lequuServer.domain.note.facade;
 
+import static org.sopt.lequuServer.global.s3.enums.ImageFolderName.NOTE_BACKGROUND_IMAGE_FOLDER_NAME;
+
 import lombok.RequiredArgsConstructor;
 import org.sopt.lequuServer.domain.book.model.Book;
 import org.sopt.lequuServer.domain.book.repository.BookRepository;
@@ -11,8 +13,6 @@ import org.sopt.lequuServer.domain.note.model.Note;
 import org.sopt.lequuServer.domain.note.service.NoteService;
 import org.sopt.lequuServer.global.s3.service.S3Service;
 import org.springframework.stereotype.Service;
-
-import static org.sopt.lequuServer.global.s3.enums.ImageFolderName.NOTE_BACKGROUND_IMAGE_FOLDER_NAME;
 
 @Service
 @RequiredArgsConstructor
@@ -29,7 +29,8 @@ public class NoteFacade {
 
         String background = noteCreateDto.background();
         if (background.endsWith(".jpg")) {
-            background = s3Service.getURL(NOTE_BACKGROUND_IMAGE_FOLDER_NAME.getValue() + noteCreateDto.background());
+//            background = s3Service.getURL(NOTE_BACKGROUND_IMAGE_FOLDER_NAME.getValue() + noteCreateDto.background());
+            background = s3Service.getCloudFrontURL(NOTE_BACKGROUND_IMAGE_FOLDER_NAME.getValue() + noteCreateDto.background());
         }
 
         return noteService.saveNote(Note.of(noteCreateDto.content(), background, noteCreateDto.textColor(), member, book), member, book);
