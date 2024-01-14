@@ -1,6 +1,7 @@
 package org.sopt.lequuServer.domain.member.service;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.sopt.lequuServer.domain.book.model.Book;
 import org.sopt.lequuServer.domain.member.dto.request.MemberNicknameRequestDto;
 import org.sopt.lequuServer.domain.member.dto.request.SocialLoginRequestDto;
@@ -26,6 +27,7 @@ import java.util.stream.Collectors;
 import static java.util.Comparator.comparing;
 import static org.sopt.lequuServer.global.exception.enums.ErrorType.*;
 
+@Slf4j
 @Service
 @RequiredArgsConstructor
 @Transactional(readOnly = true)
@@ -57,6 +59,16 @@ public class MemberService {
         // 카카오 로그인은 정보 더 많이 받아올 수 있으므로 추가 설정
         if (socialPlatform == SocialPlatform.KAKAO) {
             kakaoLoginService.setKakaoInfo(loginMember, socialAccessToken);
+        }
+
+        if (!isRegistered && socialPlatform == SocialPlatform.KAKAO) {
+            log.info("- 🐣🐣🐣🐣🐣🐣🐣🐣🐣🐣🐣🐣🐣🐣🐣🐣🐣🐣🐣🐣🐣🐣🐣🐣🐣🐣🐣🐣🐣🐣🐣🐣🐣🐣🐣\n\n" +
+                    "- 🐣 새로운 유저가 회원가입을 완료했습니다!\n" +
+                    "- 🏆 누적 회원가입 수: " + loginMember.getId() + " 명\n" +
+                    "\n" +
+                    "- 👀 카카오 닉네임: " + loginMember.getSocialNickname() + "\n" +
+                    "- 📩 카카오 ID: " + loginMember.getSocialId() + "\n" +
+                    "- 📷 카카오 프로필 사진: " + loginMember.getSocialProfileImage());
         }
 
         TokenDto tokenDto = jwtProvider.issueToken(new UserAuthentication(loginMember.getId(), null, null));
@@ -115,7 +127,6 @@ public class MemberService {
     public MemberNicknameResponseDto setMemberNickname(Long memberId, MemberNicknameRequestDto request) {
         Member member = memberRepository.findByIdOrThrow(memberId);
         member.updateNickname(request.nickname().strip());
-
         return MemberNicknameResponseDto.of(memberId);
     }
 

@@ -101,16 +101,16 @@ public class JwtProvider {
             log.info(JwtValidationType.VALID_JWT.getValue());
             return JwtValidationType.VALID_JWT;
         } catch (MalformedJwtException ex) {
-            log.error(JwtValidationType.INVALID_JWT_TOKEN.getValue());
+            log.warn(JwtValidationType.INVALID_JWT_TOKEN.getValue());
             return JwtValidationType.INVALID_JWT_TOKEN;
         } catch (ExpiredJwtException ex) {
-            log.error(JwtValidationType.EXPIRED_JWT_TOKEN.getValue());
+            log.warn(JwtValidationType.EXPIRED_JWT_TOKEN.getValue());
             return JwtValidationType.EXPIRED_JWT_TOKEN;
         } catch (UnsupportedJwtException ex) {
-            log.error(JwtValidationType.UNSUPPORTED_JWT_TOKEN.getValue());
+            log.warn(JwtValidationType.UNSUPPORTED_JWT_TOKEN.getValue());
             return JwtValidationType.UNSUPPORTED_JWT_TOKEN;
         } catch (IllegalArgumentException ex) {
-            log.error(JwtValidationType.EMPTY_JWT.getValue());
+            log.warn(JwtValidationType.EMPTY_JWT.getValue());
             return JwtValidationType.EMPTY_JWT;
         }
     }
