@@ -41,10 +41,11 @@ public class LoggingAspect {
         long endAt = System.currentTimeMillis();
 
         StringBuilder logMessage = new StringBuilder();
-        logMessage.append("\n" +
-                "- ✨ REQUEST: [" + request.getMethod() + "] " + request.getRequestURL() + "\n" +
-                "- ✨ DURATION: " + (endAt - startAt) + "ms\n" +
-                "- ✨ HEADERS: " + getHeaders(request) + "\n");
+        logMessage.append(
+                "🔍상세 정보" + "\n" +
+                        "- ✨ REQUEST: [" + request.getMethod() + "] " + request.getRequestURL() + "\n" +
+                        "- ✨ DURATION: " + (endAt - startAt) + "ms\n" +
+                        "- ✨ HEADERS: " + getHeaders(request) + "\n");
 
         Object[] args = proceedingJoinPoint.getArgs();
         if (args.length > 0) {

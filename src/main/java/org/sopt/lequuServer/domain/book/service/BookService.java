@@ -22,7 +22,7 @@ public class BookService {
         member.addBook(book);
         Book createdBook = bookRepository.save(book);
 
-        log.info("- 📝📝📝📝📝📝📝📝📝📝📝📝📝📝📝📝📝📝📝📝📝📝📝📝📝📝📝📝📝📝📝📝📝📝📝📝\n\n" +
+        log.info("📝📝📝📝📝📝📝📝📝📝📝📝📝📝📝📝📝📝📝📝📝📝📝📝📝📝📝📝📝📝📝📝📝📝📝📝\n\n" +
                 "- 📝 유저가 새로운 레큐북을 생성했습니다!\n" +
                 "- 👀 유저 닉네임: " + member.getNickname() + "\n" +
                 "- ⏰ 생성 시간: " + createdBook.getCreatedAt() + "\n" +

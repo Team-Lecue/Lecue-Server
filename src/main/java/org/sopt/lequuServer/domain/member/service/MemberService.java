@@ -62,7 +62,7 @@ public class MemberService {
         }
 
         if (!isRegistered && socialPlatform == SocialPlatform.KAKAO) {
-            log.info("- 🐣🐣🐣🐣🐣🐣🐣🐣🐣🐣🐣🐣🐣🐣🐣🐣🐣🐣🐣🐣🐣🐣🐣🐣🐣🐣🐣🐣🐣🐣🐣🐣🐣🐣🐣\n\n" +
+            log.info("🐣🐣🐣🐣🐣🐣🐣🐣🐣🐣🐣🐣🐣🐣🐣🐣🐣🐣🐣🐣🐣🐣🐣🐣🐣🐣🐣🐣🐣🐣🐣🐣🐣🐣🐣\n\n" +
                     "- 🐣 새로운 유저가 회원가입을 완료했습니다!\n" +
                     "- 🏆 누적 회원가입 수: " + loginMember.getId() + " 명\n" +
                     "\n" +

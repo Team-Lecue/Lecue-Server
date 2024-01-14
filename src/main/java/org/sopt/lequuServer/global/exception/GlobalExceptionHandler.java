@@ -86,24 +86,27 @@ public class GlobalExceptionHandler {
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     @ExceptionHandler(Exception.class)
     protected ApiResponse<Exception> handleException(final Exception e, final HttpServletRequest request) {
-        log.error("- 🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨");
-        log.error("- 🚨 야생의 서버 에러가 발생했다!: ", e);
+        log.error("🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨\n\n" +
+                "- 🚨 야생의 서버 에러가 발생했다!: ");
+        log.error(e.getMessage(), e);
         return ApiResponse.error(INTERNAL_SERVER_ERROR, e);
     }
 
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     @ExceptionHandler(IllegalArgumentException.class)
     public ApiResponse<Exception> handleIllegalArgumentException(final IllegalArgumentException e, final HttpServletRequest request) {
-        log.error("- 🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨");
-        log.error("- 🚨 야생의 서버 에러가 발생했다!: ", e);
+        log.error("🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨\n\n" +
+                "- 🚨 야생의 서버 에러가 발생했다!: ");
+        log.error(e.getMessage(), e);
         return ApiResponse.error(ErrorType.INTERNAL_SERVER_ERROR, e);
     }
 
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     @ExceptionHandler(IOException.class)
     public ApiResponse<Exception> handleIOException(final IOException e, final HttpServletRequest request) {
-        log.error("- 🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨");
-        log.error("- 🚨 야생의 서버 에러가 발생했다!: ", e);
+        log.error("🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨\n\n" +
+                "- 🚨 야생의 서버 에러가 발생했다!: ");
+        log.error(e.getMessage(), e);
         return ApiResponse.error(ErrorType.INTERNAL_SERVER_ERROR, e);
     }
 
@@ -111,16 +114,15 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(RuntimeException.class)
     public ApiResponse<Exception> handleRuntimeException(final RuntimeException e, final HttpServletRequest request) {
 
-        log.error("- 🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨");
-        log.error("- 🚨 야생의 서버 에러가 발생했다!: ", e);
-
+        log.error("🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨\n\n" +
+                "- 🚨 야생의 서버 에러가 발생했다!: ");
+        log.error(e.getMessage(), e);
         if (e.getMessage() != null) {
             return ApiResponse.error(ErrorType.INTERNAL_SERVER_ERROR, e.getMessage(), e);
         } else {
             return ApiResponse.error(ErrorType.INTERNAL_SERVER_ERROR, e);
         }
     }
-
 
     /**
      * CUSTOM_ERROR
@@ -131,6 +133,6 @@ public class GlobalExceptionHandler {
         log.warn("CustomException Occured: {}", e.getMessage(), e);
 
         return ResponseEntity.status(e.getHttpStatus())
-                .body(ApiResponse.error(e.getErrorType(), e.getMessage()));
+                .body(ApiResponse.error(e.getErrorType()));
     }
 }

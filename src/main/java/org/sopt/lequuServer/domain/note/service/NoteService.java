@@ -26,7 +26,7 @@ public class NoteService {
 
         Note createdNote = noteRepository.save(note);
 
-        log.info("- 💌 💌 💌 💌 💌 💌 💌 💌 💌 💌 💌 💌 💌 💌 💌 💌 💌 💌 💌 💌 💌 💌 💌 💌 💌 💌 💌 💌 💌 💌\n\n" +
+        log.info("💌 💌 💌 💌 💌 💌 💌 💌 💌 💌 💌 💌 💌 💌 💌 💌 💌 💌 💌 💌 💌 💌 💌 💌 💌 💌 💌 💌 💌 💌\n\n" +
                 "- 💌 유저가 새로운 레큐노트를 남겼습니다!\n" +
                 "- 👀 유저 닉네임: " + member.getNickname() + "\n" +
                 "- ⏰ 남긴 시간: " + createdNote.getCreatedAt() + "\n" +

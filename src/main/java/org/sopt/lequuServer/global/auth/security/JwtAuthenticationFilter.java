@@ -41,8 +41,9 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
                 SecurityContextHolder.getContext().setAuthentication(authentication);
             }
         } catch (Exception exception) {
-            log.error("- 🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨");
-            log.error("- 🚨 JWT 인증 필터에서 오류가 발생했다!: ", exception);
+            log.error("🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨\n\n" +
+                    "- 🚨 JWT 인증 필터에서 오류가 발생했다!: ");
+            log.error(exception.getMessage(), exception);
         }
 
         filterChain.doFilter(request, response);
