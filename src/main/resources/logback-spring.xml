@@ -2,7 +2,7 @@
     <timestamp key="BY_DATE" datePattern="yyyy-MM-dd"/>
     <property name="LOG_PATTERN"
               value="[%d{yyyy-MM-dd HH:mm:ss}:%-4relative] %green([%thread]) %highlight(%-5level) %boldWhite([%C.%M:%yellow(%L)]) %msg%n"/>
-    <springProfile name="!local">
+    <springProfile name="local">
         <include resource="console-appender.xml"/>
         <root level="INFO">
             <appender-ref ref="CONSOLE"/>
@@ -12,7 +12,7 @@
                 level="WARN"/>
     </springProfile>
 
-    <springProfile name="local">
+    <springProfile name="!local">
         <include resource="console-appender.xml"/>
         <include resource="discord-error-appender.xml"/>
         <include resource="discord-business-appender.xml"/>
