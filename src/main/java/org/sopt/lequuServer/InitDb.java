@@ -1,7 +1,13 @@
 package org.sopt.lequuServer;
 
+import static org.sopt.lequuServer.domain.sticker.model.StickerCategory.ALPHABET;
+import static org.sopt.lequuServer.domain.sticker.model.StickerCategory.BIRTHDAY;
+import static org.sopt.lequuServer.domain.sticker.model.StickerCategory.CHARACTER;
+
 import jakarta.annotation.PostConstruct;
 import jakarta.persistence.EntityManager;
+import java.util.Arrays;
+import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.sopt.lequuServer.domain.book.model.Book;
 import org.sopt.lequuServer.domain.member.model.Member;
@@ -11,11 +17,6 @@ import org.sopt.lequuServer.domain.sticker.model.PostedSticker;
 import org.sopt.lequuServer.domain.sticker.model.Sticker;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
-
-import java.util.Arrays;
-import java.util.List;
-
-import static org.sopt.lequuServer.domain.sticker.model.StickerCategory.*;
 
 @Component
 @RequiredArgsConstructor
@@ -54,6 +55,7 @@ public class InitDb {
                     .socialPlatform(SocialPlatform.KAKAO)
                     .socialId("3251153440")
                     .build();
+            member1.updateNickname("레큐");
             member1.updateSocialInfo("레큐", "http://k.kakaocdn.net/dn/1G9kp/btsAot8liOn/8CWudi3uy07rvFNUkk3ER0/img_640x640.jpg");
             em.persist(member1);
 
