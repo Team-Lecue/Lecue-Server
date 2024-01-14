@@ -45,6 +45,11 @@ public class InitDb {
 
         @Transactional
         public void dbInit() {
+
+            if (!isDatabaseEmpty()) {
+                return;
+            }
+            
             Member member1 = Member.builder()
                     .socialPlatform(SocialPlatform.KAKAO)
                     .socialId("3251153440")
@@ -154,6 +159,12 @@ public class InitDb {
                     .positionY(60)
                     .build();
             em.persist(postedSticker);
+        }
+
+        private boolean isDatabaseEmpty() {
+            Long count = em.createQuery("SELECT COUNT(m) FROM Member m", Long.class)
+                    .getSingleResult();
+            return count == 0;
         }
     }
 }
