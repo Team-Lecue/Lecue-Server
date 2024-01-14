@@ -8,7 +8,6 @@ import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.sopt.lequuServer.global.auth.jwt.JwtProvider;
-import org.sopt.lequuServer.global.config.SecurityConfig;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
 import org.springframework.stereotype.Component;
@@ -16,6 +15,9 @@ import org.springframework.util.StringUtils;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 import java.io.IOException;
+
+import static org.sopt.lequuServer.global.auth.security.AuthWhiteList.AUTH_WHITELIST_DEFALUT;
+import static org.sopt.lequuServer.global.auth.security.AuthWhiteList.AUTH_WHITELIST_WILDCARD;
 
 /**
  * JWT의 유효성을 검증하는 Filter
@@ -30,11 +32,14 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
     @Override
     protected void doFilterInternal(@NonNull HttpServletRequest request, @NonNull HttpServletResponse response, @NonNull FilterChain filterChain) throws IOException, ServletException, IOException {
 
-        if (SecurityConfig.AUTH_WHITELIST.stream()
-                .anyMatch(whiteUrl -> {
-                    String modifiedWhiteUrl = whiteUrl.endsWith("/**") ? whiteUrl.substring(0, whiteUrl.length() - 3) : whiteUrl;
-                    return request.getRequestURI().contains(modifiedWhiteUrl);
-                })) {
+        if (AUTH_WHITELIST_DEFALUT.stream()
+                .anyMatch(whiteUrl -> request.getRequestURI().equals(whiteUrl))) {
+            filterChain.doFilter(request, response);
+            return;
+        }
+
+        if (AUTH_WHITELIST_WILDCARD.stream()
+                .anyMatch(whiteUrl -> request.getRequestURI().startsWith(whiteUrl.substring(0, whiteUrl.length() - 3)))) {
             filterChain.doFilter(request, response);
             return;
         }

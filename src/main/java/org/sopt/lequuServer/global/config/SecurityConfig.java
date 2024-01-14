@@ -12,8 +12,7 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
-import java.util.Arrays;
-import java.util.List;
+import static org.sopt.lequuServer.global.auth.security.AuthWhiteList.AUTH_WHITELIST;
 
 @Configuration
 @EnableWebSecurity
@@ -22,13 +21,6 @@ public class SecurityConfig {
 
     private final JwtAuthenticationFilter jwtAuthenticationFilter;
     private final JwtExceptionFilter jwtExceptionFilter;
-
-    public static final List<String> AUTH_WHITELIST = Arrays.asList(
-            "/api/kakao/**", "/loading", "/error", "/api/login", "/api/reissue",
-            "/api/test/**", "/health", "/actuator/health",
-            "/api/images/**", "/", "/swagger-ui/**", "/swagger-resources/**", "/api-docs/**",
-            "/api/common/**", "/api/books/detail/**"
-    );
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
@@ -40,7 +32,7 @@ public class SecurityConfig {
                         sessionManagementConfigurer.sessionCreationPolicy(SessionCreationPolicy.STATELESS)) // Spring Security 세션 정책 : 세션 생성 및 사용하지 않음
                 .authorizeHttpRequests(authorizationManagerRequestMatcherRegistry ->
                         authorizationManagerRequestMatcherRegistry
-                                .requestMatchers(AUTH_WHITELIST.toArray(new String[0])).permitAll()
+                                .requestMatchers(AUTH_WHITELIST).permitAll()
                                 .anyRequest().authenticated())
                 .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class)
                 .addFilterBefore(jwtExceptionFilter, JwtAuthenticationFilter.class)
