@@ -2,6 +2,7 @@ package org.sopt.lequuServer.global.auth.jwt;
 
 import io.jsonwebtoken.*;
 import io.jsonwebtoken.security.Keys;
+import io.jsonwebtoken.security.SecurityException;
 import jakarta.annotation.PostConstruct;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -95,23 +96,22 @@ public class JwtProvider {
     }
 
     // Access 토큰 검증
-    public JwtValidationType validateAccessToken(String accessToken) {
+    public boolean validateAccessToken(String accessToken) {
         try {
             final Claims claims = getBody(accessToken);
-            log.info(JwtValidationType.VALID_JWT.getValue());
-            return JwtValidationType.VALID_JWT;
+            return true;
         } catch (MalformedJwtException ex) {
-            log.warn(JwtValidationType.INVALID_JWT_TOKEN.getValue());
-            return JwtValidationType.INVALID_JWT_TOKEN;
+            throw new CustomException(INVALID_JWT_TOKEN);
         } catch (ExpiredJwtException ex) {
-            log.warn(JwtValidationType.EXPIRED_JWT_TOKEN.getValue());
-            return JwtValidationType.EXPIRED_JWT_TOKEN;
+            throw new CustomException(EXPIRED_JWT_TOKEN);
         } catch (UnsupportedJwtException ex) {
-            log.warn(JwtValidationType.UNSUPPORTED_JWT_TOKEN.getValue());
-            return JwtValidationType.UNSUPPORTED_JWT_TOKEN;
+            throw new CustomException(UNSUPPORTED_JWT_TOKEN);
         } catch (IllegalArgumentException ex) {
-            log.warn(JwtValidationType.EMPTY_JWT.getValue());
-            return JwtValidationType.EMPTY_JWT;
+            throw new CustomException(EMPTY_JWT_TOKEN);
+        } catch (SecurityException ex) {
+            throw new CustomException(INVALID_JWT_SIGNATURE);
+        } catch (Exception e) {
+            throw new CustomException(UNKNOWN_JWT_ERROR);
         }
     }
 
