@@ -4,6 +4,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.sopt.lequuServer.global.common.dto.ApiResponse;
+import org.sopt.lequuServer.global.common.logging.LoggingMessage;
 import org.sopt.lequuServer.global.exception.enums.ErrorType;
 import org.sopt.lequuServer.global.exception.model.CustomException;
 import org.springframework.http.HttpStatus;
@@ -57,25 +58,25 @@ public class GlobalExceptionHandler {
 
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler(MethodArgumentTypeMismatchException.class)
-    public ApiResponse<?> handlerMethodArgumentTypeMismatchException(final MethodArgumentTypeMismatchException e) {
+    public ApiResponse<?> handleMethodArgumentTypeMismatchException(final MethodArgumentTypeMismatchException e) {
         return ApiResponse.error(INVALID_TYPE_ERROR);
     }
 
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler(MissingRequestHeaderException.class)
-    protected ApiResponse<?> handlerMissingRequestHeaderException(final MissingRequestHeaderException e) {
+    protected ApiResponse<?> handleMissingRequestHeaderException(final MissingRequestHeaderException e) {
         return ApiResponse.error(INVALID_MISSING_HEADER_ERROR);
     }
 
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler(HttpMessageNotReadableException.class)
-    protected ApiResponse<?> handlerHttpMessageNotReadableException(final HttpMessageNotReadableException e) {
+    protected ApiResponse<?> handleHttpMessageNotReadableException(final HttpMessageNotReadableException e) {
         return ApiResponse.error(INVALID_HTTP_REQUEST_ERROR);
     }
 
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler(HttpRequestMethodNotSupportedException.class)
-    protected ApiResponse<?> handlerHttpRequestMethodNotSupportedException(final HttpRequestMethodNotSupportedException e) {
+    protected ApiResponse<?> handleHttpRequestMethodNotSupportedException(final HttpRequestMethodNotSupportedException e) {
         return ApiResponse.error(INVALID_HTTP_METHOD_ERROR);
     }
 
@@ -86,28 +87,33 @@ public class GlobalExceptionHandler {
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     @ExceptionHandler(Exception.class)
     protected ApiResponse<Exception> handleException(final Exception e, final HttpServletRequest request) {
-
-        log.error("500 Error Occured: {}", e.getMessage(), e);
-
+        log.error(LoggingMessage.serverErrorMessage());
+        log.error(e.getMessage(), e);
         return ApiResponse.error(INTERNAL_SERVER_ERROR, e);
     }
 
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     @ExceptionHandler(IllegalArgumentException.class)
-    public ApiResponse<Exception> handlerIllegalArgumentException(final IllegalArgumentException e, final HttpServletRequest request) {
+    public ApiResponse<Exception> handleIllegalArgumentException(final IllegalArgumentException e, final HttpServletRequest request) {
+        log.error(LoggingMessage.serverErrorMessage());
+        log.error(e.getMessage(), e);
         return ApiResponse.error(ErrorType.INTERNAL_SERVER_ERROR, e);
     }
 
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     @ExceptionHandler(IOException.class)
-    public ApiResponse<Exception> handlerIOException(final IOException e, final HttpServletRequest request) {
+    public ApiResponse<Exception> handleIOException(final IOException e, final HttpServletRequest request) {
+        log.error(LoggingMessage.serverErrorMessage());
+        log.error(e.getMessage(), e);
         return ApiResponse.error(ErrorType.INTERNAL_SERVER_ERROR, e);
     }
 
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     @ExceptionHandler(RuntimeException.class)
-    public ApiResponse<Exception> handlerRuntimeException(final RuntimeException e, final HttpServletRequest request) {
+    public ApiResponse<Exception> handleRuntimeException(final RuntimeException e, final HttpServletRequest request) {
 
+        log.error(LoggingMessage.serverErrorMessage());
+        log.error(e.getMessage(), e);
         if (e.getMessage() != null) {
             return ApiResponse.error(ErrorType.INTERNAL_SERVER_ERROR, e.getMessage(), e);
         } else {
@@ -115,16 +121,15 @@ public class GlobalExceptionHandler {
         }
     }
 
-
     /**
      * CUSTOM_ERROR
      */
     @ExceptionHandler(CustomException.class)
     protected ResponseEntity<ApiResponse<?>> handleCustomException(CustomException e) {
 
-        log.error("CustomException Occured: {}", e.getMessage(), e);
+        log.warn("CustomException Occured: {}", e.getMessage(), e);
 
         return ResponseEntity.status(e.getHttpStatus())
-                .body(ApiResponse.error(e.getErrorType(), e.getMessage()));
+                .body(ApiResponse.error(e.getErrorType()));
     }
 }

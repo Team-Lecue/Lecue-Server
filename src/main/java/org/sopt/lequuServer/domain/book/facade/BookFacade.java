@@ -25,6 +25,7 @@ import static org.sopt.lequuServer.global.s3.enums.ImageFolderName.BOOK_FAVORITE
 
 @Service
 @RequiredArgsConstructor
+@Transactional(readOnly = true)
 public class BookFacade {
 
     private final BookService bookService;
@@ -35,6 +36,7 @@ public class BookFacade {
     private final PostedStickerRepository postedStickerRepository;
     private final S3Service s3Service;
 
+    @Transactional
     public BookCreateResponseDto createBook(BookCreateRequestDto request, Long memberId) {
 
         // 유저 검증이 완료된 후에 새로운 Book 객체를 생성할 수 있는 것

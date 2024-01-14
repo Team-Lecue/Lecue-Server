@@ -12,9 +12,11 @@ import org.sopt.lequuServer.domain.sticker.model.Sticker;
 import org.sopt.lequuServer.domain.sticker.repository.StickerRepository;
 import org.sopt.lequuServer.domain.sticker.service.StickerService;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @RequiredArgsConstructor
+@Transactional(readOnly = true)
 public class StickerFacade {
 
     private final StickerService stickerService;
@@ -22,6 +24,7 @@ public class StickerFacade {
     private final BookRepository bookRepository;
     private final StickerRepository stickerRepository;
 
+    @Transactional
     public StickerPostResponseDto postSticker(Long memberId, StickerPostRequestDto request) {
 
         Member member = memberRepository.findByIdOrThrow(memberId);

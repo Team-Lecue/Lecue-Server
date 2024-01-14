@@ -1,0 +1,37 @@
+<configuration>
+    <timestamp key="BY_DATE" datePattern="yyyy-MM-dd"/>
+    <property name="LOG_PATTERN"
+              value="[%d{yyyy-MM-dd HH:mm:ss}:%-4relative] %green([%thread]) %highlight(%-5level) %boldWhite([%C.%M:%yellow(%L)]) %msg%n"/>
+    <springProfile name="local">
+        <include resource="console-appender.xml"/>
+        <root level="INFO">
+            <appender-ref ref="CONSOLE"/>
+        </root>
+        <logger name="org.springframework.context.support.PostProcessorRegistrationDelegate" level="WARN"/>
+        <logger name="org.springframework.data.repository.config.RepositoryConfigurationExtensionSupport"
+                level="WARN"/>
+    </springProfile>
+
+    <springProfile name="!local">
+        <include resource="console-appender.xml"/>
+        <include resource="discord-error-appender.xml"/>
+        <include resource="discord-business-appender.xml"/>
+        <root level="INFO">
+            <appender-ref ref="CONSOLE"/>
+            <appender-ref ref="ERROR_DISCORD"/>
+        </root>
+        <logger name="org.sopt.lequuServer.domain.member.service.MemberService" level="INFO">
+            <appender-ref ref="NEW_USER_DISCORD"/>
+        </logger>
+        <logger name="org.sopt.lequuServer.domain.book.service.BookService" level="INFO">
+            <appender-ref ref="NEW_BOOK_DISCORD"/>
+        </logger>
+        <logger name="org.sopt.lequuServer.domain.note.service.NoteService" level="INFO">
+            <appender-ref ref="NEW_NOTE_DISCORD"/>
+        </logger>
+        <logger name="org.springframework.context.support.PostProcessorRegistrationDelegate" level="WARN"/>
+        <logger name="org.springframework.data.repository.config.RepositoryConfigurationExtensionSupport"
+                level="WARN"/>
+    </springProfile>
+
+</configuration>
