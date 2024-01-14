@@ -4,6 +4,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.sopt.lequuServer.global.common.dto.ApiResponse;
+import org.sopt.lequuServer.global.common.logging.LoggingMessage;
 import org.sopt.lequuServer.global.exception.enums.ErrorType;
 import org.sopt.lequuServer.global.exception.model.CustomException;
 import org.springframework.http.HttpStatus;
@@ -86,8 +87,7 @@ public class GlobalExceptionHandler {
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     @ExceptionHandler(Exception.class)
     protected ApiResponse<Exception> handleException(final Exception e, final HttpServletRequest request) {
-        log.error("🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨\n\n" +
-                "- 🚨 야생의 서버 에러가 발생했다!: ");
+        log.error(LoggingMessage.serverErrorMessage());
         log.error(e.getMessage(), e);
         return ApiResponse.error(INTERNAL_SERVER_ERROR, e);
     }
@@ -95,8 +95,7 @@ public class GlobalExceptionHandler {
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     @ExceptionHandler(IllegalArgumentException.class)
     public ApiResponse<Exception> handleIllegalArgumentException(final IllegalArgumentException e, final HttpServletRequest request) {
-        log.error("🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨\n\n" +
-                "- 🚨 야생의 서버 에러가 발생했다!: ");
+        log.error(LoggingMessage.serverErrorMessage());
         log.error(e.getMessage(), e);
         return ApiResponse.error(ErrorType.INTERNAL_SERVER_ERROR, e);
     }
@@ -104,8 +103,7 @@ public class GlobalExceptionHandler {
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     @ExceptionHandler(IOException.class)
     public ApiResponse<Exception> handleIOException(final IOException e, final HttpServletRequest request) {
-        log.error("🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨\n\n" +
-                "- 🚨 야생의 서버 에러가 발생했다!: ");
+        log.error(LoggingMessage.serverErrorMessage());
         log.error(e.getMessage(), e);
         return ApiResponse.error(ErrorType.INTERNAL_SERVER_ERROR, e);
     }
@@ -114,8 +112,7 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(RuntimeException.class)
     public ApiResponse<Exception> handleRuntimeException(final RuntimeException e, final HttpServletRequest request) {
 
-        log.error("🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨\n\n" +
-                "- 🚨 야생의 서버 에러가 발생했다!: ");
+        log.error(LoggingMessage.serverErrorMessage());
         log.error(e.getMessage(), e);
         if (e.getMessage() != null) {
             return ApiResponse.error(ErrorType.INTERNAL_SERVER_ERROR, e.getMessage(), e);

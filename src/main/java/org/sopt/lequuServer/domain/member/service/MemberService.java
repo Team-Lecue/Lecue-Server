@@ -17,6 +17,7 @@ import org.sopt.lequuServer.global.auth.fegin.kakao.KakaoLoginService;
 import org.sopt.lequuServer.global.auth.jwt.JwtProvider;
 import org.sopt.lequuServer.global.auth.jwt.TokenDto;
 import org.sopt.lequuServer.global.auth.security.UserAuthentication;
+import org.sopt.lequuServer.global.common.logging.LoggingMessage;
 import org.sopt.lequuServer.global.exception.model.CustomException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -62,13 +63,7 @@ public class MemberService {
         }
 
         if (!isRegistered && socialPlatform == SocialPlatform.KAKAO) {
-            log.info("🐣🐣🐣🐣🐣🐣🐣🐣🐣🐣🐣🐣🐣🐣🐣🐣🐣🐣🐣🐣🐣🐣🐣🐣🐣🐣🐣🐣🐣🐣🐣🐣🐣🐣🐣\n\n" +
-                    "- 🐣 새로운 유저가 회원가입을 완료했습니다!\n" +
-                    "- 🏆 누적 회원가입 수: " + loginMember.getId() + " 명\n" +
-                    "\n" +
-                    "- 👀 카카오 닉네임: " + loginMember.getSocialNickname() + "\n" +
-                    "- 📩 카카오 ID: " + loginMember.getSocialId() + "\n" +
-                    "- 📷 카카오 프로필 사진: " + loginMember.getSocialProfileImage());
+            log.info(LoggingMessage.memberRegisterLogMessage(loginMember));
         }
 
         TokenDto tokenDto = jwtProvider.issueToken(new UserAuthentication(loginMember.getId(), null, null));

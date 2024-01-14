@@ -30,7 +30,11 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
     @Override
     protected void doFilterInternal(@NonNull HttpServletRequest request, @NonNull HttpServletResponse response, @NonNull FilterChain filterChain) throws IOException, ServletException, IOException {
 
-        if (SecurityConfig.AUTH_WHITELIST.contains(request.getRequestURI())) {
+        if (SecurityConfig.AUTH_WHITELIST.stream()
+                .anyMatch(whiteUrl -> {
+                    String modifiedWhiteUrl = whiteUrl.endsWith("/**") ? whiteUrl.substring(0, whiteUrl.length() - 3) : whiteUrl;
+                    return request.getRequestURI().contains(modifiedWhiteUrl);
+                })) {
             filterChain.doFilter(request, response);
             return;
         }

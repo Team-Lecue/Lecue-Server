@@ -7,6 +7,7 @@ import org.sopt.lequuServer.domain.member.model.Member;
 import org.sopt.lequuServer.domain.note.dto.response.NoteCreateResponseDto;
 import org.sopt.lequuServer.domain.note.model.Note;
 import org.sopt.lequuServer.domain.note.repository.NoteRepository;
+import org.sopt.lequuServer.global.common.logging.LoggingMessage;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -26,14 +27,7 @@ public class NoteService {
 
         Note createdNote = noteRepository.save(note);
 
-        log.info("💌 💌 💌 💌 💌 💌 💌 💌 💌 💌 💌 💌 💌 💌 💌 💌 💌 💌 💌 💌 💌 💌 💌 💌 💌 💌 💌 💌 💌 💌\n\n" +
-                "- 💌 유저가 새로운 레큐노트를 남겼습니다!\n" +
-                "- 👀 유저 닉네임: " + member.getNickname() + "\n" +
-                "- ⏰ 남긴 시간: " + createdNote.getCreatedAt() + "\n" +
-                "\n" +
-                "- 🔗 레큐북 링크: https://www.lecue.me/lecue-book/" + book.getUuid() + "\n" +
-                "- 📝 레큐북 제목: " + book.getTitle() + "\n" +
-                "- 💬 레큐노트 내용: " + createdNote.getContent() + "\n");
+        log.info(LoggingMessage.noteCreateLogMessage(member, book, createdNote));
 
         return NoteCreateResponseDto.of(createdNote);
     }

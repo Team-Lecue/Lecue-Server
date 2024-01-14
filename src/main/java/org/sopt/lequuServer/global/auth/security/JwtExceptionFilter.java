@@ -9,6 +9,7 @@ import lombok.Data;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.jetbrains.annotations.NotNull;
+import org.sopt.lequuServer.global.common.logging.LoggingMessage;
 import org.sopt.lequuServer.global.exception.enums.ErrorType;
 import org.sopt.lequuServer.global.exception.model.CustomException;
 import org.springframework.http.MediaType;
@@ -56,8 +57,7 @@ public class JwtExceptionFilter extends OncePerRequestFilter {
         try {
             response.getWriter().write(objectMapper.writeValueAsString(errorResponse));
         } catch (IOException e) {
-            log.error("🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨\n\n" +
-                    "- 🚨 JWT 에러 필터에서 오류 발생!: ");
+            log.error(LoggingMessage.jwtErrorMessage());
             log.error(e.getMessage(), e);
         }
     }
