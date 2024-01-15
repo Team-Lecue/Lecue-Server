@@ -23,20 +23,17 @@ public record NoteDetailResponseDto(
         @Schema(description = "레큐노트 작성자 닉네임", example = "레큐")
         String noteNickname,
 
-        @Schema(description = "레큐노트 텍스트 컬러(검정:0, 흰색:1)", example = "0")
-        int noteTextColor,
+        @Schema(description = "레큐노트 텍스트 컬러", example = "#FFFFFF")
+        String noteTextColor,
 
-        @Schema(description = "레큐노트 배경 색깔(0~11, 이미지일 경우 -1)", example = "-1")
-        int noteBackgroundColor,
-
-        @Schema(description = "레큐노트 배경 이미지 URL(*.jpg, 색깔일 경우 “”)", example = "https://lequu-server-bucket.s3.ap-northeast-2.amazonaws.com/notes/background_image/676c2ca3-f868-423f-8000-a0bcb67dc797.jpg")
-        String noteBackgroundImage
+        @Schema(description = "레큐노트 배경 (#FFFFFF or 이미지 URL(*.jpg))", example = "https://lequu-server-bucket.s3.ap-northeast-2.amazonaws.com/notes/background_image/676c2ca3-f868-423f-8000-a0bcb67dc797.jpg")
+        String noteBackground
 ) {
-    public static NoteDetailResponseDto of(Note note, int renderType, int noteBackgroundColor, String noteBackgroundImage) {
+    public static NoteDetailResponseDto of(Note note, int renderType) {
         String noteDate = formatLocalDate(note);
 
         return new NoteDetailResponseDto(note.getId(), renderType, note.getContent(), noteDate,
-                note.getMember().getNickname(), note.getTextColor(), noteBackgroundColor, noteBackgroundImage);
+                note.getMember().getNickname(), note.getTextColor(), note.getBackground());
     }
 
     private static String formatLocalDate(Note note) {

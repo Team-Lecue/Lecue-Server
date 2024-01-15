@@ -58,13 +58,7 @@ public record BookDetailResponseDto(
         int renderTypeCounter = 1;
         List<NoteDetailResponseDto> noteList = new ArrayList<>();
         for (Note note : sortedNotes) {
-            String background = note.getBackground();
-
-            if (background.endsWith(".jpg")) {
-                noteList.add(NoteDetailResponseDto.of(note, renderTypeCounter, -1, background));
-            } else {
-                noteList.add(NoteDetailResponseDto.of(note, renderTypeCounter, Integer.parseInt(background), ""));
-            }
+            noteList.add(NoteDetailResponseDto.of(note, renderTypeCounter));
             renderTypeCounter = (renderTypeCounter % 6 == 0) ? 1 : renderTypeCounter + 1;
         }
 
