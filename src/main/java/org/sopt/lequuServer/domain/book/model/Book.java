@@ -36,7 +36,7 @@ public class Book extends BaseTimeEntity {
     @Column(nullable = false)
     private String description;
 
-    private int backgroundColor;
+    private String backgroundColor;
 
     private int popularRate;
 
@@ -59,7 +59,7 @@ public class Book extends BaseTimeEntity {
     }
 
     @Builder
-    public Book(String uuid, String favoriteName, String favoriteImage, String title, String description, int backgroundColor, Member member, int popularRate) {
+    public Book(String uuid, String favoriteName, String favoriteImage, String title, String description, String backgroundColor, Member member, int popularRate) {
         this.uuid = uuid;
         this.favoriteName = favoriteName;
         this.favoriteImage = favoriteImage;
@@ -70,12 +70,12 @@ public class Book extends BaseTimeEntity {
         this.popularRate = popularRate;
     }
 
-    public static Book of(String uuid, String favoriteName, String favoriteImage, String title, String description, int backgroundColor, Member member, int popularRate) {
+    public static Book of(String uuid, String favoriteName, String favoriteImage, String title, String description, String backgroundColor, Member member, int popularRate) {
         return new Book(uuid, favoriteName, favoriteImage, title, description, backgroundColor, member, popularRate);
     }
 
     // TODO S3 테스트용, 추후 삭제
-    public Book(String uuid, String favoriteName, String favoriteImage, String title, String description, int backgroundColor) {
+    public Book(String uuid, String favoriteName, String favoriteImage, String title, String description, String backgroundColor) {
         this.uuid = uuid;
         this.favoriteName = favoriteName;
         this.favoriteImage = favoriteImage;
@@ -86,6 +86,6 @@ public class Book extends BaseTimeEntity {
 
     // TODO S3 테스트용, 추후 삭제
     public static Book test(String favoriteImage, String title) {
-        return new Book("test", "test", favoriteImage, title, "test", 1);
+        return new Book("test", "test", favoriteImage, title, "test", "#FFFFFF");
     }
 }

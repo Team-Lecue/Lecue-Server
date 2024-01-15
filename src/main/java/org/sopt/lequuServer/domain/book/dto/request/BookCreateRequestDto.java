@@ -24,8 +24,7 @@ public record BookCreateRequestDto(
         String description,
 
         @Schema(example = "0")
-        @Min(value = 0, message = "레큐북 배경색은 0 또는 1이어야합니다.")
-        @Max(value = 1, message = "레큐북 배경색은 0 또는 1이어야합니다.")
-        int backgroundColor
+        @Pattern(regexp = "^(#[A-Za-z0-9]{3,6})$", message = "색상은 #으로 시작하는 3~6 사이의 색깔코드여야 합니다.")
+        String backgroundColor
 ) {
 }
