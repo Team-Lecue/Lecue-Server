@@ -35,4 +35,9 @@ springdoc:
   show-login-endpoint: true
 
 logging:
+  discord:
+    error-uri: ${DISCORD_ERROR_URI}
+    business-1-uri: ${DISCORD_BUSINESS_1_URI}
+    business-2-uri: ${DISCORD_BUSINESS_2_URI}
+    business-3-uri: ${DISCORD_BUSINESS_3_URI}
   config: classpath:logback-spring.xml
