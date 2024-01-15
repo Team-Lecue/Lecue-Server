@@ -64,7 +64,7 @@ public class InitDb {
                     .favoriteImage("https://dzfv99wxq6tx0.cloudfront.net/books/favorite_image/b4006561-382b-479e-ae1d-e841922e883f.jpg")
                     .title("1번째 레큐북")
                     .description("레큐북의 내용입니다!")
-                    .backgroundColor(1)
+                    .backgroundColor("#FFFFFF")
                     .member(member1)
                     .popularRate(0)
                     .build();
@@ -76,7 +76,7 @@ public class InitDb {
                         .favoriteImage("https://dzfv99wxq6tx0.cloudfront.net/books/favorite_image/b4006561-382b-479e-ae1d-e841922e883f.jpg")
                         .title(String.valueOf(i + 1) + "번째 레큐북")
                         .description("레큐북의 내용입니다!")
-                        .backgroundColor(1)
+                        .backgroundColor("#FFFFFF")
                         .member(member1)
                         .popularRate(i)
                         .build();
@@ -86,18 +86,18 @@ public class InitDb {
             for (int i = 0; i < 3; i++) {
                 Note note = Note.builder()
                         .content("레큐노트 내용입니다 블라블라블라 블라블라블라 블라블라블라 블라블라블라 블라블라블라 블라블라블라 블라블라블라")
-                        .background("https://dzfv99wxq6tx0.cloudfront.net/notes/background_image/676c2ca3-f868-423f-8000-a0bcb67dc797.jpg")
-                        .textColor(0)
+                        .background("https://lequu-server-bucket.s3.ap-northeast-2.amazonaws.com/notes/background_image/676c2ca3-f868-423f-8000-a0bcb67dc797.jpg")
+                        .textColor("#000000")
                         .member(member1)
                         .book(book1)
                         .build();
                 em.persist(note);
             }
-            for (int i = 0; i < 3; i++) {
+            for (int i = 0; i < 10; i++) {
                 Note note = Note.builder()
                         .content("레큐노트 내용입니다 블라블라블라 블라블라블라 블라블라블라 블라블라블라 블라블라블라 블라블라블라 블라블라블라")
-                        .background(String.valueOf(i))
-                        .textColor(0)
+                        .background("#FFFFFF")
+                        .textColor("#000000")
                         .member(member1)
                         .book(book1)
                         .build();

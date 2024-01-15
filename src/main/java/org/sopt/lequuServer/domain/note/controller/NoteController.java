@@ -22,7 +22,7 @@ import java.security.Principal;
 @RequiredArgsConstructor
 @RequestMapping("/api/notes")
 @Tag(name = "Note", description = "레큐 노트 API")
-@SecurityRequirement(name = "JWT Auth")
+@SecurityRequirement(name = "JWT Authorization")
 public class NoteController {
 
     private final NoteFacade noteFacade;

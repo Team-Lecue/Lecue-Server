@@ -34,3 +34,6 @@ springdoc:
     cache:
       disabled: true
   show-login-endpoint: true
+
+logging:
+  config: classpath:logback-spring.xml

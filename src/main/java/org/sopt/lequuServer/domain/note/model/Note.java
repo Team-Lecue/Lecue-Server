@@ -23,7 +23,7 @@ public class Note extends BaseTimeEntity {
     @Column(nullable = false)
     private String background;
 
-    private int textColor;
+    private String textColor;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "member_id")
@@ -34,7 +34,7 @@ public class Note extends BaseTimeEntity {
     private Book book;
 
     @Builder
-    public Note(String content, String background, int textColor, Member member, Book book) {
+    public Note(String content, String background, String textColor, Member member, Book book) {
         this.content = content;
         this.background = background;
         this.textColor = textColor;
@@ -42,7 +42,7 @@ public class Note extends BaseTimeEntity {
         this.book = book;
     }
 
-    public static Note of(String content, String background, int textColor, Member member, Book book) {
+    public static Note of(String content, String background, String textColor, Member member, Book book) {
         return new Note(content, background, textColor, member, book);
     }
 }

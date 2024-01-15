@@ -1,6 +1,7 @@
 package org.sopt.lequuServer.domain.member.service;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.sopt.lequuServer.domain.book.model.Book;
 import org.sopt.lequuServer.domain.member.dto.request.MemberNicknameRequestDto;
 import org.sopt.lequuServer.domain.member.dto.request.SocialLoginRequestDto;
@@ -16,16 +17,16 @@ import org.sopt.lequuServer.global.auth.fegin.kakao.KakaoLoginService;
 import org.sopt.lequuServer.global.auth.jwt.JwtProvider;
 import org.sopt.lequuServer.global.auth.jwt.TokenDto;
 import org.sopt.lequuServer.global.auth.security.UserAuthentication;
+import org.sopt.lequuServer.global.common.logging.LoggingMessage;
 import org.sopt.lequuServer.global.exception.model.CustomException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
-import static java.util.Comparator.comparing;
 import static org.sopt.lequuServer.global.exception.enums.ErrorType.*;
 
+@Slf4j
 @Service
 @RequiredArgsConstructor
 @Transactional(readOnly = true)
@@ -57,6 +58,10 @@ public class MemberService {
         // 카카오 로그인은 정보 더 많이 받아올 수 있으므로 추가 설정
         if (socialPlatform == SocialPlatform.KAKAO) {
             kakaoLoginService.setKakaoInfo(loginMember, socialAccessToken);
+        }
+
+        if (!isRegistered && socialPlatform == SocialPlatform.KAKAO) {
+            log.info(LoggingMessage.memberRegisterLogMessage(loginMember));
         }
 
         TokenDto tokenDto = jwtProvider.issueToken(new UserAuthentication(loginMember.getId(), null, null));
@@ -115,7 +120,6 @@ public class MemberService {
     public MemberNicknameResponseDto setMemberNickname(Long memberId, MemberNicknameRequestDto request) {
         Member member = memberRepository.findByIdOrThrow(memberId);
         member.updateNickname(request.nickname().strip());
-
         return MemberNicknameResponseDto.of(memberId);
     }
 
@@ -133,18 +137,17 @@ public class MemberService {
         return MypageBookResponseDto.of(nickname, books);
     }
 
-    public List<MypageNoteResponseDto> getMypageNote(Long memberId) {
+    public MypageNoteResponseDto getMypageNote(Long memberId) {
 
         // 회원 id 찾기
         Member member = memberRepository.findByIdOrThrow(memberId);
 
+        String nickname = member.getNickname();
+
         // 회원이 소유한 Note 리스트 가져오기
         List<Note> notes = member.getNotes();
 
-        return notes.stream()
-                .sorted(comparing(Note::getCreatedAt).reversed())
-                .map(MypageNoteResponseDto::of)
-                .collect(Collectors.toList());
+        return MypageNoteResponseDto.of(nickname, notes);
     }
 }
 

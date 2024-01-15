@@ -1,6 +1,7 @@
 package org.sopt.lequuServer.domain.sticker.controller;
 
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.ArraySchema;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
@@ -26,7 +27,7 @@ import static org.sopt.lequuServer.global.exception.enums.SuccessType.POST_STICK
 @RequestMapping("/api/stickers")
 @RequiredArgsConstructor
 @Tag(name = "Sticker", description = "스티커 API")
-@SecurityRequirement(name = "JWT Auth")
+@SecurityRequirement(name = "JWT Authorization")
 public class StickerController {
 
     private final StickerService stickerService;
@@ -36,7 +37,7 @@ public class StickerController {
     @io.swagger.v3.oas.annotations.responses.ApiResponse(
             responseCode = "200",
             description = "스티커팩 목록 조회에 성공했습니다.",
-            content = @Content(schema = @Schema(implementation = StickerPackResponseDto.class))
+            content = @Content(array = @ArraySchema(schema = @Schema(implementation = StickerPackResponseDto.class)))
     )
     @ResponseStatus(HttpStatus.OK)
     @Operation(summary = "스티커팩 목록 불러오기")

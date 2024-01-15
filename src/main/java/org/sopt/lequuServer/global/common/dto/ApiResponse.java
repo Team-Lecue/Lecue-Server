@@ -33,16 +33,8 @@ public class ApiResponse<T> {
         return new ApiResponse<>(errorType.getHttpStatusCode(), errorType.getMessage());
     }
 
-    public static ApiResponse<?> error(ErrorType errorType, String message) {
-        return new ApiResponse<>(errorType.getHttpStatusCode(), message);
-    }
-
     public static <T> ApiResponse<T> error(ErrorType errorType, T data) {
         return new ApiResponse<>(errorType.getHttpStatusCode(), errorType.getMessage(), data);
-    }
-
-    public static <T> ApiResponse<T> error(ErrorType errorType, String message, T data) {
-        return new ApiResponse<>(errorType.getHttpStatusCode(), message, data);
     }
 
     public static <T> ApiResponse<Exception> error(ErrorType errorType, Exception e) {

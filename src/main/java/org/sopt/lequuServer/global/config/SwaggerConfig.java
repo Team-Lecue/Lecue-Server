@@ -1,6 +1,5 @@
 package org.sopt.lequuServer.global.config;
 
-import io.swagger.v3.oas.annotations.enums.SecuritySchemeIn;
 import io.swagger.v3.oas.annotations.enums.SecuritySchemeType;
 import io.swagger.v3.oas.annotations.security.SecurityScheme;
 import io.swagger.v3.oas.annotations.security.SecuritySchemes;
@@ -13,23 +12,24 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 @SecuritySchemes({
         @SecurityScheme(
-                name = "Refresh",
-                type = SecuritySchemeType.APIKEY,
-                in = SecuritySchemeIn.HEADER
+                name = "KAKAO Token",
+                type = SecuritySchemeType.HTTP,
+                bearerFormat = "Opaque",
+                scheme = "Bearer"
         ),
         @SecurityScheme(
-                name = "JWT Auth",
+                name = "JWT Authorization",
                 type = SecuritySchemeType.HTTP,
                 bearerFormat = "JWT",
-                scheme = "bearer"
+                scheme = "Bearer"
         )
 })
 public class SwaggerConfig {
     @Bean
     public OpenAPI openAPI() {
         Info info = new Info()
-                .title("Le(cue) Project")
-                .description("Le(cue) Project API Document")
+                .title("Le(cue)* Project")
+                .description("Le(cue)* Server API Document")
                 .version("1.0.0");
 
         return new OpenAPI()

@@ -1,7 +1,9 @@
 package org.sopt.lequuServer.domain.common.controller;
 
 import io.sentry.Sentry;
+import io.swagger.v3.oas.annotations.Hidden;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.ArraySchema;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -43,7 +45,7 @@ public class CommonController {
     @io.swagger.v3.oas.annotations.responses.ApiResponse(
             responseCode = "200",
             description = "홈 화면 조회에 성공했습니다.",
-            content = @Content(schema = @Schema(implementation = PopularBookResponseDto.class))
+            content = @Content(array = @ArraySchema(schema = @Schema(implementation = PopularBookResponseDto.class)))
     )
     @ResponseStatus(HttpStatus.OK)
     @Operation(summary = "홈 조회")
@@ -51,16 +53,11 @@ public class CommonController {
         return ApiResponse.success(SuccessType.GET_HOME_SUCCESS, commonFacade.getHome());
     }
 
+    @Hidden
     @GetMapping("/test")
     @ResponseStatus(HttpStatus.OK)
-    public ApiResponse<?> sentryTest() {
-        try {
-            throw new Exception("This is a test.");
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-            Sentry.captureException(e);
-        }
-        return null;
+    public ApiResponse<?> test() {
+        throw new RuntimeException("테스트용 에러 발생");
     }
 }
 
