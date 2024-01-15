@@ -2,6 +2,7 @@ spring:
   config:
     activate:
       on-profile: dev
+    import: optional:application-secret.properties
 
   datasource:
     driver-class-name: ${DB_NAME_DEV}
