@@ -1,24 +1,25 @@
 package org.sopt.lequuServer.domain.book.dto.response;
 
-import static java.util.Comparator.comparing;
-
 import io.swagger.v3.oas.annotations.media.Schema;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-import java.util.List;
 import org.sopt.lequuServer.domain.book.model.Book;
 import org.sopt.lequuServer.domain.note.dto.response.NoteDetailResponseDto;
 import org.sopt.lequuServer.domain.note.model.Note;
 import org.sopt.lequuServer.domain.sticker.dto.response.PostedStickerDetailResponseDto;
 import org.sopt.lequuServer.domain.sticker.model.PostedSticker;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.List;
+
+import static java.util.Comparator.comparing;
+
 public record BookDetailResponseDto(
 
         @Schema(description = "레큐북 고유 id", example = "1")
         Long bookId,
 
-        @Schema(description = "최애 사진", example = "https://lequu-server-bucket.s3.ap-northeast-2.amazonaws.com/books/favorite_image/b4006561-382b-479e-ae1d-e841922e883f.jpg")
+        @Schema(description = "최애 사진", example = "https://dzfv99wxq6tx0.cloudfront.net/books/favorite_image/b4006561-382b-479e-ae1d-e841922e883f.jpg")
         String favoriteImage,
 
         @Schema(description = "최애 이름", example = "LeoJ")

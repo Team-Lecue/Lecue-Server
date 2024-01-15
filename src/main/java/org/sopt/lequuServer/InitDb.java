@@ -1,13 +1,7 @@
 package org.sopt.lequuServer;
 
-import static org.sopt.lequuServer.domain.sticker.model.StickerCategory.ALPHABET;
-import static org.sopt.lequuServer.domain.sticker.model.StickerCategory.BIRTHDAY;
-import static org.sopt.lequuServer.domain.sticker.model.StickerCategory.CHARACTER;
-
 import jakarta.annotation.PostConstruct;
 import jakarta.persistence.EntityManager;
-import java.util.Arrays;
-import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.sopt.lequuServer.domain.book.model.Book;
 import org.sopt.lequuServer.domain.member.model.Member;
@@ -17,6 +11,11 @@ import org.sopt.lequuServer.domain.sticker.model.PostedSticker;
 import org.sopt.lequuServer.domain.sticker.model.Sticker;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.Arrays;
+import java.util.List;
+
+import static org.sopt.lequuServer.domain.sticker.model.StickerCategory.*;
 
 @Component
 @RequiredArgsConstructor
@@ -50,7 +49,7 @@ public class InitDb {
             if (!isDatabaseEmpty()) {
                 return;
             }
-            
+
             Member member1 = Member.builder()
                     .socialPlatform(SocialPlatform.KAKAO)
                     .socialId("3251153440")
@@ -86,7 +85,7 @@ public class InitDb {
             for (int i = 0; i < 3; i++) {
                 Note note = Note.builder()
                         .content("레큐노트 내용입니다 블라블라블라 블라블라블라 블라블라블라 블라블라블라 블라블라블라 블라블라블라 블라블라블라")
-                        .background("https://lequu-server-bucket.s3.ap-northeast-2.amazonaws.com/notes/background_image/676c2ca3-f868-423f-8000-a0bcb67dc797.jpg")
+                        .background("https://dzfv99wxq6tx0.cloudfront.net/notes/background_image/676c2ca3-f868-423f-8000-a0bcb67dc797.jpg")
                         .textColor("#000000")
                         .member(member1)
                         .book(book1)

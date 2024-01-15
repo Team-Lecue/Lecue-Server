@@ -8,7 +8,7 @@ public record PostedStickerDetailResponseDto(
         @Schema(description = "스티커 고유 id", example = "1")
         Long postedStickerId,
 
-        @Schema(description = "스티커 이미지", example = "https://lequu-server-bucket.s3.ap-northeast-2.amazonaws.com/stickers/birth_1.svg")
+        @Schema(description = "스티커 이미지", example = "https://dzfv99wxq6tx0.cloudfront.net/stickers/birth_1.svg")
         String stickerImage,
 
         @Schema(description = "스티커 위치(X축)", example = "30")

@@ -14,7 +14,7 @@ public record PopularBookResponseDto(
         @Schema(description = "최애 이름", example = "LeoJ")
         String favoriteName,
 
-        @Schema(description = "최애 사진", example = "https://lequu-server-bucket.s3.ap-northeast-2.amazonaws.com/books/favorite_image/b4006561-382b-479e-ae1d-e841922e883f.jpg")
+        @Schema(description = "최애 사진", example = "https://dzfv99wxq6tx0.cloudfront.net/books/favorite_image/b4006561-382b-479e-ae1d-e841922e883f.jpg")
         String favoriteImage
 ) {
     public static PopularBookResponseDto of(Book book) {
