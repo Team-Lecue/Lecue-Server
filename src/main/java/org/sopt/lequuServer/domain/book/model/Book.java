@@ -86,6 +86,6 @@ public class Book extends BaseTimeEntity {
 
     // TODO S3 테스트용, 추후 삭제
     public static Book test(String favoriteImage, String title) {
-        return new Book("test", "test", favoriteImage, title, "test", "#FFFFFF");
+        return new Book("test", "test", favoriteImage, title, "test", "#F5F5F5");
     }
 }

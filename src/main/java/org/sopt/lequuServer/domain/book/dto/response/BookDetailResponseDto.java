@@ -37,7 +37,7 @@ public record BookDetailResponseDto(
         @Schema(description = "레큐북 작성자 닉네임", example = "예딘")
         String bookNickname,
 
-        @Schema(description = "레큐북 배경색", example = "#FFFFFF")
+        @Schema(description = "레큐북 배경색", example = "#F5F5F5")
         String bookBackgroundColor,
 
         @Schema(description = "레큐 노트 개수", example = "100")

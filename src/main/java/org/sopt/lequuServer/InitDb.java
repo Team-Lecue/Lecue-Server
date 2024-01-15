@@ -36,6 +36,18 @@ public class InitDb {
             "https://dzfv99wxq6tx0.cloudfront.net/stickers/character_6.svg"
     );
 
+    private static final List<String> BACKGROUND_COLORS_1 = Arrays.asList(
+            "#EFB6B6", "#E5E2CE", "#F8E99A", "#85CEAF"
+    );
+
+    private static final List<String> BACKGROUND_COLORS_2 = Arrays.asList(
+            "#B3CBE8", "#929DD9", "#FE394C", "#9852F9"
+    );
+
+    private static final List<String> BACKGROUND_COLORS_3 = Arrays.asList(
+            "#FFD600", "#98ED4D", "#FF71B3"
+    );
+
     @Component
     @Transactional
     @RequiredArgsConstructor
@@ -55,52 +67,83 @@ public class InitDb {
                     .socialId("3251153440")
                     .build();
             member1.updateSocialInfo("레큐", "http://k.kakaocdn.net/dn/1G9kp/btsAot8liOn/8CWudi3uy07rvFNUkk3ER0/img_640x640.jpg");
+            member1.updateNickname("양파큐야");
             em.persist(member1);
 
             Book book1 = Book.builder()
                     .uuid("ee4f66f9-9cf4-4b28-90f4-f71d0ecba021")
-                    .favoriteName("LeoJ")
-                    .favoriteImage("https://dzfv99wxq6tx0.cloudfront.net/books/favorite_image/b4006561-382b-479e-ae1d-e841922e883f.jpg")
-                    .title("1번째 레큐북")
-                    .description("레큐북의 내용입니다!")
-                    .backgroundColor("#FFFFFF")
+                    .favoriteName("현예진")
+                    .favoriteImage("https://dzfv99wxq6tx0.cloudfront.net/books/favorite_image/yejin.jpg")
+                    .title("현예진의 욕설 필터링 구현을 응원해주세요!")
+                    .description("걍 알아서 응원하삼")
+                    .backgroundColor("#F5F5F5")
                     .member(member1)
                     .popularRate(0)
                     .build();
+
             em.persist(book1);
             for (int i = 1; i < 7; i++) {
                 Book book = Book.builder()
                         .uuid("ee4f66f9-9cf4-4b28-90f4-f71d0ecba02" + String.valueOf(i + 1))
-                        .favoriteName("LeoJ")
-                        .favoriteImage("https://dzfv99wxq6tx0.cloudfront.net/books/favorite_image/b4006561-382b-479e-ae1d-e841922e883f.jpg")
+                        .favoriteName("현예진")
+                        .favoriteImage("https://dzfv99wxq6tx0.cloudfront.net/books/favorite_image/yejin.jpg")
                         .title(String.valueOf(i + 1) + "번째 레큐북")
                         .description("레큐북의 내용입니다!")
-                        .backgroundColor("#FFFFFF")
+                        .backgroundColor("#F5F5F5")
                         .member(member1)
                         .popularRate(i)
                         .build();
                 em.persist(book);
             }
 
-            for (int i = 0; i < 3; i++) {
+            for (String background : BACKGROUND_COLORS_1) {
                 Note note = Note.builder()
                         .content("레큐노트 내용입니다 블라블라블라 블라블라블라 블라블라블라 블라블라블라 블라블라블라 블라블라블라 블라블라블라")
-                        .background("https://dzfv99wxq6tx0.cloudfront.net/notes/background_image/676c2ca3-f868-423f-8000-a0bcb67dc797.jpg")
-                        .textColor("#000000")
+                        .background(background)
+                        .textColor("#191919")
                         .member(member1)
                         .book(book1)
                         .build();
                 em.persist(note);
             }
-            for (int i = 0; i < 10; i++) {
+            for (String background : BACKGROUND_COLORS_2) {
                 Note note = Note.builder()
                         .content("레큐노트 내용입니다 블라블라블라 블라블라블라 블라블라블라 블라블라블라 블라블라블라 블라블라블라 블라블라블라")
-                        .background("#FFFFFF")
-                        .textColor("#000000")
+                        .background(background)
+                        .textColor("#191919")
                         .member(member1)
                         .book(book1)
                         .build();
                 em.persist(note);
+            }
+            for (int i = 0; i < 2; i++) {
+                Note note = Note.builder()
+                        .content("레큐노트 내용입니다 블라블라블라 블라블라블라 아마 이건 이미지 위에 보이고 있겠죠??")
+                        .background("https://dzfv99wxq6tx0.cloudfront.net/notes/background_image/469456ec-5894-4014-8b90-332d453217ba.jpg")
+                        .textColor("#191919")
+                        .member(member1)
+                        .book(book1)
+                        .build();
+                em.persist(note);
+            }
+            for (String background : BACKGROUND_COLORS_3) {
+                Note note1 = Note.builder()
+                        .content("레큐노트 내용입니다 블라블라블라 블라블라블라 블라블라블라 블라블라블라 블라블라블라 블라블라블라 블라블라블라")
+                        .background(background)
+                        .textColor("#191919")
+                        .member(member1)
+                        .book(book1)
+                        .build();
+                em.persist(note1);
+
+                Note note2 = Note.builder()
+                        .content("레큐노트 내용입니다 블라블라블라 블라블라블라 아마 이건 이미지 위에 보이고 있겠죠??")
+                        .background("https://dzfv99wxq6tx0.cloudfront.net/notes/background_image/469456ec-5894-4014-8b90-332d453217ba.jpg")
+                        .textColor("#191919")
+                        .member(member1)
+                        .book(book1)
+                        .build();
+                em.persist(note2);
             }
 
             Sticker sticker1 = Sticker.builder()
@@ -109,7 +152,7 @@ public class InitDb {
                     .stickerImage("https://dzfv99wxq6tx0.cloudfront.net/stickers/birth_1.svg")
                     .build();
             em.persist(sticker1);
-            for (int i = 0; i < 3; i++) {
+            for (int i = 0; i < 2; i++) {
                 Sticker sticker = Sticker.builder()
                         .bookId(0L)
                         .category(ALPHABET)
@@ -117,11 +160,11 @@ public class InitDb {
                         .build();
                 em.persist(sticker);
             }
-            for (int i = 0; i < 6; i++) {
+            for (int i = 0; i < 2; i++) {
                 Sticker sticker = Sticker.builder()
                         .bookId(0L)
                         .category(BIRTHDAY)
-                        .stickerImage("https://dzfv99wxq6tx0.cloudfront.net/stickers/8d83b1c1-1e2c-437b-a2f5-e3ce96ce6d35.jpg")
+                        .stickerImage("https://dzfv99wxq6tx0.cloudfront.net/stickers/birth_1.svg")
                         .build();
                 em.persist(sticker);
             }
@@ -146,7 +189,7 @@ public class InitDb {
                 Sticker sticker = Sticker.builder()
                         .bookId(1L)
                         .category(BIRTHDAY)
-                        .stickerImage("https://dzfv99wxq6tx0.cloudfront.net/stickers/8d83b1c1-1e2c-437b-a2f5-e3ce96ce6d35.jpg")
+                        .stickerImage("https://dzfv99wxq6tx0.cloudfront.net/stickers/birth_1.svg")
                         .build();
                 em.persist(sticker);
             }

@@ -23,10 +23,10 @@ public record NoteDetailResponseDto(
         @Schema(description = "레큐노트 작성자 닉네임", example = "레큐")
         String noteNickname,
 
-        @Schema(description = "레큐노트 텍스트 컬러", example = "#FFFFFF")
+        @Schema(description = "레큐노트 텍스트 컬러", example = "#F5F5F5")
         String noteTextColor,
 
-        @Schema(description = "레큐노트 배경 (#FFFFFF or 이미지 URL(*.jpg))", example = "https://dzfv99wxq6tx0.cloudfront.net/notes/background_image/676c2ca3-f868-423f-8000-a0bcb67dc797.jpg")
+        @Schema(description = "레큐노트 배경 (#F5F5F5 or 이미지 URL(*.jpg))", example = "https://dzfv99wxq6tx0.cloudfront.net/notes/background_image/676c2ca3-f868-423f-8000-a0bcb67dc797.jpg")
         String noteBackground
 ) {
     public static NoteDetailResponseDto of(Note note, int renderType) {
