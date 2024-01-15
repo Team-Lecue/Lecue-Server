@@ -62,7 +62,7 @@ public class InitDb {
             Book book1 = Book.builder()
                     .uuid("ee4f66f9-9cf4-4b28-90f4-f71d0ecba021")
                     .favoriteName("LeoJ")
-                    .favoriteImage("https://lequu-server-bucket.s3.ap-northeast-2.amazonaws.com/books/favorite_image/b4006561-382b-479e-ae1d-e841922e883f.jpg")
+                    .favoriteImage("https://dzfv99wxq6tx0.cloudfront.net/books/favorite_image/b4006561-382b-479e-ae1d-e841922e883f.jpg")
                     .title("1번째 레큐북")
                     .description("레큐북의 내용입니다!")
                     .backgroundColor("#FFFFFF")
@@ -74,7 +74,7 @@ public class InitDb {
                 Book book = Book.builder()
                         .uuid("ee4f66f9-9cf4-4b28-90f4-f71d0ecba02" + String.valueOf(i + 1))
                         .favoriteName("LeoJ")
-                        .favoriteImage("https://lequu-server-bucket.s3.ap-northeast-2.amazonaws.com/books/favorite_image/b4006561-382b-479e-ae1d-e841922e883f.jpg")
+                        .favoriteImage("https://dzfv99wxq6tx0.cloudfront.net/books/favorite_image/b4006561-382b-479e-ae1d-e841922e883f.jpg")
                         .title(String.valueOf(i + 1) + "번째 레큐북")
                         .description("레큐북의 내용입니다!")
                         .backgroundColor("#FFFFFF")
@@ -97,7 +97,7 @@ public class InitDb {
             for (int i = 0; i < 10; i++) {
                 Note note = Note.builder()
                         .content("레큐노트 내용입니다 블라블라블라 블라블라블라 블라블라블라 블라블라블라 블라블라블라 블라블라블라 블라블라블라")
-                        .background(String.valueOf(i))
+                        .background("#FFFFFF")
                         .textColor("#000000")
                         .member(member1)
                         .book(book1)
@@ -108,14 +108,14 @@ public class InitDb {
             Sticker sticker1 = Sticker.builder()
                     .bookId(0L)
                     .category(BIRTHDAY)
-                    .stickerImage("https://lequu-server-bucket.s3.ap-northeast-2.amazonaws.com/stickers/birth_1.svg")
+                    .stickerImage("https://dzfv99wxq6tx0.cloudfront.net/stickers/birth_1.svg")
                     .build();
             em.persist(sticker1);
             for (int i = 0; i < 3; i++) {
                 Sticker sticker = Sticker.builder()
                         .bookId(0L)
                         .category(ALPHABET)
-                        .stickerImage("https://lequu-server-bucket.s3.ap-northeast-2.amazonaws.com/stickers/8d83b1c1-1e2c-437b-a2f5-e3ce96ce6d35.jpg")
+                        .stickerImage("https://dzfv99wxq6tx0.cloudfront.net/stickers/8d83b1c1-1e2c-437b-a2f5-e3ce96ce6d35.jpg")
                         .build();
                 em.persist(sticker);
             }
@@ -123,7 +123,7 @@ public class InitDb {
                 Sticker sticker = Sticker.builder()
                         .bookId(0L)
                         .category(BIRTHDAY)
-                        .stickerImage("https://lequu-server-bucket.s3.ap-northeast-2.amazonaws.com/stickers/8d83b1c1-1e2c-437b-a2f5-e3ce96ce6d35.jpg")
+                        .stickerImage("https://dzfv99wxq6tx0.cloudfront.net/stickers/8d83b1c1-1e2c-437b-a2f5-e3ce96ce6d35.jpg")
                         .build();
                 em.persist(sticker);
             }
@@ -140,7 +140,7 @@ public class InitDb {
                 Sticker sticker = Sticker.builder()
                         .bookId(1L)
                         .category(ALPHABET)
-                        .stickerImage("https://lequu-server-bucket.s3.ap-northeast-2.amazonaws.com/stickers/8d83b1c1-1e2c-437b-a2f5-e3ce96ce6d35.jpg")
+                        .stickerImage("https://dzfv99wxq6tx0.cloudfront.net/stickers/8d83b1c1-1e2c-437b-a2f5-e3ce96ce6d35.jpg")
                         .build();
                 em.persist(sticker);
             }
@@ -148,7 +148,7 @@ public class InitDb {
                 Sticker sticker = Sticker.builder()
                         .bookId(1L)
                         .category(BIRTHDAY)
-                        .stickerImage("https://lequu-server-bucket.s3.ap-northeast-2.amazonaws.com/stickers/8d83b1c1-1e2c-437b-a2f5-e3ce96ce6d35.jpg")
+                        .stickerImage("https://dzfv99wxq6tx0.cloudfront.net/stickers/8d83b1c1-1e2c-437b-a2f5-e3ce96ce6d35.jpg")
                         .build();
                 em.persist(sticker);
             }
