@@ -3,7 +3,7 @@
         <webhookUri>
             ${DISCORD_BUSINESS_1_URI}
         </webhookUri>
-        <username>Register is detected 🐣</username>
+        <username>섭섭이_봇 🐣</username>
         <avatarUrl>https://github.com/Team-Lecue/Lecue-Server/assets/67463603/67cf5665-ab6c-4eb0-8fa2-85a6dd8188b6
         </avatarUrl>
         <layout class="ch.qos.logback.classic.PatternLayout">
@@ -21,7 +21,7 @@
         <webhookUri>
             ${DISCORD_BUSINESS_2_URI}
         </webhookUri>
-        <username>Lecue Book is created 📝</username>
+        <username>히파람_봇 📝</username>
         <avatarUrl>https://github.com/Team-Lecue/Lecue-Server/assets/67463603/76b91fd6-3589-4c74-9b70-2b6e251ac384
         </avatarUrl>
         <layout class="ch.qos.logback.classic.PatternLayout">
@@ -39,7 +39,7 @@
         <webhookUri>
             ${DISCORD_BUSINESS_3_URI}
         </webhookUri>
-        <username>Lecue Note is attached 💌</username>
+        <username>찌니_봇 💌</username>
         <avatarUrl>https://github.com/Team-Lecue/Lecue-Server/assets/67463603/25641e5f-9e28-4852-9458-380313c953cc
         </avatarUrl>
         <layout class="ch.qos.logback.classic.PatternLayout">
