@@ -4,6 +4,9 @@ import org.sopt.lequuServer.domain.book.model.Book;
 import org.sopt.lequuServer.domain.member.model.Member;
 import org.sopt.lequuServer.domain.note.model.Note;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 public class LoggingMessage {
 
     public static String memberRegisterLogMessage(Member member) {
@@ -41,12 +44,18 @@ public class LoggingMessage {
     }
 
     public static String serverErrorMessage() {
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        String formattedDate = sdf.format(new Date());
         return "🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨\n\n" +
+                "- ⚠️ ERROR TIME: " + formattedDate + "\n" +
                 "- 🚨 야생의 서버 에러가 발생했다!: ";
     }
 
     public static String jwtErrorMessage() {
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        String formattedDate = sdf.format(new Date());
         return "🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨\n\n" +
+                "- ⚠️ ERROR TIME: " + formattedDate + "\n" +
                 "- 🚨 JWT 에러 필터에서 오류 발생!: ";
     }
 }

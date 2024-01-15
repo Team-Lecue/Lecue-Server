@@ -2,15 +2,10 @@
     <timestamp key="BY_DATE" datePattern="yyyy-MM-dd"/>
     <property name="LOG_PATTERN"
               value="[%d{yyyy-MM-dd HH:mm:ss}:%-4relative] %green([%thread]) %highlight(%-5level) %boldWhite([%C.%M:%yellow(%L)]) %msg%n"/>
-    <springProfile name="local">
-        <include resource="console-appender.xml"/>
-        <root level="INFO">
-            <appender-ref ref="CONSOLE"/>
-        </root>
-        <logger name="org.springframework.context.support.PostProcessorRegistrationDelegate" level="WARN"/>
-        <logger name="org.springframework.data.repository.config.RepositoryConfigurationExtensionSupport"
-                level="WARN"/>
-    </springProfile>
+    <springProperty name="DISCORD_ERROR_URI" source="logging.discord.error-uri"/>
+    <springProperty name="DISCORD_BUSINESS_1_URI" source="logging.discord.business-1-uri"/>
+    <springProperty name="DISCORD_BUSINESS_2_URI" source="logging.discord.business-2-uri"/>
+    <springProperty name="DISCORD_BUSINESS_3_URI" source="logging.discord.business-3-uri"/>
 
     <springProfile name="!local">
         <include resource="console-appender.xml"/>
