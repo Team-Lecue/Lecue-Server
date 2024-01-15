@@ -29,12 +29,12 @@ public class InitDb {
     }
 
     private static final List<String> CHARACTER_STICKERS = Arrays.asList(
-            "https://lequu-server-bucket.s3.ap-northeast-2.amazonaws.com/stickers/character_1.svg",
-            "https://lequu-server-bucket.s3.ap-northeast-2.amazonaws.com/stickers/character_2.svg",
-            "https://lequu-server-bucket.s3.ap-northeast-2.amazonaws.com/stickers/character_3.svg",
-            "https://lequu-server-bucket.s3.ap-northeast-2.amazonaws.com/stickers/character_4.svg",
-            "https://lequu-server-bucket.s3.ap-northeast-2.amazonaws.com/stickers/character_5.svg",
-            "https://lequu-server-bucket.s3.ap-northeast-2.amazonaws.com/stickers/character_6.svg"
+            "https://dzfv99wxq6tx0.cloudfront.net/stickers/character_1.svg",
+            "https://dzfv99wxq6tx0.cloudfront.net/stickers/character_2.svg",
+            "https://dzfv99wxq6tx0.cloudfront.net/stickers/character_3.svg",
+            "https://dzfv99wxq6tx0.cloudfront.net/stickers/character_4.svg",
+            "https://dzfv99wxq6tx0.cloudfront.net/stickers/character_5.svg",
+            "https://dzfv99wxq6tx0.cloudfront.net/stickers/character_6.svg"
     );
 
     @Component
@@ -55,7 +55,6 @@ public class InitDb {
                     .socialPlatform(SocialPlatform.KAKAO)
                     .socialId("3251153440")
                     .build();
-            member1.updateNickname("레큐");
             member1.updateSocialInfo("레큐", "http://k.kakaocdn.net/dn/1G9kp/btsAot8liOn/8CWudi3uy07rvFNUkk3ER0/img_640x640.jpg");
             em.persist(member1);
 

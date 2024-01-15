@@ -1,5 +1,15 @@
 package org.sopt.lequuServer.global.s3.service;
 
+import static org.sopt.lequuServer.global.exception.enums.ErrorType.GET_UPLOAD_PRESIGNED_URL_ERROR;
+import static org.sopt.lequuServer.global.exception.enums.ErrorType.IMAGE_EXTENSION_ERROR;
+import static org.sopt.lequuServer.global.exception.enums.ErrorType.IMAGE_SIZE_ERROR;
+
+import java.io.IOException;
+import java.net.URL;
+import java.time.Duration;
+import java.util.Arrays;
+import java.util.List;
+import java.util.UUID;
 import lombok.val;
 import org.sopt.lequuServer.global.config.AWSConfig;
 import org.sopt.lequuServer.global.exception.model.CustomException;
@@ -16,19 +26,11 @@ import software.amazon.awssdk.services.s3.model.S3Exception;
 import software.amazon.awssdk.services.s3.presigner.S3Presigner;
 import software.amazon.awssdk.services.s3.presigner.model.PutObjectPresignRequest;
 
-import java.io.IOException;
-import java.net.URL;
-import java.time.Duration;
-import java.util.Arrays;
-import java.util.List;
-import java.util.UUID;
-
-import static org.sopt.lequuServer.global.exception.enums.ErrorType.*;
-
 @Service
 public class S3Service {
 
     private final String bucketName;
+    private final String cloudFront;
     private final AWSConfig awsConfig;
 
     // 파일 확장자 제한 jpeg, png, jpg, webp
@@ -38,8 +40,9 @@ public class S3Service {
     // PreSigned URL 만료시간 60분
     private static final Long PRE_SIGNED_URL_EXPIRE_MINUTE = 60L;
 
-    public S3Service(@Value("${cloud.aws.credentials.s3-bucket-name}") final String bucketName, AWSConfig awsConfig) {
+    public S3Service(@Value("${cloud.aws.credentials.s3-bucket-name}") final String bucketName, @Value("${cloud.aws.credentials.cloud-front}") final String cloudFront, AWSConfig awsConfig) {
         this.bucketName = bucketName;
+        this.cloudFront = cloudFront;
         this.awsConfig = awsConfig;
     }
 
@@ -149,5 +152,9 @@ public class S3Service {
         } catch (S3Exception e) {
             throw new RuntimeException(e.getMessage());
         }
+    }
+
+    public String getCloudFrontURL(final String imageKey) {
+        return "https://" + cloudFront + "/" + imageKey;
     }
 }
