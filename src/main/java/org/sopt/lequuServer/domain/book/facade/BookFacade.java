@@ -1,9 +1,5 @@
 package org.sopt.lequuServer.domain.book.facade;
 
-import static org.sopt.lequuServer.global.s3.enums.ImageFolderName.BOOK_FAVORITE_IMAGE_FOLDER_NAME;
-
-import java.util.List;
-import java.util.UUID;
 import lombok.RequiredArgsConstructor;
 import org.sopt.lequuServer.domain.book.dto.request.BookCreateRequestDto;
 import org.sopt.lequuServer.domain.book.dto.response.BookCreateResponseDto;
@@ -18,9 +14,15 @@ import org.sopt.lequuServer.domain.note.repository.NoteRepository;
 import org.sopt.lequuServer.domain.sticker.model.PostedSticker;
 import org.sopt.lequuServer.domain.sticker.repository.PostedStickerRepository;
 import org.sopt.lequuServer.domain.sticker.repository.StickerRepository;
+import org.sopt.lequuServer.global.BadWordFilterService;
 import org.sopt.lequuServer.global.s3.service.S3Service;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
+import java.util.UUID;
+
+import static org.sopt.lequuServer.global.s3.enums.ImageFolderName.BOOK_FAVORITE_IMAGE_FOLDER_NAME;
 
 @Service
 @RequiredArgsConstructor
@@ -33,6 +35,7 @@ public class BookFacade {
     private final NoteRepository noteRepository;
     private final StickerRepository stickerRepository;
     private final PostedStickerRepository postedStickerRepository;
+    private final BadWordFilterService badWordFilterService;
     private final S3Service s3Service;
 
     @Transactional
@@ -53,17 +56,17 @@ public class BookFacade {
         // Presigned URL 이미지 업로드하기 위한 이미지 파일명 가져오기
 //        String imageUrl = s3Service.getURL(BOOK_FAVORITE_IMAGE_FOLDER_NAME.getValue() + request.favoriteImage());
         String imageUrl = s3Service.getCloudFrontURL(
-                BOOK_FAVORITE_IMAGE_FOLDER_NAME.getValue() + request.favoriteImage());
+            BOOK_FAVORITE_IMAGE_FOLDER_NAME.getValue() + request.favoriteImage());
 
         Book book = Book.builder()
-                .uuid(bookUuid)
-                .favoriteName(request.favoriteName())
-                .favoriteImage(imageUrl)
-                .title(request.title())
-                .description(request.description())
-                .backgroundColor(request.backgroundColor())
-                .member(member)
-                .build();
+            .uuid(bookUuid)
+            .favoriteName(badWordFilterService.changeBadWord(request.favoriteName()))
+            .favoriteImage(imageUrl)
+            .title(badWordFilterService.changeBadWord(request.title()))
+            .description(badWordFilterService.changeBadWord(request.description()))
+            .backgroundColor(request.backgroundColor())
+            .member(member)
+            .build();
 
         return bookService.createBook(book, member);
     }
