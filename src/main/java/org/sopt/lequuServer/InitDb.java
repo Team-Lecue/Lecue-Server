@@ -94,7 +94,7 @@ public class InitDb {
                         .build();
                 em.persist(note);
             }
-            for (int i = 0; i < 3; i++) {
+            for (int i = 0; i < 10; i++) {
                 Note note = Note.builder()
                         .content("레큐노트 내용입니다 블라블라블라 블라블라블라 블라블라블라 블라블라블라 블라블라블라 블라블라블라 블라블라블라")
                         .background(String.valueOf(i))
