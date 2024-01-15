@@ -1,18 +1,17 @@
 package org.sopt.lequuServer.domain.book.dto.response;
 
+import static java.util.Comparator.comparing;
+
 import io.swagger.v3.oas.annotations.media.Schema;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.List;
 import org.sopt.lequuServer.domain.book.model.Book;
 import org.sopt.lequuServer.domain.note.dto.response.NoteDetailResponseDto;
 import org.sopt.lequuServer.domain.note.model.Note;
 import org.sopt.lequuServer.domain.sticker.dto.response.PostedStickerDetailResponseDto;
 import org.sopt.lequuServer.domain.sticker.model.PostedSticker;
-
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-import java.util.List;
-
-import static java.util.Comparator.comparing;
 
 public record BookDetailResponseDto(
 
@@ -37,8 +36,8 @@ public record BookDetailResponseDto(
         @Schema(description = "레큐북 작성자 닉네임", example = "예딘")
         String bookNickname,
 
-        @Schema(description = "레큐북 배경색 (흰색:0, 검정:1)", example = "0")
-        int bookBackgroundColor,
+        @Schema(description = "레큐북 배경색", example = "#FFFFFF")
+        String bookBackgroundColor,
 
         @Schema(description = "레큐 노트 개수", example = "100")
         int noteNum,
