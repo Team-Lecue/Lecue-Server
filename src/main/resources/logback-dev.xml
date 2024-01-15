@@ -7,16 +7,6 @@
     <springProperty name="DISCORD_BUSINESS_2_URI" source="logging.discord.business-2-uri"/>
     <springProperty name="DISCORD_BUSINESS_3_URI" source="logging.discord.business-3-uri"/>
 
-    <springProfile name="local">
-        <include resource="console-appender.xml"/>
-        <root level="INFO">
-            <appender-ref ref="CONSOLE"/>
-        </root>
-        <logger name="org.springframework.context.support.PostProcessorRegistrationDelegate" level="WARN"/>
-        <logger name="org.springframework.data.repository.config.RepositoryConfigurationExtensionSupport"
-                level="WARN"/>
-    </springProfile>
-
     <springProfile name="!local">
         <include resource="console-appender.xml"/>
         <include resource="discord-error-appender.xml"/>
