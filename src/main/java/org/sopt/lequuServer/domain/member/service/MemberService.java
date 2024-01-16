@@ -13,6 +13,7 @@ import org.sopt.lequuServer.domain.member.model.Member;
 import org.sopt.lequuServer.domain.member.model.SocialPlatform;
 import org.sopt.lequuServer.domain.member.repository.MemberRepository;
 import org.sopt.lequuServer.domain.note.model.Note;
+import org.sopt.lequuServer.global.BadWordFilterService;
 import org.sopt.lequuServer.global.auth.fegin.kakao.KakaoLoginService;
 import org.sopt.lequuServer.global.auth.jwt.JwtProvider;
 import org.sopt.lequuServer.global.auth.jwt.TokenDto;
@@ -36,6 +37,7 @@ public class MemberService {
 
     private final JwtProvider jwtProvider;
     private final KakaoLoginService kakaoLoginService;
+    private final BadWordFilterService badWordFilterService;
 
     @Transactional
     public MemberLoginResponseDto login(String socialAccessToken, SocialLoginRequestDto request) {
@@ -48,8 +50,8 @@ public class MemberService {
         boolean isRegistered = isUserBySocialAndSocialId(socialPlatform, socialId);
         if (!isRegistered) {
             Member member = Member.builder()
-                    .socialPlatform(socialPlatform)
-                    .socialId(socialId).build();
+                .socialPlatform(socialPlatform)
+                .socialId(socialId).build();
 
             memberRepository.save(member);
         }
@@ -94,7 +96,7 @@ public class MemberService {
 
     private Member getUserBySocialAndSocialId(SocialPlatform socialPlatform, String socialId) {
         return memberRepository.findBySocialPlatformAndSocialId(socialPlatform, socialId)
-                .orElseThrow(() -> new CustomException(NOT_FOUND_MEMBER_ERROR));
+            .orElseThrow(() -> new CustomException(NOT_FOUND_MEMBER_ERROR));
     }
 
     private boolean isUserBySocialAndSocialId(SocialPlatform socialPlatform, String socialId) {
@@ -119,7 +121,7 @@ public class MemberService {
     @Transactional
     public MemberNicknameResponseDto setMemberNickname(Long memberId, MemberNicknameRequestDto request) {
         Member member = memberRepository.findByIdOrThrow(memberId);
-        member.updateNickname(request.nickname().strip());
+        member.updateNickname(badWordFilterService.badWordChange(request.nickname().strip()));
         return MemberNicknameResponseDto.of(memberId);
     }
 

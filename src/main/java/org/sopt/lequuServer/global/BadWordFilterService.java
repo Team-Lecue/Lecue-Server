@@ -16,9 +16,17 @@ public class BadWordFilterService {
 
     private final BadWordFiltering badWordFiltering;
     private final HashSet<String> badWords;
+    private final String[] symbols;
 
     public BadWordFilterService() throws IOException {
         badWordFiltering = new BadWordFiltering();
+        symbols = new String[]{"!", "@", "#", "$", "%", "^", "&", "*", "_"};
+
+        // 비속어 필터링을 제외할 단어 설정 가능
+        String[] enableList = new String[]{"똥"};
+        for (String s : enableList) {
+            badWordFiltering.remove(s);
+        }
 
         // ArrayList 대신 HashSet 사용하면 중복된 단어는 제외할 수 있음
         badWords = new HashSet<>();
@@ -28,9 +36,7 @@ public class BadWordFilterService {
     }
 
     public String badWordChange(String string) {
-        String[] change = new String[]{"*"};
-
-        return badWordFiltering.change(string, change);
+        return badWordFiltering.change(string, symbols);
     }
 
     private void readBadWords(String fileName) throws IOException {
