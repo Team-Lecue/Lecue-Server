@@ -7,7 +7,6 @@ import org.sopt.lequuServer.domain.book.model.Book;
 import org.sopt.lequuServer.domain.member.model.Member;
 import org.sopt.lequuServer.domain.member.model.SocialPlatform;
 import org.sopt.lequuServer.domain.note.model.Note;
-import org.sopt.lequuServer.domain.sticker.model.PostedSticker;
 import org.sopt.lequuServer.domain.sticker.model.Sticker;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
@@ -194,14 +193,14 @@ public class InitDb {
                 em.persist(sticker);
             }
 
-            PostedSticker postedSticker = PostedSticker.builder()
-                    .member(member1)
-                    .book(book1)
-                    .sticker(sticker1)
-                    .positionX(30)
-                    .positionY(60)
-                    .build();
-            em.persist(postedSticker);
+//            PostedSticker postedSticker = PostedSticker.builder()
+//                    .member(member1)
+//                    .book(book1)
+//                    .sticker(sticker1)
+//                    .positionX(30)
+//                    .positionY(60)
+//                    .build();
+//            em.persist(postedSticker);
         }
 
         private boolean isDatabaseEmpty() {
