@@ -1,5 +1,10 @@
 package org.sopt.lequuServer.domain.member.service;
 
+import static org.sopt.lequuServer.global.exception.enums.ErrorType.INVALID_SOCIAL_ACCESS_TOKEN;
+import static org.sopt.lequuServer.global.exception.enums.ErrorType.INVALID_TOKEN_HEADER_ERROR;
+import static org.sopt.lequuServer.global.exception.enums.ErrorType.NOT_FOUND_MEMBER_ERROR;
+
+import java.util.List;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.sopt.lequuServer.domain.book.model.Book;
@@ -18,13 +23,10 @@ import org.sopt.lequuServer.global.auth.jwt.JwtProvider;
 import org.sopt.lequuServer.global.auth.jwt.TokenDto;
 import org.sopt.lequuServer.global.auth.security.UserAuthentication;
 import org.sopt.lequuServer.global.common.logging.LoggingMessage;
+import org.sopt.lequuServer.global.exception.enums.ErrorType;
 import org.sopt.lequuServer.global.exception.model.CustomException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-import java.util.List;
-
-import static org.sopt.lequuServer.global.exception.enums.ErrorType.*;
 
 @Slf4j
 @Service
@@ -119,6 +121,9 @@ public class MemberService {
     @Transactional
     public MemberNicknameResponseDto setMemberNickname(Long memberId, MemberNicknameRequestDto request) {
         Member member = memberRepository.findByIdOrThrow(memberId);
+        if (member.getNickname().equals(request.nickname())) {
+            throw new CustomException(ErrorType.NICKNAME_DUP_ERROR);
+        }
         member.updateNickname(request.nickname().strip());
         return MemberNicknameResponseDto.of(memberId);
     }
