@@ -120,10 +120,12 @@ public class MemberService {
 
     @Transactional
     public MemberNicknameResponseDto setMemberNickname(Long memberId, MemberNicknameRequestDto request) {
-        Member member = memberRepository.findByIdOrThrow(memberId);
-        if (member.getNickname().equals(request.nickname())) {
+        if (memberRepository.existsByNickname(request.nickname())) {
             throw new CustomException(ErrorType.NICKNAME_DUP_ERROR);
         }
+
+        Member member = memberRepository.findByIdOrThrow(memberId);
+
         member.updateNickname(request.nickname().strip());
         return MemberNicknameResponseDto.of(memberId);
     }

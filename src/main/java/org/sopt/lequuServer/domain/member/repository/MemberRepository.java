@@ -14,6 +14,10 @@ public interface MemberRepository extends JpaRepository<Member, Long> {
 
     Optional<Member> findBySocialPlatformAndSocialId(SocialPlatform socialPlatform, String socialId);
 
+    boolean existsByNickname(String nickname);
+
+
+
     default Member findByIdOrThrow(Long id) {
         return this.findById(id)
                 .orElseThrow(() -> new CustomException(ErrorType.NOT_FOUND_MEMBER_ERROR));
