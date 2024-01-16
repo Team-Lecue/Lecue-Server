@@ -127,7 +127,7 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(CustomException.class)
     protected ResponseEntity<ApiResponse<?>> handleCustomException(CustomException e) {
 
-        log.warn("CustomException Occured: {}", e.getMessage(), e);
+        log.warn("CustomException Occured: {}", e.getMessage());
 
         return ResponseEntity.status(e.getHttpStatus())
                 .body(ApiResponse.error(e.getErrorType()));
