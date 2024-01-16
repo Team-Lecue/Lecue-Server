@@ -12,15 +12,15 @@ public record MypageBookResponseDto(
         @Schema(description = "유저 닉네임", example = "레큐")
         String memberNickname,
 
-        List<MypageBookListResponseDto> bookList
+        List<MypageBooksResponseDto> bookDtos
 ) {
     public static MypageBookResponseDto of(String nickName, List<Book> books) {
 
-        List<MypageBookListResponseDto> bookList = books.stream()
+        List<MypageBooksResponseDto> bookDtos = books.stream()
                 .sorted(comparing(Book::getCreatedAt).reversed())
-                .map(MypageBookListResponseDto::of)
+                .map(MypageBooksResponseDto::of)
                 .toList();
 
-        return new MypageBookResponseDto(nickName, bookList);
+        return new MypageBookResponseDto(nickName, bookDtos);
     }
 }

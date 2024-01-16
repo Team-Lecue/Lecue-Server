@@ -5,7 +5,7 @@ import org.sopt.lequuServer.domain.book.model.Book;
 
 import java.time.format.DateTimeFormatter;
 
-public record MypageBookListResponseDto(
+public record MypageBooksResponseDto(
 
         @Schema(description = "레큐북 고유 id", example = "1")
         Long bookId,
@@ -25,11 +25,11 @@ public record MypageBookListResponseDto(
         @Schema(description = "레큐노트 개수", example = "1974")
         int noteNum
 ) {
-    public static MypageBookListResponseDto of(Book book) {
+    public static MypageBooksResponseDto of(Book book) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy.MM.dd");
         String bookDate = book.getCreatedAt().format(formatter);
 
-        return new MypageBookListResponseDto(
+        return new MypageBooksResponseDto(
                 book.getId(),
                 book.getUuid(),
                 book.getFavoriteName(),
