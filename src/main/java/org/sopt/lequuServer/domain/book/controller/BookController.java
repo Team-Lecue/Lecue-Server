@@ -10,6 +10,7 @@ import org.sopt.lequuServer.global.auth.jwt.JwtProvider;
 import org.sopt.lequuServer.global.common.dto.ApiResponse;
 import org.sopt.lequuServer.global.exception.enums.SuccessType;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
@@ -22,20 +23,18 @@ public class BookController implements BookApi {
     private final BookFacade bookFacade;
 
     @PostMapping
-    @ResponseStatus(HttpStatus.CREATED)
-    public ApiResponse<BookCreateResponseDto> createBook(@Valid @RequestBody BookCreateRequestDto request, Principal principal) {
-        return ApiResponse.success(SuccessType.CREATE_BOOK_SUCCESS, bookFacade.createBook(request, JwtProvider.getUserFromPrincial(principal)));
+    public ResponseEntity<ApiResponse<BookCreateResponseDto>> createBook(@Valid @RequestBody BookCreateRequestDto request, Principal principal) {
+        return ResponseEntity.status(HttpStatus.CREATED).body(ApiResponse.success(SuccessType.CREATE_BOOK_SUCCESS, bookFacade.createBook(request, JwtProvider.getUserFromPrincial(principal))));
     }
 
     @DeleteMapping("/{bookId}")
-    public ApiResponse<?> deleteBook(@PathVariable Long bookId) {
+    public ResponseEntity<?> deleteBook(@PathVariable Long bookId) {
         bookFacade.deleteBook(bookId);
-        return ApiResponse.success(SuccessType.DELETE_BOOK_SUCCESS);
+        return ResponseEntity.noContent().build();
     }
 
     @GetMapping("/detail/{bookUuid}")
-    @ResponseStatus(HttpStatus.OK)
-    public ApiResponse<BookDetailResponseDto> getBookDetail(@PathVariable String bookUuid) {
-        return ApiResponse.success(SuccessType.GET_BOOK_DETAIL_SUCCESS, bookFacade.getBookDetail(bookUuid));
+    public ResponseEntity<ApiResponse<BookDetailResponseDto>> getBookDetail(@PathVariable String bookUuid) {
+        return ResponseEntity.ok(ApiResponse.success(SuccessType.GET_BOOK_DETAIL_SUCCESS, bookFacade.getBookDetail(bookUuid)));
     }
 }

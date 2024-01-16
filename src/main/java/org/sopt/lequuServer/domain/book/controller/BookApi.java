@@ -10,6 +10,7 @@ import org.sopt.lequuServer.domain.book.dto.request.BookCreateRequestDto;
 import org.sopt.lequuServer.domain.book.dto.response.BookCreateResponseDto;
 import org.sopt.lequuServer.domain.book.dto.response.BookDetailResponseDto;
 import org.sopt.lequuServer.global.common.dto.ApiResponse;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 
@@ -25,7 +26,7 @@ public interface BookApi {
             content = @Content(schema = @Schema(implementation = BookCreateResponseDto.class))
     )
     @Operation(summary = "레큐북 생성")
-    public ApiResponse<BookCreateResponseDto> createBook(@Valid @RequestBody BookCreateRequestDto request, Principal principal);
+    public ResponseEntity<ApiResponse<BookCreateResponseDto>> createBook(@Valid @RequestBody BookCreateRequestDto request, Principal principal);
 
     @SecurityRequirement(name = "JWT Authorization")
     @io.swagger.v3.oas.annotations.responses.ApiResponse(
@@ -33,7 +34,7 @@ public interface BookApi {
             description = "레큐북을 성공적으로 삭제했습니다."
     )
     @Operation(summary = "레큐북 삭제")
-    public ApiResponse<?> deleteBook(@Schema(example = "1") @PathVariable Long bookId);
+    public ResponseEntity<?> deleteBook(@Schema(example = "1") @PathVariable Long bookId);
 
     @io.swagger.v3.oas.annotations.responses.ApiResponse(
             responseCode = "200",
@@ -41,5 +42,5 @@ public interface BookApi {
             content = @Content(schema = @Schema(implementation = BookDetailResponseDto.class))
     )
     @Operation(summary = "레큐북 상세 조회")
-    public ApiResponse<BookDetailResponseDto> getBookDetail(@Schema(example = "ee4f66f9-9cf4-4b28-90f4-f71d0ecba021") @PathVariable String bookUuid);
+    public ResponseEntity<ApiResponse<BookDetailResponseDto>> getBookDetail(@Schema(example = "ee4f66f9-9cf4-4b28-90f4-f71d0ecba021") @PathVariable String bookUuid);
 }

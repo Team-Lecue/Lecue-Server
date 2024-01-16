@@ -33,12 +33,12 @@ public enum SuccessType {
      */
     CREATE_BOOK_SUCCESS(HttpStatus.CREATED, "레큐북이 성공적으로 생성됐습니다."),
     POST_STICKER_SUCCESS(HttpStatus.CREATED, "스티커 부착에 성공했습니다."),
-    CREATE_NOTE_SUCCESS(HttpStatus.CREATED, "레큐노트를 성공적으로 생성했습니다."),
+    CREATE_NOTE_SUCCESS(HttpStatus.CREATED, "레큐노트를 성공적으로 생성했습니다.")
 
     /**
      * 204 NO CONTENT
      */
-    DELETE_BOOK_SUCCESS(HttpStatus.NO_CONTENT, "레큐북을 성공적으로 삭제했습니다.");
+    ;
 
     private final HttpStatus httpStatus;
     private final String message;

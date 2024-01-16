@@ -10,6 +10,7 @@ import org.sopt.lequuServer.domain.sticker.dto.request.StickerPostRequestDto;
 import org.sopt.lequuServer.domain.sticker.dto.response.StickerPackResponseDto;
 import org.sopt.lequuServer.domain.sticker.dto.response.StickerPostResponseDto;
 import org.sopt.lequuServer.global.common.dto.ApiResponse;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 
@@ -26,7 +27,7 @@ public interface StickerApi {
             content = @Content(array = @ArraySchema(schema = @Schema(implementation = StickerPackResponseDto.class)))
     )
     @Operation(summary = "스티커팩 목록 불러오기")
-    public ApiResponse<List<StickerPackResponseDto>> getStickerPackList(@Schema(example = "1") @PathVariable Long bookId);
+    public ResponseEntity<ApiResponse<List<StickerPackResponseDto>>> getStickerPackList(@Schema(example = "1") @PathVariable Long bookId);
 
     @io.swagger.v3.oas.annotations.responses.ApiResponse(
             responseCode = "201",
@@ -34,5 +35,5 @@ public interface StickerApi {
             content = @Content(schema = @Schema(implementation = StickerPostResponseDto.class))
     )
     @Operation(summary = "스티커 부착하기")
-    public ApiResponse<StickerPostResponseDto> postSticker(Principal principal, @RequestBody StickerPostRequestDto request);
+    public ResponseEntity<ApiResponse<StickerPostResponseDto>> postSticker(Principal principal, @RequestBody StickerPostRequestDto request);
 }

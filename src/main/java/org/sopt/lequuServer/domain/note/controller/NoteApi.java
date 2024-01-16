@@ -9,6 +9,7 @@ import jakarta.validation.Valid;
 import org.sopt.lequuServer.domain.note.dto.request.NoteCreateDto;
 import org.sopt.lequuServer.domain.note.dto.response.NoteCreateResponseDto;
 import org.sopt.lequuServer.global.common.dto.ApiResponse;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestBody;
 
 import java.security.Principal;
@@ -23,5 +24,5 @@ public interface NoteApi {
             description = "레큐노트를 성공적으로 생성했습니다.",
             content = @Content(schema = @Schema(implementation = NoteCreateResponseDto.class))
     )
-    public ApiResponse<?> createNote(Principal principal, @RequestBody @Valid NoteCreateDto noteCreateDto);
+    public ResponseEntity<ApiResponse<?>> createNote(Principal principal, @RequestBody @Valid NoteCreateDto noteCreateDto);
 }

@@ -14,7 +14,7 @@ import org.sopt.lequuServer.global.auth.jwt.JwtProvider;
 import org.sopt.lequuServer.global.auth.jwt.TokenDto;
 import org.sopt.lequuServer.global.common.dto.ApiResponse;
 import org.sopt.lequuServer.global.exception.enums.SuccessType;
-import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
@@ -30,53 +30,46 @@ public class MemberController implements MemberApi {
     private final KakaoLoginService kakaoLoginService;
 
     @PostMapping("/login")
-    @ResponseStatus(HttpStatus.OK)
-    public ApiResponse<MemberLoginResponseDto> login(
+    public ResponseEntity<ApiResponse<MemberLoginResponseDto>> login(
             @RequestHeader("Authorization") String socialAccessToken,
             @RequestBody SocialLoginRequestDto request) {
 
-        return ApiResponse.success(SuccessType.LOGIN_SUCCESS, memberService.login(socialAccessToken, request));
+        return ResponseEntity.ok(ApiResponse.success(SuccessType.LOGIN_SUCCESS, memberService.login(socialAccessToken, request)));
     }
 
     @GetMapping("/reissue")
-    @ResponseStatus(HttpStatus.OK)
-    public ApiResponse<TokenDto> reissue(
+    public ResponseEntity<ApiResponse<TokenDto>> reissue(
             @RequestHeader("Authorization") String refreshToken) {
 
-        return ApiResponse.success(SuccessType.REISSUE_SUCCESS, memberService.reissueToken(refreshToken));
+        return ResponseEntity.ok(ApiResponse.success(SuccessType.REISSUE_SUCCESS, memberService.reissueToken(refreshToken)));
     }
 
     @PatchMapping("/log-out") // Spring Security 자체의 logout과 겹치지 않기 위해 이렇게 설정
-    @ResponseStatus(HttpStatus.OK)
-    public ApiResponse<?> logout(Principal principal) {
+    public ResponseEntity<ApiResponse<?>> logout(Principal principal) {
 
         memberService.logout(JwtProvider.getUserFromPrincial(principal));
-        return ApiResponse.success(SuccessType.LOGOUT_SUCCESS);
+        return ResponseEntity.ok(ApiResponse.success(SuccessType.LOGOUT_SUCCESS));
     }
 
     @GetMapping("/kakao")
-    @ResponseStatus(HttpStatus.OK)
-    public ApiResponse<?> kakaoAccessToken(
+    public ResponseEntity<ApiResponse<?>> kakaoAccessToken(
             @RequestHeader("Authorization") String code) {
-        return ApiResponse.success(SuccessType.KAKAO_ACCESS_TOKEN_SUCCESS, kakaoLoginService.getKakaoAccessToken(code));
+        return ResponseEntity.ok(ApiResponse.success(SuccessType.KAKAO_ACCESS_TOKEN_SUCCESS, kakaoLoginService.getKakaoAccessToken(code)));
     }
 
     @PatchMapping("/nickname")
-    @ResponseStatus(HttpStatus.OK)
-    public ApiResponse<MemberNicknameResponseDto> setMemberNickname(Principal principal, @Valid @RequestBody MemberNicknameRequestDto request) {
+    public ResponseEntity<ApiResponse<MemberNicknameResponseDto>> setMemberNickname(Principal principal, @Valid @RequestBody MemberNicknameRequestDto request) {
 
-        return ApiResponse.success(SET_MEMBER_NICKNAME_SUCCESS, memberService.setMemberNickname(JwtProvider.getUserFromPrincial(principal), request));
+        return ResponseEntity.ok(ApiResponse.success(SET_MEMBER_NICKNAME_SUCCESS, memberService.setMemberNickname(JwtProvider.getUserFromPrincial(principal), request)));
     }
 
     @GetMapping("/mypage/book")
-    @ResponseStatus(HttpStatus.OK)
-    public ApiResponse<MypageBookResponseDto> getMypageBook(Principal principal) {
-        return ApiResponse.success(GET_MYPAGE_BOOK_SUCCESS, memberService.getMypageBook(JwtProvider.getUserFromPrincial(principal)));
+    public ResponseEntity<ApiResponse<MypageBookResponseDto>> getMypageBook(Principal principal) {
+        return ResponseEntity.ok(ApiResponse.success(GET_MYPAGE_BOOK_SUCCESS, memberService.getMypageBook(JwtProvider.getUserFromPrincial(principal))));
     }
 
     @GetMapping("/mypage/note")
-    @ResponseStatus(HttpStatus.OK)
-    public ApiResponse<MypageNoteResponseDto> getMypageNote(Principal principal) {
-        return ApiResponse.success(GET_MYPAGE_NOTE_SUCCESS, memberService.getMypageNote(JwtProvider.getUserFromPrincial(principal)));
+    public ResponseEntity<ApiResponse<MypageNoteResponseDto>> getMypageNote(Principal principal) {
+        return ResponseEntity.ok(ApiResponse.success(GET_MYPAGE_NOTE_SUCCESS, memberService.getMypageNote(JwtProvider.getUserFromPrincial(principal))));
     }
 }

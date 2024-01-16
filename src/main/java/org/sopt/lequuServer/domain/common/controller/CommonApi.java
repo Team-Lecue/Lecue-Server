@@ -9,6 +9,7 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import org.sopt.lequuServer.domain.common.dto.response.PopularBookResponseDto;
 import org.sopt.lequuServer.domain.common.dto.response.SplashDto;
 import org.sopt.lequuServer.global.common.dto.ApiResponse;
+import org.springframework.http.ResponseEntity;
 
 import java.util.List;
 
@@ -21,7 +22,7 @@ public interface CommonApi {
             content = @Content(schema = @Schema(implementation = SplashDto.class))
     )
     @Operation(summary = "스플래시 조회")
-    public ApiResponse<SplashDto> getSplash();
+    public ResponseEntity<ApiResponse<SplashDto>> getSplash();
 
     @io.swagger.v3.oas.annotations.responses.ApiResponse(
             responseCode = "200",
@@ -29,8 +30,8 @@ public interface CommonApi {
             content = @Content(array = @ArraySchema(schema = @Schema(implementation = PopularBookResponseDto.class)))
     )
     @Operation(summary = "홈 조회")
-    public ApiResponse<List<PopularBookResponseDto>> getHome();
+    public ResponseEntity<ApiResponse<List<PopularBookResponseDto>>> getHome();
 
     @Hidden
-    public ApiResponse<?> test();
+    public ResponseEntity<ApiResponse<?>> test();
 }
