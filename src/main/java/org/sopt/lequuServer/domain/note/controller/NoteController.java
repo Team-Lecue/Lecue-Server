@@ -21,7 +21,7 @@ public class NoteController implements NoteApi {
     private final NoteFacade noteFacade;
 
     @PostMapping
-    public ResponseEntity<ApiResponse<?>> createNote(Principal principal, @RequestBody @Valid NoteCreateDto noteCreateDto) {
-        return ResponseEntity.status(HttpStatus.CREATED).body(ApiResponse.success(SuccessType.CREATE_NOTE_SUCCESS, noteFacade.createNote(JwtProvider.getUserFromPrincial(principal), noteCreateDto)));
+    public ResponseEntity<ApiResponse<?>> createNote(Principal principal, @RequestBody @Valid NoteCreateDto request) {
+        return ResponseEntity.status(HttpStatus.CREATED).body(ApiResponse.success(SuccessType.CREATE_NOTE_SUCCESS, noteFacade.createNote(JwtProvider.getUserFromPrincial(principal), request)));
     }
 }
