@@ -38,6 +38,6 @@ public class NoteFacade {
             background = s3Service.getCloudFrontURL(NOTE_BACKGROUND_IMAGE_FOLDER_NAME.getValue() + noteCreateDto.background());
         }
 
-        return noteService.saveNote(Note.of(badWordFilterService.changeBadWord(noteCreateDto.content()), background, noteCreateDto.textColor(), member, book), member, book);
+        return noteService.saveNote(Note.of(badWordFilterService.badWordChange(noteCreateDto.content()), background, noteCreateDto.textColor(), member, book), member, book);
     }
 }

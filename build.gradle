@@ -83,6 +83,9 @@ dependencies {
 
     // Discord
     implementation('com.github.napstr:logback-discord-appender:1.0.0')
+
+    // BadWordFiltering
+    implementation 'io.github.vaneproject:badwordfiltering:1.0.0'
 }
 
 tasks.named('bootBuildImage') {

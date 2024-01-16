@@ -60,10 +60,10 @@ public class BookFacade {
 
         Book book = Book.builder()
             .uuid(bookUuid)
-            .favoriteName(badWordFilterService.changeBadWord(request.favoriteName()))
+            .favoriteName(badWordFilterService.badWordChange(request.favoriteName()))
             .favoriteImage(imageUrl)
-            .title(badWordFilterService.changeBadWord(request.title()))
-            .description(badWordFilterService.changeBadWord(request.description()))
+            .title(badWordFilterService.badWordChange(request.title()))
+            .description(badWordFilterService.badWordChange(request.description()))
             .backgroundColor(request.backgroundColor())
             .member(member)
             .build();

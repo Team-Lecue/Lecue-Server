@@ -1,5 +1,6 @@
 package org.sopt.lequuServer.global;
 
+import com.vane.badwordfiltering.BadWordFiltering;
 import org.springframework.stereotype.Service;
 
 import java.io.BufferedReader;
@@ -9,20 +10,30 @@ import java.net.URL;
 import java.util.Collections;
 import java.util.HashSet;
 
+
 @Service
 public class BadWordFilterService {
 
+    private final BadWordFiltering badWordFiltering;
     private final HashSet<String> badWords;
 
     public BadWordFilterService() throws IOException {
-        badWords = new HashSet<>();
-        // 여기를 ArrayList 대신 HashSet 사용하면 중복된 단어는 제외할 수 있음
+        badWordFiltering = new BadWordFiltering();
 
-        readBadWordsFromFile("badword.txt");
+        // ArrayList 대신 HashSet 사용하면 중복된 단어는 제외할 수 있음
+        badWords = new HashSet<>();
+
+        readBadWords("BadWord.txt");
+        badWordFiltering.addAll(badWords);
     }
 
-    // badword.txt를 통해 비속어 읽어와서 badWords에 저장
-    private void readBadWordsFromFile(String fileName) throws IOException {
+    public String badWordChange(String string) {
+        String[] change = new String[]{"*"};
+
+        return badWordFiltering.change(string, change);
+    }
+
+    private void readBadWords(String fileName) throws IOException {
         // ClassLoader를 통해 resource 폴더의 경로를 가져옴 (ClassLoader를 사용해야 resource폴더에 있는 badword.txt가져올 수 있음)
         ClassLoader classLoader = getClass().getClassLoader();
         URL resourceUrl = classLoader.getResource(fileName);
@@ -36,14 +47,5 @@ public class BadWordFilterService {
                 Collections.addAll(badWords, splitWords);
             }
         }
-    }
-
-    // 비속어를 *로 바꾸는 부분
-    public String changeBadWord(String string) {
-
-        for (String badWord : badWords) {
-            string = string.replaceAll(badWord, "*");
-        }
-        return string;
     }
 }
