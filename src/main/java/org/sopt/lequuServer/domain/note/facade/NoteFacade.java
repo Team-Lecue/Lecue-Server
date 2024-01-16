@@ -9,6 +9,7 @@ import org.sopt.lequuServer.domain.note.dto.request.NoteCreateDto;
 import org.sopt.lequuServer.domain.note.dto.response.NoteCreateResponseDto;
 import org.sopt.lequuServer.domain.note.model.Note;
 import org.sopt.lequuServer.domain.note.service.NoteService;
+import org.sopt.lequuServer.global.BadWordFilterService;
 import org.sopt.lequuServer.global.s3.service.S3Service;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -24,6 +25,7 @@ public class NoteFacade {
     private final BookRepository bookRepository;
     private final NoteService noteService;
     private final S3Service s3Service;
+    private final BadWordFilterService badWordFilterService;
 
     @Transactional
     public NoteCreateResponseDto createNote(Long userId, NoteCreateDto request) {
@@ -36,6 +38,6 @@ public class NoteFacade {
             background = s3Service.getCloudFrontURL(NOTE_BACKGROUND_IMAGE_FOLDER_NAME.getValue() + request.background());
         }
 
-        return noteService.saveNote(Note.of(request.content(), background, request.textColor(), member, book), member, book);
+        return noteService.saveNote(Note.of(badWordFilterService.badWordChange(request.content()), background, request.textColor(), member, book), member, book);
     }
 }

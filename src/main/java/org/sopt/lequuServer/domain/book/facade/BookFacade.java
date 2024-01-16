@@ -14,6 +14,7 @@ import org.sopt.lequuServer.domain.note.repository.NoteRepository;
 import org.sopt.lequuServer.domain.sticker.model.PostedSticker;
 import org.sopt.lequuServer.domain.sticker.repository.PostedStickerRepository;
 import org.sopt.lequuServer.domain.sticker.repository.StickerRepository;
+import org.sopt.lequuServer.global.BadWordFilterService;
 import org.sopt.lequuServer.global.s3.service.S3Service;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -34,6 +35,7 @@ public class BookFacade {
     private final NoteRepository noteRepository;
     private final StickerRepository stickerRepository;
     private final PostedStickerRepository postedStickerRepository;
+    private final BadWordFilterService badWordFilterService;
     private final S3Service s3Service;
 
     @Transactional
@@ -56,14 +58,14 @@ public class BookFacade {
         String imageUrl = s3Service.getCloudFrontURL(BOOK_FAVORITE_IMAGE_FOLDER_NAME.getValue() + request.favoriteImage());
 
         Book book = Book.builder()
-                .uuid(bookUuid)
-                .favoriteName(request.favoriteName())
-                .favoriteImage(imageUrl)
-                .title(request.title())
-                .description(request.description())
-                .backgroundColor(request.backgroundColor())
-                .member(member)
-                .build();
+            .uuid(bookUuid)
+            .favoriteName(badWordFilterService.badWordChange(request.favoriteName()))
+            .favoriteImage(imageUrl)
+            .title(badWordFilterService.badWordChange(request.title()))
+            .description(badWordFilterService.badWordChange(request.description()))
+            .backgroundColor(request.backgroundColor())
+            .member(member)
+            .build();
 
         return bookService.createBook(book, member);
     }
