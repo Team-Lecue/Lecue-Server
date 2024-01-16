@@ -10,5 +10,9 @@
         <logger name="org.springframework.context.support.PostProcessorRegistrationDelegate" level="WARN"/>
         <logger name="org.springframework.data.repository.config.RepositoryConfigurationExtensionSupport"
                 level="WARN"/>
+        <logger name="org.springframework.security.config.annotation.web.builders.WebSecurity"
+                level="ERROR"/>
+        <logger name="org.springframework.security.web.DefaultSecurityFilterChain"
+                level="ERROR"/>
     </springProfile>
 </configuration>
