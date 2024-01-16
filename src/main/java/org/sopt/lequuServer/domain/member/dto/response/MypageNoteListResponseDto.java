@@ -25,10 +25,10 @@ public record MypageNoteListResponseDto(
         @Schema(description = "레큐노트 생성 일시", example = "2024.01.11")
         String noteDate,
 
-        @Schema(description = "레큐노트 텍스트 컬러 번호", example = "#FFFFFF")
+        @Schema(description = "레큐노트 텍스트 컬러 번호", example = "#191919")
         String noteTextColor,
 
-        @Schema(description = "레큐노트 배경 (#FFFFFF or 이미지 URL(*.jpg))", example = "https://dzfv99wxq6tx0.cloudfront.net/notes/background_image/676c2ca3-f868-423f-8000-a0bcb67dc797.jpg")
+        @Schema(description = "레큐노트 배경 (#929DD9 or 이미지 URL(*.jpg))", example = "https://dzfv99wxq6tx0.cloudfront.net/notes/background_image/676c2ca3-f868-423f-8000-a0bcb67dc797.jpg")
         String noteBackground
 ) {
     public static MypageNoteListResponseDto of(Note note) {
