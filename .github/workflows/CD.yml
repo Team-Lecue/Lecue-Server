@@ -32,6 +32,11 @@ jobs:
             /secret/lequu
           parse-json: false
 
+      - name: application-secret.properties 생성 (환경변수가 AWS Secrets Manager보다 빠르게 로드되어야 할때)
+        run: |
+          cd src/main/resources
+          echo "${{ secrets.PROPERTIES }}" > ./application-secret.properties
+
       - name: Build
         run: |
           chmod +x gradlew

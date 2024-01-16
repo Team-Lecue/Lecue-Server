@@ -35,3 +35,6 @@ sentry:
   dsn:
   traces-sample-rate: 1.0
   exception-resolver-order: -2147483647
+
+logging:
+  config: classpath:logback-local.xml

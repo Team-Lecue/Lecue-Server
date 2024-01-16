@@ -1,7 +1,7 @@
 <included>
     <appender name="DISCORD" class="com.github.napstr.logback.DiscordAppender">
         <webhookUri>
-            https://discord.com/api/webhooks/1195711881223090307/PlB-JBGazAPBK5-KzMWs4Ei6DEy9Evd4IsFIxylgHXZuV-iNvsrs2ejzA2b3QJLVlrpy
+            ${DISCORD_ERROR_URI}
         </webhookUri>
         <username>Internel Server Error detected 🚨</username>
         <avatarUrl>https://s3.orbi.kr/data/file/united/251cc0d1434cc0aed00afe93082bb25a.jpeg</avatarUrl>
