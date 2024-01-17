@@ -5,7 +5,7 @@ import org.sopt.lequuServer.domain.note.model.Note;
 
 import java.time.format.DateTimeFormatter;
 
-public record MypageNoteListResponseDto(
+public record MypageNotesResponseDto(
 
         @Schema(description = "레큐북 UUID", example = "ee4f66f9-9cf4-4b28-90f4-f71d0ecba021")
         String bookUuid,
@@ -31,11 +31,11 @@ public record MypageNoteListResponseDto(
         @Schema(description = "레큐노트 배경 (#929DD9 or 이미지 URL(*.jpg))", example = "https://dzfv99wxq6tx0.cloudfront.net/notes/background_image/676c2ca3-f868-423f-8000-a0bcb67dc797.jpg")
         String noteBackground
 ) {
-    public static MypageNoteListResponseDto of(Note note) {
+    public static MypageNotesResponseDto of(Note note) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy.MM.dd");
         String noteDate = note.getCreatedAt().format(formatter);
 
-        return new MypageNoteListResponseDto(note.getBook().getUuid(), note.getBook().getFavoriteName(), note.getBook().getTitle(),
+        return new MypageNotesResponseDto(note.getBook().getUuid(), note.getBook().getFavoriteName(), note.getBook().getTitle(),
                 note.getId(), note.getContent(), noteDate, note.getTextColor(), note.getBackground());
     }
 }

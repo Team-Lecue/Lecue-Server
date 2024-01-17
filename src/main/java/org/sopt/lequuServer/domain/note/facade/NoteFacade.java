@@ -1,7 +1,5 @@
 package org.sopt.lequuServer.domain.note.facade;
 
-import static org.sopt.lequuServer.global.s3.enums.ImageFolderName.NOTE_BACKGROUND_IMAGE_FOLDER_NAME;
-
 import lombok.RequiredArgsConstructor;
 import org.sopt.lequuServer.domain.book.model.Book;
 import org.sopt.lequuServer.domain.book.repository.BookRepository;
@@ -16,6 +14,8 @@ import org.sopt.lequuServer.global.s3.service.S3Service;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import static org.sopt.lequuServer.global.s3.enums.ImageFolderName.NOTE_BACKGROUND_IMAGE_FOLDER_NAME;
+
 @Service
 @RequiredArgsConstructor
 @Transactional(readOnly = true)
@@ -28,16 +28,16 @@ public class NoteFacade {
     private final BadWordFilterService badWordFilterService;
 
     @Transactional
-    public NoteCreateResponseDto createNote(Long memberId, NoteCreateDto noteCreateDto) {
+    public NoteCreateResponseDto createNote(Long memberId, NoteCreateDto request) {
         Member member = memberRepository.findByIdOrThrow(memberId);
-        Book book = bookRepository.findByIdOrThrow(noteCreateDto.bookId());
+        Book book = bookRepository.findByIdOrThrow(request.bookId());
 
-        String background = noteCreateDto.background();
+        String background = request.background();
         if (background.endsWith(".jpg")) {
 //            background = s3Service.getURL(NOTE_BACKGROUND_IMAGE_FOLDER_NAME.getValue() + noteCreateDto.background());
-            background = s3Service.getCloudFrontURL(NOTE_BACKGROUND_IMAGE_FOLDER_NAME.getValue() + noteCreateDto.background());
+            background = s3Service.getCloudFrontURL(NOTE_BACKGROUND_IMAGE_FOLDER_NAME.getValue() + request.background());
         }
 
-        return noteService.saveNote(Note.of(badWordFilterService.badWordChange(memberId, noteCreateDto.content()), background, noteCreateDto.textColor(), member, book), member, book);
+        return noteService.saveNote(Note.of(badWordFilterService.badWordChange(memberId, request.content()), background, request.textColor(), member, book), member, book);
     }
 }

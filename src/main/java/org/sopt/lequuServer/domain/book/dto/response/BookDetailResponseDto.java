@@ -43,9 +43,9 @@ public record BookDetailResponseDto(
         @Schema(description = "레큐 노트 개수", example = "100")
         int noteNum,
 
-        List<NoteDetailResponseDto> noteList,
+        List<NoteDetailResponseDto> noteDetailDtos,
 
-        List<PostedStickerDetailResponseDto> postedStickerList
+        List<PostedStickerDetailResponseDto> postedStickerDetailDtos
 ) {
     public static BookDetailResponseDto of(Book book) {
         String bookDate = formatLocalDate(book);
@@ -57,22 +57,22 @@ public record BookDetailResponseDto(
 
         // 레큐노트 리스트 가공
         int renderTypeCounter = 1;
-        List<NoteDetailResponseDto> noteList = new ArrayList<>();
+        List<NoteDetailResponseDto> noteDetailDtos = new ArrayList<>();
         for (Note note : sortedNotes) {
-            noteList.add(NoteDetailResponseDto.of(note, renderTypeCounter));
+            noteDetailDtos.add(NoteDetailResponseDto.of(note, renderTypeCounter));
             renderTypeCounter = (renderTypeCounter % 6 == 0) ? 1 : renderTypeCounter + 1;
         }
 
         // 부착된 스티커 리스트 가공
         List<PostedSticker> postedStickers = book.getPostedStickers();
-        List<PostedStickerDetailResponseDto> postedStickerList = new ArrayList<>();
+        List<PostedStickerDetailResponseDto> postedStickerDetailDtos = new ArrayList<>();
         for (PostedSticker postedSticker : postedStickers) {
-            postedStickerList.add(PostedStickerDetailResponseDto.of(postedSticker));
+            postedStickerDetailDtos.add(PostedStickerDetailResponseDto.of(postedSticker));
         }
 
         return new BookDetailResponseDto(book.getId(), book.getFavoriteImage(), book.getFavoriteName(),
                 book.getTitle(), book.getDescription(), bookDate, book.getMember().getNickname(),
-                book.getBackgroundColor(), book.getNotes().size(), noteList, postedStickerList
+                book.getBackgroundColor(), book.getNotes().size(), noteDetailDtos, postedStickerDetailDtos
         );
     }
 
