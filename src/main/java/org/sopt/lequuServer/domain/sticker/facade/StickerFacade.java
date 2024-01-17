@@ -6,6 +6,7 @@ import org.sopt.lequuServer.domain.book.repository.BookRepository;
 import org.sopt.lequuServer.domain.member.model.Member;
 import org.sopt.lequuServer.domain.member.repository.MemberRepository;
 import org.sopt.lequuServer.domain.sticker.dto.request.StickerPostRequestDto;
+import org.sopt.lequuServer.domain.sticker.dto.response.StickerPacksResponseDto;
 import org.sopt.lequuServer.domain.sticker.dto.response.StickerPostResponseDto;
 import org.sopt.lequuServer.domain.sticker.model.PostedSticker;
 import org.sopt.lequuServer.domain.sticker.model.Sticker;
@@ -34,5 +35,11 @@ public class StickerFacade {
         PostedSticker postedSticker = PostedSticker.of(request.positionX(), request.positionY(), member, book, sticker);
 
         return stickerService.postSticker(postedSticker, member, book);
+    }
+
+    public StickerPacksResponseDto getStickerPackList(Long bookId) {
+
+        Book book = bookRepository.findByIdOrThrow(bookId);
+        return stickerService.getStickerPackList(bookId, book.getUuid());
     }
 }

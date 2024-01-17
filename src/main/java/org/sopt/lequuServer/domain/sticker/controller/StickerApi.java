@@ -8,6 +8,7 @@ import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.sopt.lequuServer.domain.sticker.dto.request.StickerPostRequestDto;
 import org.sopt.lequuServer.domain.sticker.dto.response.StickerPackResponseDto;
+import org.sopt.lequuServer.domain.sticker.dto.response.StickerPacksResponseDto;
 import org.sopt.lequuServer.domain.sticker.dto.response.StickerPostResponseDto;
 import org.sopt.lequuServer.global.common.dto.ApiResponse;
 import org.springframework.http.ResponseEntity;
@@ -15,7 +16,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 
 import java.security.Principal;
-import java.util.List;
 
 @Tag(name = "Sticker", description = "스티커 API")
 @SecurityRequirement(name = "JWT Authorization")
@@ -27,7 +27,7 @@ public interface StickerApi {
             content = @Content(array = @ArraySchema(schema = @Schema(implementation = StickerPackResponseDto.class)))
     )
     @Operation(summary = "스티커팩 목록 불러오기")
-    public ResponseEntity<ApiResponse<List<StickerPackResponseDto>>> getStickerPackList(@Schema(example = "1") @PathVariable Long bookId);
+    public ResponseEntity<ApiResponse<StickerPacksResponseDto>> getStickerPackList(@Schema(example = "1") @PathVariable Long bookId);
 
     @io.swagger.v3.oas.annotations.responses.ApiResponse(
             responseCode = "201",
