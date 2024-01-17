@@ -19,11 +19,11 @@ public class BadWordFilterService {
     private final String[] symbols;
 
     public BadWordFilterService() throws IOException {
-        badWordFiltering = new BadWordFiltering();
+        badWordFiltering = new BadWordFiltering("♡");
         symbols = new String[]{"!", "@", "#", "$", "%", "^", "&", "*", "_"};
 
         // 비속어 필터링을 제외할 단어 설정 가능
-        String[] enableList = new String[]{"똥"};
+        String[] enableList = new String[]{"똥", "바보"};
         for (String s : enableList) {
             badWordFiltering.remove(s);
         }
@@ -36,7 +36,12 @@ public class BadWordFilterService {
     }
 
     public String badWordChange(String string) {
-        return badWordFiltering.change(string, symbols);
+        String changedWord = badWordFiltering.change(string, symbols);
+        if (changedWord.equals(string)) {
+            //TODO 로그 수집
+        }
+        //TODO 단어 전체 하트로 변경
+        return changedWord;
     }
 
     private void readBadWords(String fileName) throws IOException {
