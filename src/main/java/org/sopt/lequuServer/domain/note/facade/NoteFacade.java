@@ -28,16 +28,16 @@ public class NoteFacade {
     private final BadWordFilterService badWordFilterService;
 
     @Transactional
-    public NoteCreateResponseDto createNote(Long userId, NoteCreateDto noteCreateDto) {
+    public NoteCreateResponseDto createNote(Long userId, NoteCreateDto request) {
         Member member = memberRepository.findByIdOrThrow(userId);
-        Book book = bookRepository.findByIdOrThrow(noteCreateDto.bookId());
+        Book book = bookRepository.findByIdOrThrow(request.bookId());
 
-        String background = noteCreateDto.background();
+        String background = request.background();
         if (background.endsWith(".jpg")) {
 //            background = s3Service.getURL(NOTE_BACKGROUND_IMAGE_FOLDER_NAME.getValue() + noteCreateDto.background());
-            background = s3Service.getCloudFrontURL(NOTE_BACKGROUND_IMAGE_FOLDER_NAME.getValue() + noteCreateDto.background());
+            background = s3Service.getCloudFrontURL(NOTE_BACKGROUND_IMAGE_FOLDER_NAME.getValue() + request.background());
         }
 
-        return noteService.saveNote(Note.of(badWordFilterService.badWordChange(noteCreateDto.content()), background, noteCreateDto.textColor(), member, book), member, book);
+        return noteService.saveNote(Note.of(badWordFilterService.badWordChange(request.content()), background, request.textColor(), member, book), member, book);
     }
 }

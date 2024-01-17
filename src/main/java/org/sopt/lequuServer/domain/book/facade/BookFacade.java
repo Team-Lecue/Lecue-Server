@@ -55,8 +55,7 @@ public class BookFacade {
         String bookUuid = UUID.randomUUID().toString();
         // Presigned URL 이미지 업로드하기 위한 이미지 파일명 가져오기
 //        String imageUrl = s3Service.getURL(BOOK_FAVORITE_IMAGE_FOLDER_NAME.getValue() + request.favoriteImage());
-        String imageUrl = s3Service.getCloudFrontURL(
-            BOOK_FAVORITE_IMAGE_FOLDER_NAME.getValue() + request.favoriteImage());
+        String imageUrl = s3Service.getCloudFrontURL(BOOK_FAVORITE_IMAGE_FOLDER_NAME.getValue() + request.favoriteImage());
 
         Book book = Book.builder()
             .uuid(bookUuid)

@@ -73,19 +73,4 @@ public class Book extends BaseTimeEntity {
     public static Book of(String uuid, String favoriteName, String favoriteImage, String title, String description, String backgroundColor, Member member, int popularRate) {
         return new Book(uuid, favoriteName, favoriteImage, title, description, backgroundColor, member, popularRate);
     }
-
-    // TODO S3 테스트용, 추후 삭제
-    public Book(String uuid, String favoriteName, String favoriteImage, String title, String description, String backgroundColor) {
-        this.uuid = uuid;
-        this.favoriteName = favoriteName;
-        this.favoriteImage = favoriteImage;
-        this.title = title;
-        this.description = description;
-        this.backgroundColor = backgroundColor;
-    }
-
-    // TODO S3 테스트용, 추후 삭제
-    public static Book test(String favoriteImage, String title) {
-        return new Book("test", "test", favoriteImage, title, "test", "#F5F5F5");
-    }
 }
