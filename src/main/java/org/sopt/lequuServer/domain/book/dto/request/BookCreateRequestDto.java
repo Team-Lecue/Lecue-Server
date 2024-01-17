@@ -23,7 +23,7 @@ public record BookCreateRequestDto(
         @Size(min = 1, max = 65, message = "레큐북 소개는 1자 이상 65자 이하여야합니다.")
         String description,
 
-        @Schema(example = "#FFFFFF")
+        @Schema(example = "#F5F5F5")
         @Pattern(regexp = "^(#[A-Za-z0-9]{3,6})$", message = "색상은 #으로 시작하는 3~6 사이의 색깔코드여야 합니다.")
         String backgroundColor
 ) {
