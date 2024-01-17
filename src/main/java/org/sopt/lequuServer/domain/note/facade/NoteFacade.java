@@ -1,5 +1,7 @@
 package org.sopt.lequuServer.domain.note.facade;
 
+import static org.sopt.lequuServer.global.s3.enums.ImageFolderName.NOTE_BACKGROUND_IMAGE_FOLDER_NAME;
+
 import lombok.RequiredArgsConstructor;
 import org.sopt.lequuServer.domain.book.model.Book;
 import org.sopt.lequuServer.domain.book.repository.BookRepository;
@@ -14,8 +16,6 @@ import org.sopt.lequuServer.global.s3.service.S3Service;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import static org.sopt.lequuServer.global.s3.enums.ImageFolderName.NOTE_BACKGROUND_IMAGE_FOLDER_NAME;
-
 @Service
 @RequiredArgsConstructor
 @Transactional(readOnly = true)
@@ -28,8 +28,8 @@ public class NoteFacade {
     private final BadWordFilterService badWordFilterService;
 
     @Transactional
-    public NoteCreateResponseDto createNote(Long userId, NoteCreateDto noteCreateDto) {
-        Member member = memberRepository.findByIdOrThrow(userId);
+    public NoteCreateResponseDto createNote(Long memberId, NoteCreateDto noteCreateDto) {
+        Member member = memberRepository.findByIdOrThrow(memberId);
         Book book = bookRepository.findByIdOrThrow(noteCreateDto.bookId());
 
         String background = noteCreateDto.background();
@@ -38,6 +38,6 @@ public class NoteFacade {
             background = s3Service.getCloudFrontURL(NOTE_BACKGROUND_IMAGE_FOLDER_NAME.getValue() + noteCreateDto.background());
         }
 
-        return noteService.saveNote(Note.of(badWordFilterService.badWordChange(noteCreateDto.content()), background, noteCreateDto.textColor(), member, book), member, book);
+        return noteService.saveNote(Note.of(badWordFilterService.badWordChange(memberId, noteCreateDto.content()), background, noteCreateDto.textColor(), member, book), member, book);
     }
 }
