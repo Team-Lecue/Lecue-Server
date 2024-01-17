@@ -13,8 +13,9 @@ public class AuthWhiteList {
 
     public static final List<String> AUTH_WHITELIST_WILDCARD = Arrays.asList(
             "/api/kakao/**", "/api/test/**", "/api/images/**",
+            "/api/common/**", "/api/books/detail/**",
             "/swagger-ui/**", "/swagger-resources/**", "/api-docs/**",
-            "/api/common/**", "/api/books/detail/**"
+            "/v3/api-docs/**", "/webjars/**"
     );
 
     public static final String[] AUTH_WHITELIST = Stream.concat(
