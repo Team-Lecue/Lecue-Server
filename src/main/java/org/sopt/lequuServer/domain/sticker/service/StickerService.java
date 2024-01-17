@@ -33,7 +33,7 @@ public class StickerService {
 
         member.addPostedSticker(postedSticker);
         book.addPostedSticker(postedSticker);
-        
-        return StickerPostResponseDto.of(postedStickerRepository.save(postedSticker));
+
+        return StickerPostResponseDto.of(book.getUuid(), postedStickerRepository.save(postedSticker));
     }
 }
