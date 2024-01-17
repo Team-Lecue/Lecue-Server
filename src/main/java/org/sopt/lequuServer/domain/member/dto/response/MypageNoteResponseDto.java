@@ -12,15 +12,15 @@ public record MypageNoteResponseDto(
         @Schema(description = "유저 닉네임", example = "레큐")
         String memberNickname,
 
-        List<MypageNotesResponseDto> noteDtos
+        List<MypageNotesResponseDto> noteList
 ) {
     public static MypageNoteResponseDto of(String nickName, List<Note> notes) {
 
-        List<MypageNotesResponseDto> noteDtos = notes.stream()
+        List<MypageNotesResponseDto> noteList = notes.stream()
                 .sorted(comparing(Note::getCreatedAt).reversed())
                 .map(MypageNotesResponseDto::of)
                 .toList();
 
-        return new MypageNoteResponseDto(nickName, noteDtos);
+        return new MypageNoteResponseDto(nickName, noteList);
     }
 }

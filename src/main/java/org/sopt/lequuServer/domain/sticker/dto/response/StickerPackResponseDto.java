@@ -14,7 +14,7 @@ public record StickerPackResponseDto(
         @Schema(description = "스티커 카테코리", example = "생일")
         String stickerCategory,
 
-        List<StickerResponseDto> stickerDtos
+        List<StickerResponseDto> stickerList
 ) {
 
     // 스티커의 카테고리를 기준으로 분류해 List 생성
