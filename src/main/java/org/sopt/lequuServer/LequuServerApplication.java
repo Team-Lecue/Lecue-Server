@@ -10,7 +10,7 @@ import org.springframework.context.annotation.EnableAspectJAutoProxy;
 
 @SpringBootApplication(exclude = {UserDetailsServiceAutoConfiguration.class})
 @EnableFeignClients
-@OpenAPIDefinition(servers = {@Server(url = "https://www.lecue.me/", description = "Default Server URL")})
+@OpenAPIDefinition(servers = {@Server(url = "/", description = "Default Server URL")})
 @EnableAspectJAutoProxy
 public class LequuServerApplication {
 
