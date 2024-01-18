@@ -46,6 +46,7 @@ public class BadWordFilterService {
     public String badWordChange(Long memberId, String string) {
         String changedWord = badWordFiltering.change(string, symbols);
 
+        System.out.println("동작 여부 테스트");
         if (!changedWord.equals(string)) {
             badWordLogRepository.save(BadWordLog.of(memberId, string));
 
