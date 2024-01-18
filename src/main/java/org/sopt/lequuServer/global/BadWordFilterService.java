@@ -48,13 +48,9 @@ public class BadWordFilterService {
     public String badWordChange(Long memberId, String string) {
         String changedWord = badWordFiltering.change(string, symbols);
 
-        log.info(string);
-        log.info(changedWord);
         if (!changedWord.equals(string)) {
-            log.warn("change-check");
             badWordLogRepository.save(BadWordLog.of(memberId, string));
 
-            log.warn("save-check ");
             String[] split = changedWord.split(" ");
             List<String> result = new ArrayList<>();
 
