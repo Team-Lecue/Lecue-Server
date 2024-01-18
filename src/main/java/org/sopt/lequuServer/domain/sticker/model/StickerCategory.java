@@ -8,9 +8,10 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor(access = AccessLevel.PRIVATE)
 public enum StickerCategory {
 
-    ALPHABET("알파벳"),
-    BIRTHDAY("생일"),
-    CHARACTER("캐릭터");
+    CUSTOM("커스텀"),
+    EVENT("이벤트"),
+    CAT("고양이"),
+    ITEM("아이템");
 
     private final String value;
 }

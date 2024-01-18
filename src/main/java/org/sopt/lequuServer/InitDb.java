@@ -2,19 +2,15 @@ package org.sopt.lequuServer;
 
 import jakarta.annotation.PostConstruct;
 import jakarta.persistence.EntityManager;
+import java.util.Arrays;
+import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.sopt.lequuServer.domain.book.model.Book;
 import org.sopt.lequuServer.domain.member.model.Member;
 import org.sopt.lequuServer.domain.member.model.SocialPlatform;
 import org.sopt.lequuServer.domain.note.model.Note;
-import org.sopt.lequuServer.domain.sticker.model.Sticker;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
-
-import java.util.Arrays;
-import java.util.List;
-
-import static org.sopt.lequuServer.domain.sticker.model.StickerCategory.*;
 
 @Component
 @RequiredArgsConstructor
@@ -145,53 +141,53 @@ public class InitDb {
                 em.persist(note2);
             }
 
-            Sticker sticker1 = Sticker.builder()
-                    .bookId(0L)
-                    .category(BIRTHDAY)
-                    .stickerImage("https://dzfv99wxq6tx0.cloudfront.net/stickers/birth_1.svg")
-                    .build();
-            em.persist(sticker1);
-            for (int i = 0; i < 2; i++) {
-                Sticker sticker = Sticker.builder()
-                        .bookId(0L)
-                        .category(ALPHABET)
-                        .stickerImage("https://dzfv99wxq6tx0.cloudfront.net/stickers/8d83b1c1-1e2c-437b-a2f5-e3ce96ce6d35.jpg")
-                        .build();
-                em.persist(sticker);
-            }
-            for (int i = 0; i < 2; i++) {
-                Sticker sticker = Sticker.builder()
-                        .bookId(0L)
-                        .category(BIRTHDAY)
-                        .stickerImage("https://dzfv99wxq6tx0.cloudfront.net/stickers/birth_1.svg")
-                        .build();
-                em.persist(sticker);
-            }
-            for (String characterSticker : CHARACTER_STICKERS) {
-                Sticker sticker = Sticker.builder()
-                        .bookId(0L)
-                        .category(CHARACTER)
-                        .stickerImage(characterSticker)
-                        .build();
-                em.persist(sticker);
-            }
-
-            for (int i = 0; i < 2; i++) {
-                Sticker sticker = Sticker.builder()
-                        .bookId(1L)
-                        .category(ALPHABET)
-                        .stickerImage("https://dzfv99wxq6tx0.cloudfront.net/stickers/8d83b1c1-1e2c-437b-a2f5-e3ce96ce6d35.jpg")
-                        .build();
-                em.persist(sticker);
-            }
-            for (int i = 0; i < 3; i++) {
-                Sticker sticker = Sticker.builder()
-                        .bookId(1L)
-                        .category(BIRTHDAY)
-                        .stickerImage("https://dzfv99wxq6tx0.cloudfront.net/stickers/birth_1.svg")
-                        .build();
-                em.persist(sticker);
-            }
+//            Sticker sticker1 = Sticker.builder()
+//                    .bookId(0L)
+//                    .category(BIRTHDAY)
+//                    .stickerImage("https://dzfv99wxq6tx0.cloudfront.net/stickers/birth_1.svg")
+//                    .build();
+//            em.persist(sticker1);
+//            for (int i = 0; i < 2; i++) {
+//                Sticker sticker = Sticker.builder()
+//                        .bookId(0L)
+//                        .category(ALPHABET)
+//                        .stickerImage("https://dzfv99wxq6tx0.cloudfront.net/stickers/8d83b1c1-1e2c-437b-a2f5-e3ce96ce6d35.jpg")
+//                        .build();
+//                em.persist(sticker);
+//            }
+//            for (int i = 0; i < 2; i++) {
+//                Sticker sticker = Sticker.builder()
+//                        .bookId(0L)
+//                        .category(BIRTHDAY)
+//                        .stickerImage("https://dzfv99wxq6tx0.cloudfront.net/stickers/birth_1.svg")
+//                        .build();
+//                em.persist(sticker);
+//            }
+//            for (String characterSticker : CHARACTER_STICKERS) {
+//                Sticker sticker = Sticker.builder()
+//                        .bookId(0L)
+//                        .category(CHARACTER)
+//                        .stickerImage(characterSticker)
+//                        .build();
+//                em.persist(sticker);
+//            }
+//
+//            for (int i = 0; i < 2; i++) {
+//                Sticker sticker = Sticker.builder()
+//                        .bookId(1L)
+//                        .category(ALPHABET)
+//                        .stickerImage("https://dzfv99wxq6tx0.cloudfront.net/stickers/8d83b1c1-1e2c-437b-a2f5-e3ce96ce6d35.jpg")
+//                        .build();
+//                em.persist(sticker);
+//            }
+//            for (int i = 0; i < 3; i++) {
+//                Sticker sticker = Sticker.builder()
+//                        .bookId(1L)
+//                        .category(BIRTHDAY)
+//                        .stickerImage("https://dzfv99wxq6tx0.cloudfront.net/stickers/birth_1.svg")
+//                        .build();
+//                em.persist(sticker);
+//            }
 
 //            PostedSticker postedSticker = PostedSticker.builder()
 //                    .member(member1)
