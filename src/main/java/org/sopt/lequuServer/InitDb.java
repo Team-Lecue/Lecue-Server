@@ -1,5 +1,7 @@
 package org.sopt.lequuServer;
 
+import static org.sopt.lequuServer.domain.sticker.model.StickerCategory.CAT;
+
 import jakarta.annotation.PostConstruct;
 import jakarta.persistence.EntityManager;
 import java.util.Arrays;
@@ -9,6 +11,7 @@ import org.sopt.lequuServer.domain.book.model.Book;
 import org.sopt.lequuServer.domain.member.model.Member;
 import org.sopt.lequuServer.domain.member.model.SocialPlatform;
 import org.sopt.lequuServer.domain.note.model.Note;
+import org.sopt.lequuServer.domain.sticker.model.Sticker;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -141,11 +144,11 @@ public class InitDb {
                 em.persist(note2);
             }
 
-//            Sticker sticker1 = Sticker.builder()
-//                    .bookId(0L)
-//                    .category(BIRTHDAY)
-//                    .stickerImage("https://dzfv99wxq6tx0.cloudfront.net/stickers/birth_1.svg")
-//                    .build();
+            Sticker sticker1 = Sticker.builder()
+                    .bookId(0L)
+                    .category(CAT)
+                    .stickerImage("https://dzfv99wxq6tx0.cloudfront.net/stickers/birth_1.svg")
+                    .build();
 //            em.persist(sticker1);
 //            for (int i = 0; i < 2; i++) {
 //                Sticker sticker = Sticker.builder()
