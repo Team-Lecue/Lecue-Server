@@ -1,10 +1,11 @@
 package org.sopt.lequuServer.domain.book.dto.response;
 
+import static java.util.Comparator.comparing;
+
 import io.swagger.v3.oas.annotations.media.Schema;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import org.sopt.lequuServer.domain.book.model.Book;
 import org.sopt.lequuServer.domain.note.dto.response.NoteDetailResponseDto;
@@ -48,14 +49,17 @@ public record BookDetailResponseDto(
     public static BookDetailResponseDto of(Book book) {
         String bookDate = formatLocalDate(book);
 
+        List<Note> sortedNotes = book.getNotes().stream()
+                .sorted(comparing(Note::getId).reversed())
+                .toList();
+
         // 레큐노트 리스트 가공
         int renderTypeCounter = 1;
         List<NoteDetailResponseDto> noteList = new ArrayList<>();
-        for (Note note : book.getNotes()) {
+        for (Note note : sortedNotes) {
             noteList.add(NoteDetailResponseDto.of(note, renderTypeCounter));
             renderTypeCounter = (renderTypeCounter % 6 == 0) ? 1 : renderTypeCounter + 1;
         }
-        Collections.reverse(noteList);
 
         // 부착된 스티커 리스트 가공
         List<PostedSticker> postedStickers = book.getPostedStickers();
