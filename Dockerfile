@@ -3,12 +3,6 @@ FROM amd64/amazoncorretto:17
 # 작업 디렉터리 설정
 WORKDIR /app
 
-# 컨테이너 한글 설정
-RUN apt-get update
-RUN apt-get install -y locales
-RUN locale-gen ko_KR.UTF-8
-ENV LC_ALL ko_KR.UTF-8
-
 # 애플리케이션 JAR 파일 복사
 COPY ./build/libs/lequuServer-0.0.1-SNAPSHOT.jar /app/lequuServer.jar
 
