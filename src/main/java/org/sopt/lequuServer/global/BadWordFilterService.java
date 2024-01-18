@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
+import lombok.extern.slf4j.Slf4j;
 import org.sopt.lequuServer.domain.log.model.BadWordLog;
 import org.sopt.lequuServer.domain.log.repository.BadWordLogRepository;
 import org.springframework.stereotype.Service;
@@ -16,6 +17,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 
 @Service
+@Slf4j
 public class BadWordFilterService {
 
     private final BadWordFiltering badWordFiltering;
@@ -46,7 +48,7 @@ public class BadWordFilterService {
     public String badWordChange(Long memberId, String string) {
         String changedWord = badWordFiltering.change(string, symbols);
 
-        System.out.println("check-test");
+        log.info("check-test");
         if (!changedWord.equals(string)) {
             badWordLogRepository.save(BadWordLog.of(memberId, string));
 
