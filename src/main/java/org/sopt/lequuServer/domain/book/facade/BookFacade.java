@@ -1,5 +1,9 @@
 package org.sopt.lequuServer.domain.book.facade;
 
+import static org.sopt.lequuServer.global.s3.enums.ImageFolderName.BOOK_FAVORITE_IMAGE_FOLDER_NAME;
+
+import java.util.List;
+import java.util.UUID;
 import lombok.RequiredArgsConstructor;
 import org.sopt.lequuServer.domain.book.dto.request.BookCreateRequestDto;
 import org.sopt.lequuServer.domain.book.dto.response.BookCreateResponseDto;
@@ -18,11 +22,6 @@ import org.sopt.lequuServer.global.BadWordFilterService;
 import org.sopt.lequuServer.global.s3.service.S3Service;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-import java.util.List;
-import java.util.UUID;
-
-import static org.sopt.lequuServer.global.s3.enums.ImageFolderName.BOOK_FAVORITE_IMAGE_FOLDER_NAME;
 
 @Service
 @RequiredArgsConstructor
@@ -59,10 +58,10 @@ public class BookFacade {
 
         Book book = Book.builder()
             .uuid(bookUuid)
-            .favoriteName(badWordFilterService.badWordChange(request.favoriteName()))
+            .favoriteName(badWordFilterService.badWordChange(memberId, request.favoriteName()))
             .favoriteImage(imageUrl)
-            .title(badWordFilterService.badWordChange(request.title()))
-            .description(badWordFilterService.badWordChange(request.description()))
+            .title(badWordFilterService.badWordChange(memberId, request.title()))
+            .description(badWordFilterService.badWordChange(memberId, request.description()))
             .backgroundColor(request.backgroundColor())
             .member(member)
             .build();

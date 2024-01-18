@@ -1,14 +1,18 @@
 package org.sopt.lequuServer.global;
 
 import com.vane.badwordfiltering.BadWordFiltering;
-import org.springframework.stereotype.Service;
-
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashSet;
+import java.util.List;
+import org.sopt.lequuServer.domain.log.model.BadWordLog;
+import org.sopt.lequuServer.domain.log.repository.BadWordLogRepository;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 
 @Service
@@ -17,13 +21,14 @@ public class BadWordFilterService {
     private final BadWordFiltering badWordFiltering;
     private final HashSet<String> badWords;
     private final String[] symbols;
+    private final BadWordLogRepository badWordLogRepository;
 
-    public BadWordFilterService() throws IOException {
-        badWordFiltering = new BadWordFiltering();
+    public BadWordFilterService(BadWordLogRepository badWordLogRepository) throws IOException {
+        badWordFiltering = new BadWordFiltering("♡");
         symbols = new String[]{"!", "@", "#", "$", "%", "^", "&", "*", "_"};
 
         // 비속어 필터링을 제외할 단어 설정 가능
-        String[] enableList = new String[]{"똥"};
+        String[] enableList = new String[]{"똥", "바보"};
         for (String s : enableList) {
             badWordFiltering.remove(s);
         }
@@ -33,10 +38,31 @@ public class BadWordFilterService {
 
         readBadWords("BadWord.txt");
         badWordFiltering.addAll(badWords);
+
+        this.badWordLogRepository = badWordLogRepository;
     }
 
-    public String badWordChange(String string) {
-        return badWordFiltering.change(string, symbols);
+    @Transactional
+    public String badWordChange(Long memberId, String string) {
+        String changedWord = badWordFiltering.change(string, symbols);
+
+        if (!changedWord.equals(string)) {
+            badWordLogRepository.save(BadWordLog.of(memberId, string));
+
+            String[] split = changedWord.split(" ");
+            List<String> result = new ArrayList<>();
+
+            for (String s : split) {
+                if (s.contains("♡")){
+                    result.add(s.replaceAll(".", "♡"));
+                    continue;
+                }
+                result.add(s);
+            }
+            return String.join(" ", result);
+        }
+
+        return changedWord;
     }
 
     private void readBadWords(String fileName) throws IOException {

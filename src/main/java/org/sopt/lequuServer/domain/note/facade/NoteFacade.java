@@ -28,8 +28,8 @@ public class NoteFacade {
     private final BadWordFilterService badWordFilterService;
 
     @Transactional
-    public NoteCreateResponseDto createNote(Long userId, NoteCreateDto request) {
-        Member member = memberRepository.findByIdOrThrow(userId);
+    public NoteCreateResponseDto createNote(Long memberId, NoteCreateDto request) {
+        Member member = memberRepository.findByIdOrThrow(memberId);
         Book book = bookRepository.findByIdOrThrow(request.bookId());
 
         String background = request.background();
@@ -38,6 +38,6 @@ public class NoteFacade {
             background = s3Service.getCloudFrontURL(NOTE_BACKGROUND_IMAGE_FOLDER_NAME.getValue() + request.background());
         }
 
-        return noteService.saveNote(Note.of(badWordFilterService.badWordChange(request.content()), background, request.textColor(), member, book), member, book);
+        return noteService.saveNote(Note.of(badWordFilterService.badWordChange(memberId, request.content()), background, request.textColor(), member, book), member, book);
     }
 }

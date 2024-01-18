@@ -127,7 +127,7 @@ public class MemberService {
         }
 
         Member member = memberRepository.findByIdOrThrow(memberId);
-        member.updateNickname(badWordFilterService.badWordChange(request.nickname().strip()));
+        member.updateNickname(badWordFilterService.badWordChange(memberId, request.nickname().strip()));
         return MemberNicknameResponseDto.of(memberId);
     }
 
