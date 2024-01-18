@@ -50,8 +50,10 @@ public class BadWordFilterService {
 
         log.info("check-test");
         if (!changedWord.equals(string)) {
+            log.warn("change-check");
             badWordLogRepository.save(BadWordLog.of(memberId, string));
 
+            log.warn("save-check ");
             String[] split = changedWord.split(" ");
             List<String> result = new ArrayList<>();
 
