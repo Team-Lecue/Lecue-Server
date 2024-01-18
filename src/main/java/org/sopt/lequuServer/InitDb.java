@@ -149,7 +149,7 @@ public class InitDb {
                     .category(CAT)
                     .stickerImage("https://dzfv99wxq6tx0.cloudfront.net/stickers/birth_1.svg")
                     .build();
-//            em.persist(sticker1);
+            em.persist(sticker1);
 //            for (int i = 0; i < 2; i++) {
 //                Sticker sticker = Sticker.builder()
 //                        .bookId(0L)

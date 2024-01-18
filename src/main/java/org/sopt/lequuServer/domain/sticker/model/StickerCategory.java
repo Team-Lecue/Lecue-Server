@@ -11,7 +11,8 @@ public enum StickerCategory {
     CUSTOM("커스텀"),
     EVENT("이벤트"),
     CAT("고양이"),
-    ITEM("아이템");
+    ITEM("아이템")
+    ;
 
     private final String value;
 }
