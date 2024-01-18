@@ -91,10 +91,6 @@
 
 ### 🔗 [레버들은 어떻게 일할까..? 브랜치 전략 등 바로 보러 가기!](https://rileybyeon.notion.site/Backend-Convention-809638273ff2424a83e1182632f6aada?pvs=4)
 
-## 💌 API Docs
-
-### 🔗 [레버의 깔꼼~쓰껄~한 API 명세서 보러 가기!](https://rileybyeon.notion.site/813232d6af2d48a0b8354a31292e55fc?v=40ebbfda36b04d4f82d95369cb2b089c&pvs=4)
-
 ## 💌 ERD
 
 🎨 `sticker`와 📝 `book`은 `JPA의 연관관계 매핑`을 사용하지 않음 ❌
