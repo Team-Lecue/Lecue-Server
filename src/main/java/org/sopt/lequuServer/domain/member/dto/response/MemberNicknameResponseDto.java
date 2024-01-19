@@ -7,7 +7,7 @@ public record MemberNicknameResponseDto(
         @Schema(description = "유저 id", example = "1")
         Long memberId
 ) {
-    public static MemberNicknameResponseDto of(Long userId) {
-        return new MemberNicknameResponseDto(userId);
+    public static MemberNicknameResponseDto of(Long memberId) {
+        return new MemberNicknameResponseDto(memberId);
     }
 }
