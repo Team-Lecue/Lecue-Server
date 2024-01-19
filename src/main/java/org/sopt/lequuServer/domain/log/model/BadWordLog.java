@@ -25,6 +25,7 @@ public class BadWordLog extends BaseTimeEntity {
 
     private Long memberId;
 
+    @Column(length = 1000)
     private String originText;
 
     @Builder
