@@ -1,17 +1,18 @@
 package org.sopt.lequuServer.domain.book.dto.response;
 
-import static java.util.Comparator.comparing;
-
 import io.swagger.v3.oas.annotations.media.Schema;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-import java.util.List;
 import org.sopt.lequuServer.domain.book.model.Book;
 import org.sopt.lequuServer.domain.note.dto.response.NoteDetailResponseDto;
 import org.sopt.lequuServer.domain.note.model.Note;
 import org.sopt.lequuServer.domain.sticker.dto.response.PostedStickerDetailResponseDto;
 import org.sopt.lequuServer.domain.sticker.model.PostedSticker;
+
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.List;
+
+import static java.util.Comparator.comparing;
 
 public record BookDetailResponseDto(
 
@@ -50,7 +51,7 @@ public record BookDetailResponseDto(
         String bookDate = formatLocalDate(book);
 
         List<Note> sortedNotes = book.getNotes().stream()
-                .sorted(comparing(Note::getId).reversed())
+                .sorted(comparing(Note::getCreatedAt).reversed())
                 .toList();
 
         // 레큐노트 리스트 가공
