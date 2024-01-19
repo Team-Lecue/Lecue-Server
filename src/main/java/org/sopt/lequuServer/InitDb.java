@@ -153,7 +153,7 @@ public class InitDb {
         SATORU("bfedf275-9bce-4c3e-b60d-f103313914fa", "고죠 사토루", "https://dzfv99wxq6tx0.cloudfront.net/books/favorite_image/9c27f106-595e-416d-8b34-0851450f9699.jpg", "최강의 주술사 고죠 ㅋㅋ", "무량공처"),
         PUBAO("404a27a3-02a7-4d09-9888-acebab4fc8ca", "푸바오", "https://dzfv99wxq6tx0.cloudfront.net/books/favorite_image/6690b41d-d43d-487c-9ac6-cb4ab48baf5c.jpg", "푸공주🐼", "가지마 푸바오🥺"),
         FAKER("83f01325-1a87-43b2-a8b1-fc12b6585999", "페이커", "https://dzfv99wxq6tx0.cloudfront.net/books/favorite_image/e324a16d-6d5e-477d-87de-8a16aab3d8f9.jpg", "불 사 대 마 왕🔥", "자, 예배 시간입니다🙏"),
-        MANAGER("5292f7d9-c28b-4e57-a1f9-2d307fb21c76", "DO SOPT 운영진", "https://dzfv99wxq6tx0.cloudfront.net/books/favorite_image/57e5dbbf-0727-4f35-b368-1d5d306d5bc9.jpg", "수고한 먼진이들", "DO SOPT 33기 이끄느라 너무 수고 많았다🥺\n🤍양정윤 김대덕 서지원 김채현 김서현 이태희 박익범 최윤한 이호재 이승준 김해린🤍"),
+        MANAGER("5292f7d9-c28b-4e57-a1f9-2d307fb21c76", "DO SOPT 임원진", "https://dzfv99wxq6tx0.cloudfront.net/books/favorite_image/57e5dbbf-0727-4f35-b368-1d5d306d5bc9.jpg", "수고한 먼진이들", "DO SOPT 33기 이끄느라 너무 수고 많았다🥺\n🤍양정윤 김대덕 서지원 김채현 김서현 이태희 박익범 최윤한 이호재 이승준 김해린🤍"),
         DOSOPT("3f19624f-ca12-4d46-a139-18a4919bfc83", "DO SOPT 33기", "https://dzfv99wxq6tx0.cloudfront.net/books/favorite_image/b0b0b1ed-506b-48cc-ac35-6912d6a6c916.jpg", "DO SOPT 33기", "5개월간 모두 수고 많았어요🤍"),
         LECUE("0c388ecd-e149-4209-938f-f33b21f1d669", "LECUE", "https://dzfv99wxq6tx0.cloudfront.net/books/favorite_image/48b35fb4-fce8-4711-89fa-b8dd5a1084df.jpg", "Team 레큐", "🤍박창준 변현빈 윤영선 송예솔 황예린 이도윤 이정우 서아름 권은빈 현예진 이동섭 김동휘🤍"),
         NONSUL("f4f3a55e-06a6-455b-8ef0-952fde725e02", "논술메이트", "https://dzfv99wxq6tx0.cloudfront.net/books/favorite_image/c6922681-adbc-450f-bc8b-493d2e8a3fae.jpg", "Team 논술메이트", "🤍류가은 고우정 반유진 백주연 박소영 이시연 김민영 권혜인 송민규 김성은🤍"),
@@ -168,7 +168,7 @@ public class InitDb {
         DOORIP("279f7a79-2013-440f-9dfd-948d5bf37825", "DOORIP", "https://dzfv99wxq6tx0.cloudfront.net/books/favorite_image/78f97ec0-a1d7-40ee-a2bb-f0206c86f99b.jpg", "Team 두립", "🤍이지민 박세은 유아린 황현진 박혜진 박동민 김상호 이유빈 조세연 윤영서 곽성준 윤희슬 윤정원 황선웅🤍"),
         MOTIVOO("bfa82354-ee72-46c1-8b0f-0c250edba4c8", "모티부", "https://dzfv99wxq6tx0.cloudfront.net/books/favorite_image/be3d9b76-482a-4fbb-94b4-65601bf4c5e0.jpg", "Team 모티부", "🤍이가영 정유진 김혜진 김윤지 정가윤 조관희 이준희 엄현지 김준서 이조은 박윤빈 최효리 이혜연 박예준 조찬우🤍"),
         WEBSOSO("d8a28aab-93de-4e19-8ea0-a248f1d3eccf", "웹소소", "https://dzfv99wxq6tx0.cloudfront.net/books/favorite_image/9a30c2f0-70b4-4711-aa97-d88188fb2c20.jpg", "Team 웹소소", "🤍김명진 백송현 은창준 범예은 손명지 서재원 최준서 이연진 김세훈 최서연 신지원 이윤학 전효원 김태욱 이나경 이채은🤍"),
-        MODDY("479653bc-508f-4dd8-aad3-d16f854218e1", "moddy", "https://dzfv99wxq6tx0.cloudfront.net/books/favorite_image/5154beb4-b0db-470e-bb86-01228c5d26f7.jpg", "Team 소프티", "🤍강재훈 최다민 김태양 백예원 원하연 고가형 황수빈 강민서 조승희 박경린 안현주 강원용🤍");
+        MODDY("479653bc-508f-4dd8-aad3-d16f854218e1", "moddy", "https://dzfv99wxq6tx0.cloudfront.net/books/favorite_image/5154beb4-b0db-470e-bb86-01228c5d26f7.jpg", "Team 모디", "🤍강재훈 최다민 김태양 백예원 원하연 고가형 황수빈 강민서 조승희 박경린 안현주 강원용🤍");
 
         private final String uuid;
         private final String favoriteName;
