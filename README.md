@@ -15,16 +15,20 @@
 
 ## 💌️️ 역할 분담
 
-| 챌린징 요소                                           | 담당자  |
-|:-------------------------------------------------|:----:|
-| Presigned URL (S3 Management)                    | 동섭🔥 |
+| 챌린징 요소 | 담당자 |
+| --- | --- |
+| Presigned URL (S3 Management) | 동섭🔥 |
 | Social Login (OpenFeign, Spring Security, Redis) | 동섭🔥 |
-| Soft Delete (RDS Management)                     | 예진❄️ |
-| 비속어 필터링 (Bad Word Filtering 라이브러리)               | 예진❄️ |
-| CI/CD Script 작성 (Github Actions)                 | 동섭🔥 |
-| Architecture (Docker Compose, Nginx)             | 동휘⚡️ |
-| Status Dashboard 구축 (Netdata, Portainer)         | 동휘⚡️ |
-| Deployment including React Project               | 동휘⚡️ |
+| CI/CD Script 작성 (Github Actions) | 동섭🔥 |
+| 서버 부하 테스트 (Jmeter) | 동섭🔥 |
+| Soft Delete (RDS Management) | 예진❄️ |
+| 비속어 필터링 (Bad Word Filtering 라이브러리) | 예진❄️ |
+| Architecture (Docker Compose, Nginx) | 동휘⚡️ |
+| Status Dashboard 구축 (Netdata, Portainer, Sentry) | 동휘⚡️ |
+| Deployment including React Project | 동휘⚡️ |
+| 무중단 배포 구현 | 동휘⚡️ |
+| 이미지 캐시 서버 구축  | 동휘⚡️ |
+
 
 <hr>
 
