@@ -3,6 +3,8 @@ FROM amd64/amazoncorretto:17-alpine AS cli
 # 작업 디렉터리 설정
 WORKDIR /app
 
+RUN apt-get install yum
+
 # AWS CLI 설치를 위한 필수 패키지 설치
 RUN yum install -y unzip groff less
 
