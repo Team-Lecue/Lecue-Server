@@ -14,10 +14,13 @@ RUN curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2
 # 멀티 스테이징
 FROM amd64/amazoncorretto:17-alpine AS jar
 
+# AWS CLI 복사
 COPY --from=cli /app .
-
 # 애플리케이션 JAR 파일 복사
 COPY ./build/libs/lequuServer-0.0.1-SNAPSHOT.jar /app/lequuServer.jar
+
+# 작업 디렉터리 설정
+WORKDIR /app
 
 # Build 시점에 설정할 환경 변수
 ARG AWS_ACCESS_KEY_ID
