@@ -55,10 +55,10 @@ public class BookService {
             List<Book> books = sortBooksDesc(startDate, endDate);
 
             if (popularBooks.size() + books.size() <= 6) {  // 만약 현재있는 인기북과 가져온 북이 6이하면 인기북에 가져온 것 다 추가
-                popularBooks.addAll(books);
+                popularBooks.addAll(duplicateBook(books, popularBooks));
             } else {
                 int remain = 6 - popularBooks.size();
-                popularBooks.addAll(books.subList(0, remain));
+                popularBooks.addAll(duplicateBook((books.subList(0, remain)), popularBooks));
             } // 예를 들어 인기북에 2개가 있으면 4개만 더 추가하면 되니까 가져온 북의 인덱스 0부터 3까지만 가져오도록 함
 
             if (popularBooks.size() >= 6 || i == 2) {
@@ -67,5 +67,17 @@ public class BookService {
         }
 
         return popularBooks;
+    }
+
+    // 인기레큐북에 중복된 레큐북을 방지하기 위한 로직
+    public List<Book> duplicateBook(List<Book> books, List<Book> popularBooks) {
+        List<Book> duplicatedBook = new ArrayList<>();
+
+        for (Book book : books) {
+            if (!popularBooks.contains(book)) {
+                duplicatedBook.add(book);
+            }
+        }
+        return duplicatedBook;
     }
 }
