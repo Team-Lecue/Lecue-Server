@@ -10,6 +10,11 @@ import org.sopt.lequuServer.global.common.logging.LoggingMessage;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDateTime;
+import java.util.Comparator;
+import java.util.List;
+import java.util.stream.Collectors;
+
 @Slf4j
 @Service
 @RequiredArgsConstructor
@@ -27,4 +32,12 @@ public class BookService {
 
         return BookCreateResponseDto.of(createdBook);
     }
+
+    public List<Book> sortBooksDesc(LocalDateTime startDate, LocalDateTime endDate) {
+        return bookRepository.findBookLastMonth(startDate, endDate)
+            .stream()
+            .sorted(Comparator.comparingInt(book -> -book.getNotes().size())) // -를 붙여 내림차순 정렬
+            .collect(Collectors.toList());
+    }
+    // 레큐노트가 많이 부착된 순서로 레큐북 정렬
 }
