@@ -9,7 +9,6 @@ import org.sopt.lequuServer.domain.note.repository.NoteRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
@@ -25,10 +24,8 @@ public class CommonFacade {
     }
 
     public List<PopularBookResponseDto> getHome() {
-        LocalDateTime endDate = LocalDateTime.now();
-        LocalDateTime startDate = endDate.minusMonths(1);
 
-        return bookService.sortBooksDesc(startDate, endDate)
+        return bookService.getPopularBooks()
             .stream().map(PopularBookResponseDto::of)
             .toList();
     }

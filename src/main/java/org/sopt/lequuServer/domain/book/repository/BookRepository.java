@@ -13,8 +13,8 @@ import java.util.Optional;
 public interface BookRepository extends JpaRepository<Book, Long> {
 
     @Query("SELECT DISTINCT b FROM Book b JOIN FETCH b.notes n WHERE n.createdAt >= :startDate AND n.createdAt <= :endDate")
-    List<Book> findBookLastMonth(LocalDateTime startDate, LocalDateTime endDate);
-    // 오늘 날짜 기준으로 최근 한달간의 레큐노트가 붙여진 레큐북 목록 불러오기
+    List<Book> findBooksMonth(LocalDateTime startDate, LocalDateTime endDate);
+    // 정해진 기간의 레큐노트가 붙여진 레큐북 목록 불러오기
 
     default Book findByIdOrThrow(Long id) {
         return this.findById(id).orElseThrow(
