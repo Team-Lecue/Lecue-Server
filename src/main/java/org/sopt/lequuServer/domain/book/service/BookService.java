@@ -61,9 +61,9 @@ public class BookService {
                 popularBooks.addAll(books.subList(0, remain));
             } // 예를 들어 인기북에 2개가 있으면 4개만 더 추가하면 되니까 가져온 북의 인덱스 0부터 3까지만 가져오도록 함
 
-            if (popularBooks.size() >= 6) {
+            if (popularBooks.size() >= 6 || i == 2) {
                 break;
-            } // 인기북이 6개 이상이 되면 멈춤
+            } // 인기북이 6개 이상이 되거나 최근 3달을 다 검사했으면 for문을 빠져나옴
         }
 
         return popularBooks;
