@@ -2,7 +2,7 @@ package org.sopt.lequuServer.domain.member.model;
 
 import jakarta.persistence.*;
 import lombok.*;
-import org.sopt.lequuServer.domain.book.model.Favorite;
+import org.sopt.lequuServer.domain.favorite.model.Favorite;
 import org.sopt.lequuServer.domain.note.model.Note;
 import org.sopt.lequuServer.domain.book.model.Book;
 import org.sopt.lequuServer.domain.sticker.model.PostedSticker;

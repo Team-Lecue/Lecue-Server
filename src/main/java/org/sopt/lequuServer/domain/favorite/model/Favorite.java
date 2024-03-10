@@ -1,7 +1,8 @@
-package org.sopt.lequuServer.domain.book.model;
+package org.sopt.lequuServer.domain.favorite.model;
 
 import jakarta.persistence.*;
 import lombok.*;
+import org.sopt.lequuServer.domain.book.model.Book;
 import org.sopt.lequuServer.domain.member.model.Member;
 
 @Entity
