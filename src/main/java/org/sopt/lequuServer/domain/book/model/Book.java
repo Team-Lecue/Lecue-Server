@@ -58,6 +58,13 @@ public class Book extends BaseTimeEntity {
         postedStickers.add(postedSticker);
     }
 
+    @OneToMany(mappedBy = "book")
+    private final List<Favorite> favorites = new ArrayList<>();
+
+    public void addFavorite(Favorite favorite) {
+        favorites.add(favorite);
+    }
+
     @Builder
     public Book(String uuid, String favoriteName, String favoriteImage, String title, String description, String backgroundColor, Member member, int popularRate) {
         this.uuid = uuid;

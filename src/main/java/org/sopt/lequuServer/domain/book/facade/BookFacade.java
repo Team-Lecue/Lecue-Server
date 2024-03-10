@@ -1,15 +1,14 @@
 package org.sopt.lequuServer.domain.book.facade;
 
-import static org.sopt.lequuServer.global.s3.enums.ImageFolderName.BOOK_FAVORITE_IMAGE_FOLDER_NAME;
-
-import java.util.List;
-import java.util.UUID;
 import lombok.RequiredArgsConstructor;
 import org.sopt.lequuServer.domain.book.dto.request.BookCreateRequestDto;
+import org.sopt.lequuServer.domain.book.dto.request.FavoriteCreateRequestDto;
 import org.sopt.lequuServer.domain.book.dto.response.BookCreateResponseDto;
 import org.sopt.lequuServer.domain.book.dto.response.BookDetailResponseDto;
 import org.sopt.lequuServer.domain.book.model.Book;
+import org.sopt.lequuServer.domain.book.model.Favorite;
 import org.sopt.lequuServer.domain.book.repository.BookRepository;
+import org.sopt.lequuServer.domain.book.repository.FavoriteRepository;
 import org.sopt.lequuServer.domain.book.service.BookService;
 import org.sopt.lequuServer.domain.member.model.Member;
 import org.sopt.lequuServer.domain.member.repository.MemberRepository;
@@ -22,6 +21,11 @@ import org.sopt.lequuServer.global.BadWordFilterService;
 import org.sopt.lequuServer.global.s3.service.S3Service;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
+import java.util.UUID;
+
+import static org.sopt.lequuServer.global.s3.enums.ImageFolderName.BOOK_FAVORITE_IMAGE_FOLDER_NAME;
 
 @Service
 @RequiredArgsConstructor
@@ -36,6 +40,7 @@ public class BookFacade {
     private final PostedStickerRepository postedStickerRepository;
     private final BadWordFilterService badWordFilterService;
     private final S3Service s3Service;
+    private final FavoriteRepository favoriteRepository;
 
     @Transactional
     public BookCreateResponseDto createBook(BookCreateRequestDto request, Long memberId) {
@@ -100,4 +105,16 @@ public class BookFacade {
 
         return BookDetailResponseDto.of(book);
     }
+
+    @Transactional
+    public void createFavorite(Long memberId, FavoriteCreateRequestDto request) {
+        Member member = memberRepository.findByIdOrThrow(memberId);
+        Book book = bookRepository.findByIdOrThrow(request.bookId());
+
+        Favorite favorite = Favorite.of(member, book);
+        favoriteRepository.save(favorite);
+
+        book.addFavorite(favorite);
+        member.addFavorite(favorite);
+    } // memberId와 bookId를 favorite에 저장하는 로직
 }
