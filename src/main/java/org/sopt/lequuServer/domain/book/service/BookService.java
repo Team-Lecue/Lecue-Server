@@ -14,6 +14,7 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
+import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
 @Slf4j
@@ -56,28 +57,20 @@ public class BookService {
 
             if (popularBooks.size() + books.size() <= 6) {  // 만약 현재있는 인기북과 가져온 북이 6이하면 인기북에 가져온 것 다 추가
                 popularBooks.addAll(duplicateBook(books, popularBooks));
-            } else {
-                int remain = 6 - popularBooks.size();
-                popularBooks.addAll(duplicateBook((books.subList(0, remain)), popularBooks));
-            } // 예를 들어 인기북에 2개가 있으면 4개만 더 추가하면 되니까 가져온 북의 인덱스 0부터 3까지만 가져오도록 함
+                continue;
+            }
 
-            if (popularBooks.size() >= 6 || i == 2) {
-                break;
-            } // 인기북이 6개 이상이 되거나 최근 3달을 다 검사했으면 for문을 빠져나옴
-        }
+            int remain = 6 - popularBooks.size();
+            popularBooks.addAll(duplicateBook((books.subList(0, remain)), popularBooks)); // 예를 들어 인기북에 2개가 있으면 4개만 더 추가하면 되니까 가져온 북의 인덱스 0부터 3까지만 가져오도록 함
+            break;
+        } // 인기북이 6개 이상이 되거나 최근 3달을 다 검사했으면 for문을 빠져나옴
 
         return popularBooks;
     }
 
     // 인기레큐북에 중복된 레큐북을 방지하기 위한 로직
     public List<Book> duplicateBook(List<Book> books, List<Book> popularBooks) {
-        List<Book> duplicatedBook = new ArrayList<>();
-
-        for (Book book : books) {
-            if (!popularBooks.contains(book)) {
-                duplicatedBook.add(book);
-            }
-        }
-        return duplicatedBook;
+        return books.stream().filter(o -> popularBooks.stream()
+            .noneMatch(Predicate.isEqual(o))).collect(Collectors.toList());
     }
 }
