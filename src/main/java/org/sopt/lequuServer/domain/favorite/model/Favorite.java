@@ -4,12 +4,13 @@ import jakarta.persistence.*;
 import lombok.*;
 import org.sopt.lequuServer.domain.book.model.Book;
 import org.sopt.lequuServer.domain.member.model.Member;
+import org.sopt.lequuServer.global.common.model.BaseTimeEntity;
 
 @Entity
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Table(name = "favorite")
-public class Favorite {
+public class Favorite extends BaseTimeEntity {
 
     @Id
     @Column(name = "favorite_id")

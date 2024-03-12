@@ -38,9 +38,10 @@ public class FavoriteFacade {
 
     public List<FavoriteBookResponseDto> getFavorite(Long memberId) {
         Member member = memberRepository.findByIdOrThrow(memberId);
-        List<Favorite> favorites = favoriteRepository.findByMember(member);
+        List<Favorite> favorites = favoriteRepository.findByMemberOrderByCreatedAtDesc(member);
 
         return favorites.stream()
+            .limit(3) // 최신순 3개만 가져오기
             .map(favorite -> FavoriteBookResponseDto.of(favorite.getBook()))
             .collect(Collectors.toList());
     } // memberId를 이용해 그 멤버가 즐겨찾기 해놓은 레큐북 목록들을 반환하는 로직
