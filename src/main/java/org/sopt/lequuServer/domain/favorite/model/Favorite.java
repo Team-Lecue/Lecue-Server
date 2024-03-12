@@ -16,11 +16,11 @@ public class Favorite {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "member_id")
     private Member member;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "book_id")
     private Book book;
 
@@ -31,6 +31,9 @@ public class Favorite {
     }
 
     public static Favorite of(Member member, Book book) {
-        return new Favorite(member, book);
+        Favorite favorite = new Favorite(member, book);
+        book.addFavorite(favorite);
+        member.addFavorite(favorite);
+        return favorite;
     }
 }
