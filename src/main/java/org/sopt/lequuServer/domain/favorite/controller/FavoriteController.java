@@ -1,5 +1,6 @@
 package org.sopt.lequuServer.domain.favorite.controller;
 
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import lombok.RequiredArgsConstructor;
 import org.sopt.lequuServer.domain.favorite.dto.request.FavoriteCreateRequestDto;
 import org.sopt.lequuServer.domain.favorite.dto.response.FavoriteBookResponseDto;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.*;
 import java.security.Principal;
 import java.util.List;
 
+@SecurityRequirement(name = "JWT Authorization")
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api/favorite")
