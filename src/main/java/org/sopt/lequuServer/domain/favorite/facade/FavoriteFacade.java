@@ -31,9 +31,6 @@ public class FavoriteFacade {
 
         Favorite favorite = Favorite.of(member, book);
         favoriteRepository.save(favorite);
-
-        book.addFavorite(favorite);
-        member.addFavorite(favorite);
     } // memberId와 bookId를 favorite 에 저장하는 로직
 
     public List<FavoriteBookResponseDto> getFavorite(Long memberId) {

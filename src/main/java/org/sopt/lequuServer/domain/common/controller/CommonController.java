@@ -34,5 +34,4 @@ public class CommonController implements CommonApi {
     public ResponseEntity<ApiResponse<?>> test() {
         throw new RuntimeException("테스트용 에러 발생");
     }
-
 }
