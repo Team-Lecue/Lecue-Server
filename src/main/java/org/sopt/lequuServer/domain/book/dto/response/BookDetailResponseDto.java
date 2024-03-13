@@ -19,6 +19,9 @@ public record BookDetailResponseDto(
         @Schema(description = "레큐북 고유 id", example = "1")
         Long bookId,
 
+        @Schema(description = "레큐북 즐겨찾기 등록 여부", example = "true")
+        Boolean isFavorite,
+
         @Schema(description = "최애 사진", example = "https://dzfv99wxq6tx0.cloudfront.net/books/favorite_image/b4006561-382b-479e-ae1d-e841922e883f.jpg")
         String favoriteImage,
 
@@ -69,7 +72,11 @@ public record BookDetailResponseDto(
             postedStickerList.add(PostedStickerDetailResponseDto.of(postedSticker));
         }
 
-        return new BookDetailResponseDto(book.getId(), book.getFavoriteImage(), book.getFavoriteName(),
+        Boolean isFavorite = book.getMember().getFavorites().stream()
+                .anyMatch(favorite -> favorite.getBook().equals(book));
+
+        return new BookDetailResponseDto(book.getId(), isFavorite,
+                book.getFavoriteImage(), book.getFavoriteName(),
                 book.getTitle(), book.getDescription(), bookDate, book.getMember().getNickname(),
                 book.getBackgroundColor(), book.getNotes().size(), noteList, postedStickerList
         );
