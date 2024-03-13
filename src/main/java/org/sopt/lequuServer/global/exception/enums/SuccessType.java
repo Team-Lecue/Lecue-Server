@@ -27,13 +27,15 @@ public enum SuccessType {
     GET_MYPAGE_BOOK_SUCCESS(HttpStatus.OK, "마이페이지의 유저 닉네임과 내 레큐북 조회에 성공했습니다."),
     GET_MYPAGE_NOTE_SUCCESS(HttpStatus.OK, "마이페이지의 유저 닉네임과 내 레큐노트 조회에 성공했습니다."),
     GET_BOOK_DETAIL_SUCCESS(HttpStatus.OK, "레큐북 상세 조회에 성공했습니다"),
+    GET_FAVORITE_SUCCESS(HttpStatus.OK, "즐겨찾는 레큐북 조회에 성공했습니다."),
 
     /**
      * 201 CREATED
      */
     CREATE_BOOK_SUCCESS(HttpStatus.CREATED, "레큐북이 성공적으로 생성됐습니다."),
     POST_STICKER_SUCCESS(HttpStatus.CREATED, "스티커 부착에 성공했습니다."),
-    CREATE_NOTE_SUCCESS(HttpStatus.CREATED, "레큐노트를 성공적으로 생성했습니다.")
+    CREATE_NOTE_SUCCESS(HttpStatus.CREATED, "레큐노트를 성공적으로 생성했습니다."),
+    CREATE_FAVORITE_SUCCESS(HttpStatus.CREATED, "즐겨찾기 레큐북 등록을 성공했습니다."),
 
     /**
      * 204 NO CONTENT

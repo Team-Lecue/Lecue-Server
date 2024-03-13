@@ -2,6 +2,7 @@ package org.sopt.lequuServer.domain.book.model;
 
 import jakarta.persistence.*;
 import lombok.*;
+import org.sopt.lequuServer.domain.favorite.model.Favorite;
 import org.sopt.lequuServer.domain.note.model.Note;
 import org.sopt.lequuServer.domain.sticker.model.PostedSticker;
 import org.sopt.lequuServer.domain.member.model.Member;
@@ -54,6 +55,13 @@ public class Book extends BaseTimeEntity {
 
     public void addPostedSticker(PostedSticker postedSticker) {
         postedStickers.add(postedSticker);
+    }
+
+    @OneToMany(mappedBy = "book")
+    private final List<Favorite> favorites = new ArrayList<>();
+
+    public void addFavorite(Favorite favorite) {
+        favorites.add(favorite);
     }
 
     @Builder

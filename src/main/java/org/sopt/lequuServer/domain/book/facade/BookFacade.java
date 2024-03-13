@@ -1,9 +1,5 @@
 package org.sopt.lequuServer.domain.book.facade;
 
-import static org.sopt.lequuServer.global.s3.enums.ImageFolderName.BOOK_FAVORITE_IMAGE_FOLDER_NAME;
-
-import java.util.List;
-import java.util.UUID;
 import lombok.RequiredArgsConstructor;
 import org.sopt.lequuServer.domain.book.dto.request.BookCreateRequestDto;
 import org.sopt.lequuServer.domain.book.dto.response.BookCreateResponseDto;
@@ -22,6 +18,11 @@ import org.sopt.lequuServer.global.BadWordFilterService;
 import org.sopt.lequuServer.global.s3.service.S3Service;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
+import java.util.UUID;
+
+import static org.sopt.lequuServer.global.s3.enums.ImageFolderName.BOOK_FAVORITE_IMAGE_FOLDER_NAME;
 
 @Service
 @RequiredArgsConstructor
@@ -100,4 +101,5 @@ public class BookFacade {
 
         return BookDetailResponseDto.of(book);
     }
+
 }
