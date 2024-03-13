@@ -3,6 +3,7 @@ package org.sopt.lequuServer.domain.book.facade;
 import lombok.RequiredArgsConstructor;
 import org.sopt.lequuServer.domain.book.dto.request.BookCreateRequestDto;
 import org.sopt.lequuServer.domain.book.dto.response.BookCreateResponseDto;
+import org.sopt.lequuServer.domain.book.dto.response.BookDetailFavoriteResponseDto;
 import org.sopt.lequuServer.domain.book.dto.response.BookDetailResponseDto;
 import org.sopt.lequuServer.domain.book.model.Book;
 import org.sopt.lequuServer.domain.book.repository.BookRepository;
@@ -58,14 +59,14 @@ public class BookFacade {
         String imageUrl = s3Service.getCloudFrontURL(BOOK_FAVORITE_IMAGE_FOLDER_NAME.getValue() + request.favoriteImage());
 
         Book book = Book.builder()
-            .uuid(bookUuid)
-            .favoriteName(badWordFilterService.badWordChange(memberId, request.favoriteName()))
-            .favoriteImage(imageUrl)
-            .title(badWordFilterService.badWordChange(memberId, request.title()))
-            .description(badWordFilterService.badWordChange(memberId, request.description()))
-            .backgroundColor(request.backgroundColor())
-            .member(member)
-            .build();
+                .uuid(bookUuid)
+                .favoriteName(badWordFilterService.badWordChange(memberId, request.favoriteName()))
+                .favoriteImage(imageUrl)
+                .title(badWordFilterService.badWordChange(memberId, request.title()))
+                .description(badWordFilterService.badWordChange(memberId, request.description()))
+                .backgroundColor(request.backgroundColor())
+                .member(member)
+                .build();
 
         return bookService.createBook(book, member);
     }
@@ -100,6 +101,13 @@ public class BookFacade {
         Book book = bookRepository.findByUuidOrThrow(bookUuid);
 
         return BookDetailResponseDto.of(book);
+    }
+
+    public BookDetailFavoriteResponseDto getBookDetailFavorite(Long userId, String bookUuid) {
+        Book book = bookRepository.findByUuidOrThrow(bookUuid);
+        Member member = memberRepository.findByIdOrThrow(userId);
+
+        return BookDetailFavoriteResponseDto.of(member, book);
     }
 
 }

@@ -4,6 +4,7 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.sopt.lequuServer.domain.book.dto.request.BookCreateRequestDto;
 import org.sopt.lequuServer.domain.book.dto.response.BookCreateResponseDto;
+import org.sopt.lequuServer.domain.book.dto.response.BookDetailFavoriteResponseDto;
 import org.sopt.lequuServer.domain.book.dto.response.BookDetailResponseDto;
 import org.sopt.lequuServer.domain.book.facade.BookFacade;
 import org.sopt.lequuServer.global.auth.jwt.JwtProvider;
@@ -36,5 +37,10 @@ public class BookController implements BookApi {
     @GetMapping("/detail/{bookUuid}")
     public ResponseEntity<ApiResponse<BookDetailResponseDto>> getBookDetail(@PathVariable String bookUuid) {
         return ResponseEntity.ok(ApiResponse.success(SuccessType.GET_BOOK_DETAIL_SUCCESS, bookFacade.getBookDetail(bookUuid)));
+    }
+
+    @GetMapping("/favorite/{bookUuid}")
+    public ResponseEntity<ApiResponse<BookDetailFavoriteResponseDto>> getBookDetailFavorite(Principal principal, @PathVariable String bookUuid) {
+        return ResponseEntity.ok(ApiResponse.success(SuccessType.GET_BOOK_DETAIL_SUCCESS, bookFacade.getBookDetailFavorite(JwtProvider.getUserFromPrincial(principal), bookUuid)));
     }
 }

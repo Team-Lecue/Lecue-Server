@@ -2,6 +2,7 @@ package org.sopt.lequuServer.domain.book.dto.response;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 import org.sopt.lequuServer.domain.book.model.Book;
+import org.sopt.lequuServer.domain.member.model.Member;
 import org.sopt.lequuServer.domain.note.dto.response.NoteDetailResponseDto;
 import org.sopt.lequuServer.domain.note.model.Note;
 import org.sopt.lequuServer.domain.sticker.dto.response.PostedStickerDetailResponseDto;
@@ -14,10 +15,13 @@ import java.util.List;
 
 import static java.util.Comparator.comparing;
 
-public record BookDetailResponseDto(
+public record BookDetailFavoriteResponseDto(
 
         @Schema(description = "레큐북 고유 id", example = "1")
         Long bookId,
+
+        @Schema(description = "레큐북 즐겨찾기 등록 여부", example = "true")
+        Boolean isFavorite,
 
         @Schema(description = "최애 사진", example = "https://dzfv99wxq6tx0.cloudfront.net/books/favorite_image/b4006561-382b-479e-ae1d-e841922e883f.jpg")
         String favoriteImage,
@@ -47,7 +51,7 @@ public record BookDetailResponseDto(
 
         List<PostedStickerDetailResponseDto> postedStickerList
 ) {
-    public static BookDetailResponseDto of(Book book) {
+    public static BookDetailFavoriteResponseDto of(Member member, Book book) {
         String bookDate = formatLocalDate(book);
 
         List<Note> sortedNotes = book.getNotes().stream()
@@ -69,7 +73,10 @@ public record BookDetailResponseDto(
             postedStickerList.add(PostedStickerDetailResponseDto.of(postedSticker));
         }
 
-        return new BookDetailResponseDto(book.getId(),
+        Boolean isFavorite = member.getFavorites().stream()
+                .anyMatch(favorite -> favorite.getBook().equals(book));
+
+        return new BookDetailFavoriteResponseDto(book.getId(), isFavorite,
                 book.getFavoriteImage(), book.getFavoriteName(),
                 book.getTitle(), book.getDescription(), bookDate, book.getMember().getNickname(),
                 book.getBackgroundColor(), book.getNotes().size(), noteList, postedStickerList
