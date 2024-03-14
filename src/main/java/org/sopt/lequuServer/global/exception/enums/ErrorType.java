@@ -49,6 +49,7 @@ public enum ErrorType {
     NOT_FOUND_REFRESH_TOKEN_ERROR(HttpStatus.NOT_FOUND, "존재하지 않는 리프레시 토큰입니다."),
     NOT_FOUND_BOOK_ERROR(HttpStatus.NOT_FOUND, "존재하지 않는 레큐북입니다."),
     NOT_FOUND_STICKER_ERROR(HttpStatus.NOT_FOUND, "존재하지 않는 스티커입니다."),
+    NOT_FOUND_FAVORITE_ERROR(HttpStatus.NOT_FOUND, "존재하지 않는 즐겨찾기입니다."),
 
     /**
      * 409 CONFLICT
