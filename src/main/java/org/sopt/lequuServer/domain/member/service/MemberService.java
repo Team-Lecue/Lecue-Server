@@ -138,7 +138,7 @@ public class MemberService {
         // 회원이 소유한 Book 리스트 가져오기
         List<Book> books = member.getBooks();
 
-        return MypageBookResponseDto.of(books);
+        return MypageBookResponseDto.of(member, books);
     }
 
     public List<MypageNoteResponseDto> getMypageNote(Long memberId) {
