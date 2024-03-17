@@ -56,8 +56,8 @@ public class MemberService {
         boolean isRegistered = isUserBySocialAndSocialId(socialPlatform, socialId);
         if (!isRegistered) {
             Member member = Member.builder()
-                                .socialPlatform(socialPlatform)
-                                .socialId(socialId).build();
+                    .socialPlatform(socialPlatform)
+                    .socialId(socialId).build();
 
             memberRepository.save(member);
         }
@@ -102,7 +102,7 @@ public class MemberService {
 
     private Member getUserBySocialAndSocialId(SocialPlatform socialPlatform, String socialId) {
         return memberRepository.findBySocialPlatformAndSocialId(socialPlatform, socialId)
-                   .orElseThrow(() -> new CustomException(NOT_FOUND_MEMBER_ERROR));
+                .orElseThrow(() -> new CustomException(NOT_FOUND_MEMBER_ERROR));
     }
 
     private boolean isUserBySocialAndSocialId(SocialPlatform socialPlatform, String socialId) {
@@ -162,8 +162,8 @@ public class MemberService {
         List<Favorite> favorites = favoriteRepository.findByMember(member);
 
         return favorites.stream()
-                   .map(favorite -> FavoriteBookResponseDto.of(favorite.getBook()))
-                   .collect(Collectors.toList());
+                .map(favorite -> FavoriteBookResponseDto.of(favorite.getBook()))
+                .collect(Collectors.toList());
     }
 }
 
