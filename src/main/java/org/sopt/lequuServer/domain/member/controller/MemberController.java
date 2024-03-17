@@ -18,6 +18,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
+import java.util.List;
 
 import static org.sopt.lequuServer.global.exception.enums.SuccessType.*;
 
@@ -31,15 +32,15 @@ public class MemberController implements MemberApi {
 
     @PostMapping("/login")
     public ResponseEntity<ApiResponse<MemberLoginResponseDto>> login(
-            @RequestHeader("Authorization") String socialAccessToken,
-            @RequestBody SocialLoginRequestDto request) {
+        @RequestHeader("Authorization") String socialAccessToken,
+        @RequestBody SocialLoginRequestDto request) {
 
         return ResponseEntity.ok(ApiResponse.success(SuccessType.LOGIN_SUCCESS, memberService.login(socialAccessToken, request)));
     }
 
     @GetMapping("/reissue")
     public ResponseEntity<ApiResponse<TokenDto>> reissue(
-            @RequestHeader("Authorization") String refreshToken) {
+        @RequestHeader("Authorization") String refreshToken) {
 
         return ResponseEntity.ok(ApiResponse.success(SuccessType.REISSUE_SUCCESS, memberService.reissueToken(refreshToken)));
     }
@@ -53,7 +54,7 @@ public class MemberController implements MemberApi {
 
     @GetMapping("/kakao")
     public ResponseEntity<ApiResponse<?>> kakaoAccessToken(
-            @RequestHeader("Authorization") String code) {
+        @RequestHeader("Authorization") String code) {
         return ResponseEntity.ok(ApiResponse.success(SuccessType.KAKAO_ACCESS_TOKEN_SUCCESS, kakaoLoginService.getKakaoAccessToken(code)));
     }
 
@@ -64,12 +65,12 @@ public class MemberController implements MemberApi {
     }
 
     @GetMapping("/mypage/book")
-    public ResponseEntity<ApiResponse<MypageBookResponseDto>> getMypageBook(Principal principal) {
+    public ResponseEntity<ApiResponse<List<MypageBookResponseDto>>> getMypageBook(Principal principal) {
         return ResponseEntity.ok(ApiResponse.success(GET_MYPAGE_BOOK_SUCCESS, memberService.getMypageBook(JwtProvider.getUserFromPrincial(principal))));
     }
 
     @GetMapping("/mypage/note")
-    public ResponseEntity<ApiResponse<MypageNoteResponseDto>> getMypageNote(Principal principal) {
+    public ResponseEntity<ApiResponse<List<MypageNoteResponseDto>>> getMypageNote(Principal principal) {
         return ResponseEntity.ok(ApiResponse.success(GET_MYPAGE_NOTE_SUCCESS, memberService.getMypageNote(JwtProvider.getUserFromPrincial(principal))));
     }
 }

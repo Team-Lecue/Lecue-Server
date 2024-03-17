@@ -130,7 +130,7 @@ public class MemberService {
         return MemberNicknameResponseDto.of(memberId);
     }
 
-    public MypageBookResponseDto getMypageBook(Long memberId) {
+    public List<MypageBookResponseDto> getMypageBook(Long memberId) {
 
         // 회원 id 찾기
         Member member = memberRepository.findByIdOrThrow(memberId);
@@ -141,7 +141,7 @@ public class MemberService {
         return MypageBookResponseDto.of(books);
     }
 
-    public MypageNoteResponseDto getMypageNote(Long memberId) {
+    public List<MypageNoteResponseDto> getMypageNote(Long memberId) {
 
         // 회원 id 찾기
         Member member = memberRepository.findByIdOrThrow(memberId);
