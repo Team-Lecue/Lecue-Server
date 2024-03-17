@@ -3,6 +3,9 @@ package org.sopt.lequuServer.domain.member.service;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.sopt.lequuServer.domain.book.model.Book;
+import org.sopt.lequuServer.domain.favorite.dto.response.FavoriteBookResponseDto;
+import org.sopt.lequuServer.domain.favorite.model.Favorite;
+import org.sopt.lequuServer.domain.favorite.repository.FavoriteRepository;
 import org.sopt.lequuServer.domain.member.dto.request.MemberNicknameRequestDto;
 import org.sopt.lequuServer.domain.member.dto.request.SocialLoginRequestDto;
 import org.sopt.lequuServer.domain.member.dto.response.MemberLoginResponseDto;
@@ -25,6 +28,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import static org.sopt.lequuServer.global.exception.enums.ErrorType.*;
 
@@ -35,6 +39,7 @@ import static org.sopt.lequuServer.global.exception.enums.ErrorType.*;
 public class MemberService {
 
     private final MemberRepository memberRepository;
+    private final FavoriteRepository favoriteRepository;
 
     private final JwtProvider jwtProvider;
     private final KakaoLoginService kakaoLoginService;
@@ -151,5 +156,16 @@ public class MemberService {
 
         return MypageNoteResponseDto.of(notes);
     }
+
+    public List<FavoriteBookResponseDto> getMypageFavorite(Long memberId) {
+        Member member = memberRepository.findByIdOrThrow(memberId);
+        List<Favorite> favorites = favoriteRepository.findByMember(member);
+
+        return favorites.stream()
+                   .map(favorite -> FavoriteBookResponseDto.of(favorite.getBook()))
+                   .collect(Collectors.toList());
+    }
 }
+
+
 

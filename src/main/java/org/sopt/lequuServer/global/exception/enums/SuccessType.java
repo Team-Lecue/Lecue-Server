@@ -28,6 +28,7 @@ public enum SuccessType {
     GET_MYPAGE_NOTE_SUCCESS(HttpStatus.OK, "마이페이지의 내 레큐노트 조회에 성공했습니다."),
     GET_BOOK_DETAIL_SUCCESS(HttpStatus.OK, "레큐북 상세 조회에 성공했습니다"),
     GET_FAVORITE_SUCCESS(HttpStatus.OK, "즐겨찾는 레큐북 조회에 성공했습니다."),
+    GET_MYPAGE_FAVORITE_SUCCESS(HttpStatus.OK, "마이페이지의 내 즐겨찾기 조회에 성공했습니다."),
 
     /**
      * 201 CREATED

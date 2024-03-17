@@ -12,5 +12,7 @@ public interface FavoriteRepository extends JpaRepository<Favorite, Long> {
     List<Favorite> findByMemberOrderByCreatedAtDesc(Member member);
 
     Optional<Favorite> findByMemberAndBook(Member member, Book book);
+
+    List<Favorite> findByMember(Member member);
 }
 

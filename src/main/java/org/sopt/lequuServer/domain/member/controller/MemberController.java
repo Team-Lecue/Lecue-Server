@@ -2,6 +2,7 @@ package org.sopt.lequuServer.domain.member.controller;
 
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.sopt.lequuServer.domain.favorite.dto.response.FavoriteBookResponseDto;
 import org.sopt.lequuServer.domain.member.dto.request.MemberNicknameRequestDto;
 import org.sopt.lequuServer.domain.member.dto.request.SocialLoginRequestDto;
 import org.sopt.lequuServer.domain.member.dto.response.MemberLoginResponseDto;
@@ -72,5 +73,10 @@ public class MemberController implements MemberApi {
     @GetMapping("/mypage/note")
     public ResponseEntity<ApiResponse<List<MypageNoteResponseDto>>> getMypageNote(Principal principal) {
         return ResponseEntity.ok(ApiResponse.success(GET_MYPAGE_NOTE_SUCCESS, memberService.getMypageNote(JwtProvider.getUserFromPrincial(principal))));
+    }
+
+    @GetMapping("/mypage/favorite")
+    public ResponseEntity<ApiResponse<List<FavoriteBookResponseDto>>> getMypageFavorite(Principal principal) {
+        return ResponseEntity.ok(ApiResponse.success(GET_MYPAGE_FAVORITE_SUCCESS, memberService.getMypageFavorite(JwtProvider.getUserFromPrincial(principal))));
     }
 }
