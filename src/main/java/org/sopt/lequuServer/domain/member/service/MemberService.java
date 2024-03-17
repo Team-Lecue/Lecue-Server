@@ -1,10 +1,5 @@
 package org.sopt.lequuServer.domain.member.service;
 
-import static org.sopt.lequuServer.global.exception.enums.ErrorType.INVALID_SOCIAL_ACCESS_TOKEN;
-import static org.sopt.lequuServer.global.exception.enums.ErrorType.INVALID_TOKEN_HEADER_ERROR;
-import static org.sopt.lequuServer.global.exception.enums.ErrorType.NOT_FOUND_MEMBER_ERROR;
-
-import java.util.List;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.sopt.lequuServer.domain.book.model.Book;
@@ -29,6 +24,10 @@ import org.sopt.lequuServer.global.exception.model.CustomException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
+import static org.sopt.lequuServer.global.exception.enums.ErrorType.*;
+
 @Slf4j
 @Service
 @RequiredArgsConstructor
@@ -52,8 +51,8 @@ public class MemberService {
         boolean isRegistered = isUserBySocialAndSocialId(socialPlatform, socialId);
         if (!isRegistered) {
             Member member = Member.builder()
-                .socialPlatform(socialPlatform)
-                .socialId(socialId).build();
+                                .socialPlatform(socialPlatform)
+                                .socialId(socialId).build();
 
             memberRepository.save(member);
         }
@@ -98,7 +97,7 @@ public class MemberService {
 
     private Member getUserBySocialAndSocialId(SocialPlatform socialPlatform, String socialId) {
         return memberRepository.findBySocialPlatformAndSocialId(socialPlatform, socialId)
-            .orElseThrow(() -> new CustomException(NOT_FOUND_MEMBER_ERROR));
+                   .orElseThrow(() -> new CustomException(NOT_FOUND_MEMBER_ERROR));
     }
 
     private boolean isUserBySocialAndSocialId(SocialPlatform socialPlatform, String socialId) {
@@ -136,13 +135,10 @@ public class MemberService {
         // 회원 id 찾기
         Member member = memberRepository.findByIdOrThrow(memberId);
 
-        // 회원 id로 memberNickname 조회
-        String nickname = member.getNickname();
-
         // 회원이 소유한 Book 리스트 가져오기
         List<Book> books = member.getBooks();
 
-        return MypageBookResponseDto.of(nickname, books);
+        return MypageBookResponseDto.of(books);
     }
 
     public MypageNoteResponseDto getMypageNote(Long memberId) {
@@ -150,12 +146,10 @@ public class MemberService {
         // 회원 id 찾기
         Member member = memberRepository.findByIdOrThrow(memberId);
 
-        String nickname = member.getNickname();
-
         // 회원이 소유한 Note 리스트 가져오기
         List<Note> notes = member.getNotes();
 
-        return MypageNoteResponseDto.of(nickname, notes);
+        return MypageNoteResponseDto.of(notes);
     }
 }
 
