@@ -30,15 +30,15 @@ public class MemberController implements MemberApi {
 
     @PostMapping("/login")
     public ResponseEntity<ApiResponse<MemberLoginResponseDto>> login(
-        @RequestHeader("Authorization") String socialAccessToken,
-        @RequestBody SocialLoginRequestDto request) {
+            @RequestHeader("Authorization") String socialAccessToken,
+            @RequestBody SocialLoginRequestDto request) {
 
         return ResponseEntity.ok(ApiResponse.success(SuccessType.LOGIN_SUCCESS, memberService.login(socialAccessToken, request)));
     }
 
     @GetMapping("/reissue")
     public ResponseEntity<ApiResponse<TokenDto>> reissue(
-        @RequestHeader("Authorization") String refreshToken) {
+            @RequestHeader("Authorization") String refreshToken) {
 
         return ResponseEntity.ok(ApiResponse.success(SuccessType.REISSUE_SUCCESS, memberService.reissueToken(refreshToken)));
     }
@@ -52,7 +52,7 @@ public class MemberController implements MemberApi {
 
     @GetMapping("/kakao")
     public ResponseEntity<ApiResponse<?>> kakaoAccessToken(
-        @RequestHeader("Authorization") String code) {
+            @RequestHeader("Authorization") String code) {
         return ResponseEntity.ok(ApiResponse.success(SuccessType.KAKAO_ACCESS_TOKEN_SUCCESS, kakaoLoginService.getKakaoAccessToken(code)));
     }
 
