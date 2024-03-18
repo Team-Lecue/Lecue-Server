@@ -8,10 +8,7 @@ import org.sopt.lequuServer.domain.favorite.model.Favorite;
 import org.sopt.lequuServer.domain.favorite.repository.FavoriteRepository;
 import org.sopt.lequuServer.domain.member.dto.request.MemberNicknameRequestDto;
 import org.sopt.lequuServer.domain.member.dto.request.SocialLoginRequestDto;
-import org.sopt.lequuServer.domain.member.dto.response.MemberLoginResponseDto;
-import org.sopt.lequuServer.domain.member.dto.response.MemberNicknameResponseDto;
-import org.sopt.lequuServer.domain.member.dto.response.MypageBookResponseDto;
-import org.sopt.lequuServer.domain.member.dto.response.MypageNoteResponseDto;
+import org.sopt.lequuServer.domain.member.dto.response.*;
 import org.sopt.lequuServer.domain.member.model.Member;
 import org.sopt.lequuServer.domain.member.model.SocialPlatform;
 import org.sopt.lequuServer.domain.member.repository.MemberRepository;
@@ -164,6 +161,14 @@ public class MemberService {
         return favorites.stream()
                    .map(favorite -> FavoriteBookResponseDto.of(favorite.getBook()))
                    .collect(Collectors.toList());
+    }
+
+    public MypageResponseDto getMypage(Long memberId) {
+        Member member = memberRepository.findByIdOrThrow(memberId);
+
+        String nickname = member.getNickname();
+
+        return new MypageResponseDto(nickname);
     }
 }
 

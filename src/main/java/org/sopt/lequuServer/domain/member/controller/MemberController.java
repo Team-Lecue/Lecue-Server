@@ -5,10 +5,7 @@ import lombok.RequiredArgsConstructor;
 import org.sopt.lequuServer.domain.favorite.dto.response.FavoriteBookResponseDto;
 import org.sopt.lequuServer.domain.member.dto.request.MemberNicknameRequestDto;
 import org.sopt.lequuServer.domain.member.dto.request.SocialLoginRequestDto;
-import org.sopt.lequuServer.domain.member.dto.response.MemberLoginResponseDto;
-import org.sopt.lequuServer.domain.member.dto.response.MemberNicknameResponseDto;
-import org.sopt.lequuServer.domain.member.dto.response.MypageBookResponseDto;
-import org.sopt.lequuServer.domain.member.dto.response.MypageNoteResponseDto;
+import org.sopt.lequuServer.domain.member.dto.response.*;
 import org.sopt.lequuServer.domain.member.service.MemberService;
 import org.sopt.lequuServer.global.auth.fegin.kakao.KakaoLoginService;
 import org.sopt.lequuServer.global.auth.jwt.JwtProvider;
@@ -78,5 +75,10 @@ public class MemberController implements MemberApi {
     @GetMapping("/mypage/favorite")
     public ResponseEntity<ApiResponse<List<FavoriteBookResponseDto>>> getMypageFavorite(Principal principal) {
         return ResponseEntity.ok(ApiResponse.success(GET_MYPAGE_FAVORITE_SUCCESS, memberService.getMypageFavorite(JwtProvider.getUserFromPrincial(principal))));
+    }
+
+    @GetMapping("/mypage")
+    public ResponseEntity<ApiResponse<MypageResponseDto>> getMypage(Principal principal) {
+        return ResponseEntity.ok(ApiResponse.success(GET_MYPAGE_SUCCESS, memberService.getMypage(JwtProvider.getUserFromPrincial(principal))));
     }
 }
