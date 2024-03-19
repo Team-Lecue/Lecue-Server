@@ -5,15 +5,21 @@ import static org.sopt.lequuServer.global.exception.enums.ErrorType.INVALID_TOKE
 import static org.sopt.lequuServer.global.exception.enums.ErrorType.NOT_FOUND_MEMBER_ERROR;
 
 import java.util.List;
+import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.sopt.lequuServer.domain.book.model.Book;
+import org.sopt.lequuServer.domain.book.repository.BookRepository;
+import org.sopt.lequuServer.domain.favorite.dto.response.FavoriteBookResponseDto;
+import org.sopt.lequuServer.domain.favorite.model.Favorite;
+import org.sopt.lequuServer.domain.favorite.repository.FavoriteRepository;
 import org.sopt.lequuServer.domain.member.dto.request.MemberNicknameRequestDto;
 import org.sopt.lequuServer.domain.member.dto.request.SocialLoginRequestDto;
 import org.sopt.lequuServer.domain.member.dto.response.MemberLoginResponseDto;
 import org.sopt.lequuServer.domain.member.dto.response.MemberNicknameResponseDto;
 import org.sopt.lequuServer.domain.member.dto.response.MypageBookResponseDto;
 import org.sopt.lequuServer.domain.member.dto.response.MypageNoteResponseDto;
+import org.sopt.lequuServer.domain.member.dto.response.MypageResponseDto;
 import org.sopt.lequuServer.domain.member.model.Member;
 import org.sopt.lequuServer.domain.member.model.SocialPlatform;
 import org.sopt.lequuServer.domain.member.repository.MemberRepository;
@@ -36,10 +42,20 @@ import org.springframework.transaction.annotation.Transactional;
 public class MemberService {
 
     private final MemberRepository memberRepository;
+    private final BookRepository bookRepository;
+    private final FavoriteRepository favoriteRepository;
 
     private final JwtProvider jwtProvider;
     private final KakaoLoginService kakaoLoginService;
     private final BadWordFilterService badWordFilterService;
+
+    private static String parseTokenString(String tokenString) {
+        String[] strings = tokenString.split(" ");
+        if (strings.length != 2) {
+            throw new CustomException(INVALID_TOKEN_HEADER_ERROR);
+        }
+        return strings[1];
+    }
 
     @Transactional
     public MemberLoginResponseDto login(String socialAccessToken, SocialLoginRequestDto request) {
@@ -68,7 +84,8 @@ public class MemberService {
             log.info(LoggingMessage.memberRegisterLogMessage(loginMember));
         }
 
-        TokenDto tokenDto = jwtProvider.issueToken(new UserAuthentication(loginMember.getId(), null, null));
+        TokenDto tokenDto = jwtProvider.issueToken(
+            new UserAuthentication(loginMember.getId(), null, null));
 
         return MemberLoginResponseDto.of(loginMember, tokenDto);
     }
@@ -112,50 +129,56 @@ public class MemberService {
         };
     }
 
-    private static String parseTokenString(String tokenString) {
-        String[] strings = tokenString.split(" ");
-        if (strings.length != 2) {
-            throw new CustomException(INVALID_TOKEN_HEADER_ERROR);
-        }
-        return strings[1];
-    }
-
     @Transactional
-    public MemberNicknameResponseDto setMemberNickname(Long memberId, MemberNicknameRequestDto request) {
+    public MemberNicknameResponseDto setMemberNickname(Long memberId,
+        MemberNicknameRequestDto request) {
         if (memberRepository.existsByNickname(request.nickname())) {
             throw new CustomException(ErrorType.NICKNAME_DUP_ERROR);
         }
 
         Member member = memberRepository.findByIdOrThrow(memberId);
-        member.updateNickname(badWordFilterService.badWordChange(memberId, request.nickname().strip()));
+        member.updateNickname(
+            badWordFilterService.badWordChange(memberId, request.nickname().strip()));
         return MemberNicknameResponseDto.of(memberId);
     }
 
-    public MypageBookResponseDto getMypageBook(Long memberId) {
+    public List<MypageBookResponseDto> getMypageBook(Long memberId) {
 
-        // 회원 id 찾기
-        Member member = memberRepository.findByIdOrThrow(memberId);
+        List<Book> byBook = bookRepository.findByMemberId(memberId);
+        List<Book> favoriteBooks = favoriteRepository.findByMemberId(memberId).stream()
+            .map(Favorite::getBook).toList();
 
-        // 회원 id로 memberNickname 조회
-        String nickname = member.getNickname();
-
-        // 회원이 소유한 Book 리스트 가져오기
-        List<Book> books = member.getBooks();
-
-        return MypageBookResponseDto.of(nickname, books);
+        return MypageBookResponseDto.of(byBook, favoriteBooks);
     }
 
-    public MypageNoteResponseDto getMypageNote(Long memberId) {
+    public List<MypageNoteResponseDto> getMypageNote(Long memberId) {
 
         // 회원 id 찾기
         Member member = memberRepository.findByIdOrThrow(memberId);
-
-        String nickname = member.getNickname();
 
         // 회원이 소유한 Note 리스트 가져오기
         List<Note> notes = member.getNotes();
 
-        return MypageNoteResponseDto.of(nickname, notes);
+        return MypageNoteResponseDto.of(notes);
+    }
+
+    public List<FavoriteBookResponseDto> getMypageFavorite(Long memberId) {
+        Member member = memberRepository.findByIdOrThrow(memberId);
+        List<Favorite> favorites = favoriteRepository.findByMember(member);
+
+        return favorites.stream()
+            .map(favorite -> FavoriteBookResponseDto.of(favorite.getBook()))
+            .collect(Collectors.toList());
+    }
+
+    public MypageResponseDto getMypage(Long memberId) {
+        Member member = memberRepository.findByIdOrThrow(memberId);
+
+        String nickname = member.getNickname();
+
+        return new MypageResponseDto(nickname);
     }
 }
+
+
 

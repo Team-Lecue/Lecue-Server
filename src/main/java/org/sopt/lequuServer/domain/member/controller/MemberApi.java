@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
 
 import java.security.Principal;
+import java.util.List;
 
 @Tag(name = "Member", description = "마이페이지 & 로그인 관련 API")
 public interface MemberApi {
@@ -77,18 +78,18 @@ public interface MemberApi {
     @SecurityRequirement(name = "JWT Authorization")
     @io.swagger.v3.oas.annotations.responses.ApiResponse(
             responseCode = "200",
-            description = "마이페이지의 유저 닉네임과 내 레큐북 조회에 성공했습니다.",
+            description = "마이페이지의 내 레큐북 조회에 성공했습니다.",
             content = @Content(schema = @Schema(implementation = MypageBookResponseDto.class))
     )
     @Operation(summary = "마이페이지 레큐북 조회")
-    public ResponseEntity<ApiResponse<MypageBookResponseDto>> getMypageBook(Principal principal);
+    public ResponseEntity<ApiResponse<List<MypageBookResponseDto>>> getMypageBook(Principal principal);
 
     @SecurityRequirement(name = "JWT Authorization")
     @io.swagger.v3.oas.annotations.responses.ApiResponse(
             responseCode = "200",
-            description = "마이페이지의 유저 닉네임과 내 레큐노트 조회에 성공했습니다.",
+            description = "마이페이지의 내 레큐노트 조회에 성공했습니다.",
             content = @Content(schema = @Schema(implementation = MypageNoteResponseDto.class))
     )
     @Operation(summary = "마이페이지 레큐노트 조회")
-    public ResponseEntity<ApiResponse<MypageNoteResponseDto>> getMypageNote(Principal principal);
+    public ResponseEntity<ApiResponse<List<MypageNoteResponseDto>>> getMypageNote(Principal principal);
 }

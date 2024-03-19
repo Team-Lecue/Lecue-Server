@@ -1,14 +1,14 @@
 package org.sopt.lequuServer.domain.book.repository;
 
+import java.time.LocalDateTime;
+import java.util.List;
+import java.util.Optional;
 import org.sopt.lequuServer.domain.book.model.Book;
 import org.sopt.lequuServer.global.exception.enums.ErrorType;
 import org.sopt.lequuServer.global.exception.model.CustomException;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
-
-import java.time.LocalDateTime;
-import java.util.List;
-import java.util.Optional;
+import org.springframework.data.repository.query.Param;
 
 public interface BookRepository extends JpaRepository<Book, Long> {
 
@@ -20,6 +20,9 @@ public interface BookRepository extends JpaRepository<Book, Long> {
         return this.findById(id).orElseThrow(
             () -> new CustomException(ErrorType.NOT_FOUND_BOOK_ERROR));
     }
+
+    @Query("select b from Book b where b.member.id = :memberId")
+    List<Book> findByMemberId(@Param("memberId") Long id);
 
     Optional<Book> findByUuid(String uuid);
 

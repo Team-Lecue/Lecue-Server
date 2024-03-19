@@ -24,10 +24,12 @@ public enum SuccessType {
     GET_STICKER_PACK_SUCCESS(HttpStatus.OK, "스티커팩 목록 조회에 성공했습니다."),
     GET_SPLASH_SUCCESS(HttpStatus.OK, "스플래시 조회에 성공했습니다."),
     GET_HOME_SUCCESS(HttpStatus.OK, "홈 화면 조회에 성공했습니다."),
-    GET_MYPAGE_BOOK_SUCCESS(HttpStatus.OK, "마이페이지의 유저 닉네임과 내 레큐북 조회에 성공했습니다."),
-    GET_MYPAGE_NOTE_SUCCESS(HttpStatus.OK, "마이페이지의 유저 닉네임과 내 레큐노트 조회에 성공했습니다."),
+    GET_MYPAGE_BOOK_SUCCESS(HttpStatus.OK, "마이페이지의 내 레큐북 조회에 성공했습니다."),
+    GET_MYPAGE_NOTE_SUCCESS(HttpStatus.OK, "마이페이지의 내 레큐노트 조회에 성공했습니다."),
     GET_BOOK_DETAIL_SUCCESS(HttpStatus.OK, "레큐북 상세 조회에 성공했습니다"),
     GET_FAVORITE_SUCCESS(HttpStatus.OK, "즐겨찾는 레큐북 조회에 성공했습니다."),
+    GET_MYPAGE_FAVORITE_SUCCESS(HttpStatus.OK, "마이페이지의 내 즐겨찾기 조회에 성공했습니다."),
+    GET_MYPAGE_SUCCESS(HttpStatus.OK, "마이페이지 조회에 성공했습니다."),
 
     /**
      * 201 CREATED
