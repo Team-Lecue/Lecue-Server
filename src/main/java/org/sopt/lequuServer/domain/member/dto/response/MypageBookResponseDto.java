@@ -1,13 +1,11 @@
 package org.sopt.lequuServer.domain.member.dto.response;
 
-import io.swagger.v3.oas.annotations.media.Schema;
-import org.sopt.lequuServer.domain.book.model.Book;
-import org.sopt.lequuServer.domain.member.model.Member;
+import static java.util.Comparator.comparing;
 
+import io.swagger.v3.oas.annotations.media.Schema;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
-
-import static java.util.Comparator.comparing;
+import org.sopt.lequuServer.domain.book.model.Book;
 
 public record MypageBookResponseDto(
 
@@ -32,26 +30,21 @@ public record MypageBookResponseDto(
         @Schema(description = "레큐노트 개수", example = "1974")
         int noteNum
 ) {
-    public static List<MypageBookResponseDto> of(Member member, List<Book> books) {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy.MM.dd");
+    public static List<MypageBookResponseDto> of(List<Book> books, List<Book> favoriteBooks) {
 
-        List<MypageBookResponseDto> bookList = books.stream()
+        return books.stream()
                 .sorted(comparing(Book::getCreatedAt).reversed())
-                .map(book -> {
-                    boolean isFavorite = member.getFavorites().stream()
-                            .anyMatch(favorite -> favorite.getBook().getId().equals(book.getId()));
-                    return new MypageBookResponseDto(
+                .map(book ->
+                    new MypageBookResponseDto(
                             book.getId(),
                             book.getUuid(),
-                            isFavorite,
+                            favoriteBooks.contains(book),
                             book.getFavoriteName(),
                             book.getTitle(),
                             book.getCreatedAt().format(DateTimeFormatter.ofPattern("yyyy.MM.dd")),
                             book.getNotes().size()
-                    );
-                })
+                    )
+                )
                 .toList();
-
-        return bookList;
     }
 }
