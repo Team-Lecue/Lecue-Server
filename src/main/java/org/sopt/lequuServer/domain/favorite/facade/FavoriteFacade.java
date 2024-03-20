@@ -31,6 +31,11 @@ public class FavoriteFacade {
         Member member = memberRepository.findByIdOrThrow(memberId);
         Book book = bookRepository.findByIdOrThrow(request.bookId());
 
+        if (member.getFavorites().stream()
+            .anyMatch(favorite -> favorite.getBook().getId().equals(request.bookId()))) {
+            return; // 이미 해당 책이 즐겨찾기에 추가된 경우, 추가 작업을 하지 않고 함수를 종료
+        }
+
         Favorite favorite = Favorite.of(member, book);
         favoriteRepository.save(favorite);
     } // memberId와 bookId를 favorite 에 저장하는 로직
@@ -40,9 +45,9 @@ public class FavoriteFacade {
         List<Favorite> favorites = favoriteRepository.findByMemberOrderByCreatedAtDesc(member);
 
         return favorites.stream()
-                .limit(3) // 최신순 3개만 가져오기
-                .map(favorite -> FavoriteBookResponseDto.of(favorite.getBook()))
-                .collect(Collectors.toList());
+            .limit(3) // 최신순 3개만 가져오기
+            .map(favorite -> FavoriteBookResponseDto.of(favorite.getBook()))
+            .collect(Collectors.toList());
     } // memberId를 이용해 그 멤버가 즐겨찾기 해놓은 레큐북 목록들을 반환하는 로직
 
     @Transactional
@@ -51,7 +56,7 @@ public class FavoriteFacade {
         Book book = bookRepository.findByIdOrThrow(request.bookId());
 
         Favorite favorite = favoriteRepository.findByMemberAndBook(member, book)
-                .orElseThrow(() -> new CustomException(ErrorType.NOT_FOUND_FAVORITE_ERROR));
+            .orElseThrow(() -> new CustomException(ErrorType.NOT_FOUND_FAVORITE_ERROR));
         favoriteRepository.delete(favorite);
     }
 }
