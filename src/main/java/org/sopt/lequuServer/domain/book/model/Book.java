@@ -65,7 +65,7 @@ public class Book extends BaseTimeEntity {
     }
 
     @Column(nullable = false)
-    private int popularRate;
+    private int popularRate = 0;
 
     @Builder
     public Book(String uuid, String favoriteName, String favoriteImage, String title, String description, String backgroundColor, Member member, int popularRate) {
