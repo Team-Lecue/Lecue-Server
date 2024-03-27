@@ -64,8 +64,11 @@ public class Book extends BaseTimeEntity {
         favorites.add(favorite);
     }
 
+    @Column(nullable = false)
+    private int popularRate;
+
     @Builder
-    public Book(String uuid, String favoriteName, String favoriteImage, String title, String description, String backgroundColor, Member member) {
+    public Book(String uuid, String favoriteName, String favoriteImage, String title, String description, String backgroundColor, Member member, int popularRate) {
         this.uuid = uuid;
         this.favoriteName = favoriteName;
         this.favoriteImage = favoriteImage;
@@ -73,9 +76,10 @@ public class Book extends BaseTimeEntity {
         this.description = description;
         this.backgroundColor = backgroundColor;
         this.member = member;
+        this.popularRate = popularRate;
     }
 
-    public static Book of(String uuid, String favoriteName, String favoriteImage, String title, String description, String backgroundColor, Member member) {
-        return new Book(uuid, favoriteName, favoriteImage, title, description, backgroundColor, member);
+    public static Book of(String uuid, String favoriteName, String favoriteImage, String title, String description, String backgroundColor, Member member, int popularRate) {
+        return new Book(uuid, favoriteName, favoriteImage, title, description, backgroundColor, member, popularRate);
     }
 }
