@@ -59,14 +59,15 @@ public class BookFacade {
         String imageUrl = s3Service.getCloudFrontURL(BOOK_FAVORITE_IMAGE_FOLDER_NAME.getValue() + request.favoriteImage());
 
         Book book = Book.builder()
-                .uuid(bookUuid)
-                .favoriteName(badWordFilterService.badWordChange(memberId, request.favoriteName()))
-                .favoriteImage(imageUrl)
-                .title(badWordFilterService.badWordChange(memberId, request.title()))
-                .description(badWordFilterService.badWordChange(memberId, request.description()))
-                .backgroundColor(request.backgroundColor())
-                .member(member)
-                .build();
+            .uuid(bookUuid)
+            .favoriteName(badWordFilterService.badWordChange(memberId, request.favoriteName()))
+            .favoriteImage(imageUrl)
+            .title(badWordFilterService.badWordChange(memberId, request.title()))
+            .description(badWordFilterService.badWordChange(memberId, request.description()))
+            .backgroundColor(request.backgroundColor())
+            .member(member)
+            .popularRate(0)
+            .build();
 
         return bookService.createBook(book, member);
     }

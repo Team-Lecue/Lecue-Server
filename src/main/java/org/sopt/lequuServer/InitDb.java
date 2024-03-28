@@ -74,6 +74,7 @@ public class InitDb {
                     .description(bookDummy.getDescription())
                     .backgroundColor("#F5F5F5")
                     .member(member1)
+                    .popularRate(0)
                     .build();
                 em.persist(book);
             }
